@@ -1,0 +1,17 @@
+{
+  "name": "jai-bharat-family-restaurant",
+  "version": "1.0.0",
+  "description": "Jai Bharat Family Restaurant - Full Stack Ordering & Management Platform",
+  "scripts": {
+    "dev": "npm run dev --prefix server & npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build:client": "npm run build --prefix client",
+    "build": "npm run build:server && npm run build:client",
+    "test:server": "npm test --prefix server"
+  },
+  "keywords": ["restaurant", "food-delivery", "jai-bharat", "react", "express", "prisma"],
+  "author": "Jai Bharat Family Restaurant",
+  "license": "ISC"
+}
