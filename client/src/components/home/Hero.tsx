@@ -53,6 +53,84 @@ export const Hero: React.FC = () => {
               Embark on a flavourful journey through the rich heritage of Indian cuisine. From timeless recipes to the finest whole spices, {settings.restaurant_name} offers an authentic dining experience that celebrates tradition with every dish.
             </p>
 
+            {/* Horizontal Continuously Moving Announcement Bar (Left Column Only) */}
+            <div className="w-full max-w-xl mx-auto lg:mx-0 overflow-hidden rounded-xl bg-gradient-to-r from-[#991b1b] via-[#881337] to-[#991b1b] text-white shadow-md border border-red-700/80 relative py-2.5 select-none">
+              {/* Subtle edge fade masks for seamless right-to-left flow */}
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-12 bg-gradient-to-r from-[#991b1b] to-transparent z-10" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-12 bg-gradient-to-l from-[#991b1b] to-transparent z-10" />
+
+              {/* Ticker marquee track */}
+              <div className="overflow-hidden w-full flex items-center">
+                <div
+                  className={`animate-ticker-marquee flex items-center py-0.5 ${
+                    prefersReducedMotion ? 'overflow-x-auto justify-center' : ''
+                  }`}
+                >
+                  {/* Sequence 1 */}
+                  <div className="flex items-center shrink-0">
+                    <div className="flex items-center shrink-0 text-xs sm:text-sm font-medium tracking-wide">
+                      <span className="text-stone-100 font-medium pl-3">Delicious Food in</span>
+                      <span className="inline-flex items-center mx-2 px-2.5 py-0.5 rounded-md bg-[#5c0b0b] text-[#fffbeb] font-black text-xs sm:text-[13px] uppercase tracking-wider border border-amber-300/60 shadow-xs ring-1 ring-amber-400/20">
+                        Nandigama
+                      </span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Taste the Tradition</span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Freshly Prepared, Served with Love</span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Visit Jai Bharat Family Restaurant</span>
+                      <span className="text-amber-300 mx-3 text-sm font-bold">•</span>
+                    </div>
+
+                    <div className="flex items-center shrink-0 text-xs sm:text-sm font-medium tracking-wide">
+                      <span className="text-stone-100 font-medium pl-3">Delicious Food in</span>
+                      <span className="inline-flex items-center mx-2 px-2.5 py-0.5 rounded-md bg-[#5c0b0b] text-[#fffbeb] font-black text-xs sm:text-[13px] uppercase tracking-wider border border-amber-300/60 shadow-xs ring-1 ring-amber-400/20">
+                        Nandigama
+                      </span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Taste the Tradition</span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Freshly Prepared, Served with Love</span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Visit Jai Bharat Family Restaurant</span>
+                      <span className="text-amber-300 mx-3 text-sm font-bold">•</span>
+                    </div>
+                  </div>
+
+                  {/* Sequence 2 (Seamless Infinite Loop Clone) */}
+                  <div className="flex items-center shrink-0" aria-hidden="true">
+                    <div className="flex items-center shrink-0 text-xs sm:text-sm font-medium tracking-wide">
+                      <span className="text-stone-100 font-medium pl-3">Delicious Food in</span>
+                      <span className="inline-flex items-center mx-2 px-2.5 py-0.5 rounded-md bg-[#5c0b0b] text-[#fffbeb] font-black text-xs sm:text-[13px] uppercase tracking-wider border border-amber-300/60 shadow-xs ring-1 ring-amber-400/20">
+                        Nandigama
+                      </span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Taste the Tradition</span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Freshly Prepared, Served with Love</span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Visit Jai Bharat Family Restaurant</span>
+                      <span className="text-amber-300 mx-3 text-sm font-bold">•</span>
+                    </div>
+
+                    <div className="flex items-center shrink-0 text-xs sm:text-sm font-medium tracking-wide">
+                      <span className="text-stone-100 font-medium pl-3">Delicious Food in</span>
+                      <span className="inline-flex items-center mx-2 px-2.5 py-0.5 rounded-md bg-[#5c0b0b] text-[#fffbeb] font-black text-xs sm:text-[13px] uppercase tracking-wider border border-amber-300/60 shadow-xs ring-1 ring-amber-400/20">
+                        Nandigama
+                      </span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Taste the Tradition</span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Freshly Prepared, Served with Love</span>
+                      <span className="text-amber-300 mx-2 text-sm font-bold">•</span>
+                      <span className="text-stone-100 font-medium">Visit Jai Bharat Family Restaurant</span>
+                      <span className="text-amber-300 mx-3 text-sm font-bold">•</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Dual Bawarchi-Style CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
               <Link

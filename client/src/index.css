@@ -20,3 +20,31 @@ body {
   color: #1c1917;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
+
+/* Continuous Horizontal Announcement Bar Ticker */
+@keyframes continuous-ticker-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker-marquee {
+  display: flex;
+  width: max-content;
+  animation: continuous-ticker-scroll 24s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+}

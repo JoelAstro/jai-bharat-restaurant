@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Hero } from '../../components/home/Hero.js';
+import { HomeAboutSection } from '../../components/home/HomeAboutSection.js';
 import { BawarchiCategoryGrid } from '../../components/home/BawarchiCategoryGrid.js';
 import { FreshnessShowcase } from '../../components/home/FreshnessShowcase.js';
 import { FeaturedDishes } from '../../components/home/FeaturedDishes.js';
@@ -23,10 +24,13 @@ export const HomePage: React.FC = () => {
 
   return (
     <div>
-      {/* 1. Bawarchi-Style Split Editorial Hero & Sizzling Cooking Video Banner */}
+      {/* 1. Bawarchi-Style Split Editorial Hero with Nandigama Announcement Ticker & Video Banner */}
       <Hero />
 
-      {/* 2. "Flavors You Can't Resist!" 8-Category Visual Grid with Solid Red Banners */}
+      {/* 2. About Jai Bharat Family Restaurant in Nandigama */}
+      <HomeAboutSection />
+
+      {/* 3. "Flavors You Can't Resist!" 8-Category Visual Grid with Solid Red Banners */}
       <BawarchiCategoryGrid />
 
       {/* 3. "Freshness. Hospitality" Kitchen Gallery Carousel */}
