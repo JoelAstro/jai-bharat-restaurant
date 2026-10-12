@@ -104,7 +104,7 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
             <div>
               <div className="flex items-center justify-between mb-3">
                 <h4 className="font-semibold text-stone-900 text-sm">Select Portion Size</h4>
-                <span className="text-xs text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full font-medium">
+                <span className="text-xs text-[#991b1b] bg-red-50 px-2 py-0.5 rounded-full font-medium">
                   Required
                 </span>
               </div>
@@ -117,14 +117,14 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
                       onClick={() => setSelectedVariation(v)}
                       className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
                         isSelected
-                          ? 'border-amber-600 bg-amber-50/50 text-stone-900 font-medium'
+                          ? 'border-[#991b1b] bg-red-50/50 text-stone-900 font-medium'
                           : 'border-stone-200 hover:border-stone-300 text-stone-700'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-amber-600 bg-amber-600' : 'border-stone-300'
+                            isSelected ? 'border-[#991b1b] bg-[#991b1b]' : 'border-stone-300'
                           }`}
                         >
                           {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -157,14 +157,14 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
                       onClick={() => toggleAddon(addon)}
                       className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
                         isChecked
-                          ? 'border-amber-600 bg-amber-50/50 text-stone-900'
+                          ? 'border-[#991b1b] bg-red-50/50 text-stone-900'
                           : 'border-stone-200 hover:border-stone-300 text-stone-700'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-4 h-4 rounded-sm border flex items-center justify-center ${
-                            isChecked ? 'border-amber-600 bg-amber-600' : 'border-stone-300'
+                            isChecked ? 'border-[#991b1b] bg-[#991b1b]' : 'border-stone-300'
                           }`}
                         >
                           {isChecked && <Check className="w-3 h-3 text-white" />}
@@ -192,7 +192,7 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
               placeholder="e.g. Less spicy, mild oil, extra onions or lemon..."
               rows={2}
               maxLength={200}
-              className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600 focus:ring-1 focus:ring-amber-600 resize-none"
+              className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b] focus:ring-1 focus:ring-[#991b1b] resize-none"
             />
           </div>
         </div>
@@ -222,10 +222,10 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
           {/* Add to Cart CTA */}
           <button
             onClick={handleAddToCart}
-            className="flex-1 flex items-center justify-between bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold px-5 py-3 rounded-2xl shadow-md hover:shadow-lg transition-all"
+            className="flex-1 flex items-center justify-between bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-bold px-5 py-3 rounded-2xl shadow-md hover:shadow-lg transition-all"
           >
             <span>Add to Order</span>
-            <span className="text-amber-100">{formatPrice(itemTotal)}</span>
+            <span className="text-red-100">{formatPrice(itemTotal)}</span>
           </button>
         </div>
       </div>

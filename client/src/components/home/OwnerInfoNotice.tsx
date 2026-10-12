@@ -18,7 +18,7 @@ export const OwnerInfoNotice: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Hours */}
             <div className="flex items-start gap-4">
-              <div className="p-3 bg-amber-100 text-amber-800 rounded-2xl shrink-0">
+              <div className="p-3 bg-red-100 text-[#991b1b] rounded-2xl shrink-0">
                 <Clock className="w-6 h-6" />
               </div>
               <div>
@@ -36,7 +36,7 @@ export const OwnerInfoNotice: React.FC = () => {
 
             {/* Address */}
             <div className="flex items-start gap-4">
-              <div className="p-3 bg-amber-100 text-amber-800 rounded-2xl shrink-0">
+              <div className="p-3 bg-red-100 text-[#991b1b] rounded-2xl shrink-0">
                 <MapPin className="w-6 h-6" />
               </div>
               <div>
@@ -57,7 +57,7 @@ export const OwnerInfoNotice: React.FC = () => {
 
             {/* Direct Orders */}
             <div className="flex items-start gap-4">
-              <div className="p-3 bg-amber-100 text-amber-800 rounded-2xl shrink-0">
+              <div className="p-3 bg-red-100 text-[#991b1b] rounded-2xl shrink-0">
                 <Phone className="w-6 h-6" />
               </div>
               <div>
@@ -66,7 +66,7 @@ export const OwnerInfoNotice: React.FC = () => {
                 </h4>
                 {settings.phone ? (
                   <p className="text-stone-900 font-bold text-sm">
-                    <a href={`tel:${settings.phone}`} className="hover:text-amber-700">
+                    <a href={`tel:${settings.phone}`} className="hover:text-[#991b1b]">
                       {settings.phone}
                     </a>
                   </p>
@@ -84,9 +84,9 @@ export const OwnerInfoNotice: React.FC = () => {
 
           {!isConfigured && (
             <div className="mt-8 pt-6 border-t border-stone-200 flex items-center gap-3 text-xs text-stone-500">
-              <Info className="w-4 h-4 text-amber-600 shrink-0" />
+              <Info className="w-4 h-4 text-[#991b1b] shrink-0" />
               <span>
-                <strong>Owner Notice:</strong> To update official restaurant phone number, physical address, and custom logo, log in to the <a href="/admin" className="text-amber-700 underline font-semibold">Admin Settings Panel</a>.
+                <strong>Owner Notice:</strong> To update official restaurant phone number, physical address, and custom logo, log in to the <a href="/admin" className="text-[#991b1b] underline font-semibold">Admin Settings Panel</a>.
               </span>
             </div>
           )}

@@ -89,7 +89,7 @@ export const CheckoutPage: React.FC = () => {
         </p>
         <Link
           to="/menu"
-          className="bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm px-6 py-3 rounded-full"
+          className="bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-semibold text-sm px-6 py-3 rounded-full"
         >
           Browse Menu
         </Link>
@@ -211,11 +211,11 @@ export const CheckoutPage: React.FC = () => {
                   onClick={() => setOrderType('DELIVERY')}
                   className={`p-4 rounded-2xl border text-left transition-all ${
                     orderType === 'DELIVERY'
-                      ? 'border-amber-600 bg-amber-50/50 shadow-xs'
+                      ? 'border-[#991b1b] bg-red-50/50 shadow-xs'
                       : 'border-stone-200 hover:border-stone-300'
                   }`}
                 >
-                  <Truck className="w-5 h-5 text-amber-600 mb-2" />
+                  <Truck className="w-5 h-5 text-[#991b1b] mb-2" />
                   <span className="font-bold text-sm block text-stone-900">Home Delivery</span>
                   <span className="text-xs text-stone-500">Delivered hot to your door</span>
                 </button>
@@ -224,11 +224,11 @@ export const CheckoutPage: React.FC = () => {
                   onClick={() => setOrderType('TAKEAWAY')}
                   className={`p-4 rounded-2xl border text-left transition-all ${
                     orderType === 'TAKEAWAY'
-                      ? 'border-amber-600 bg-amber-50/50 shadow-xs'
+                      ? 'border-[#991b1b] bg-red-50/50 shadow-xs'
                       : 'border-stone-200 hover:border-stone-300'
                   }`}
                 >
-                  <Store className="w-5 h-5 text-amber-600 mb-2" />
+                  <Store className="w-5 h-5 text-[#991b1b] mb-2" />
                   <span className="font-bold text-sm block text-stone-900">Takeaway Pickup</span>
                   <span className="text-xs text-stone-500">Collect directly from restaurant</span>
                 </button>
@@ -251,7 +251,7 @@ export const CheckoutPage: React.FC = () => {
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     placeholder="e.g. Rohan Sharma"
-                    className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                    className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                   />
                 </div>
                 <div>
@@ -265,7 +265,7 @@ export const CheckoutPage: React.FC = () => {
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
                     placeholder="9876543210"
-                    className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                    className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                   />
                 </div>
                 <div className="sm:col-span-2">
@@ -278,7 +278,7 @@ export const CheckoutPage: React.FC = () => {
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
                     placeholder="rohan@example.com"
-                    className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                    className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                   />
                 </div>
               </div>
@@ -295,7 +295,7 @@ export const CheckoutPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setIsAddingNewAddress(!isAddingNewAddress)}
-                      className="text-xs text-amber-700 font-semibold hover:underline flex items-center gap-1"
+                      className="text-xs text-[#991b1b] font-semibold hover:underline flex items-center gap-1"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span>{isAddingNewAddress ? 'Use Saved Address' : 'Add New Address'}</span>
@@ -310,7 +310,7 @@ export const CheckoutPage: React.FC = () => {
                         key={addr.id}
                         className={`flex items-start gap-3 p-3.5 rounded-2xl border cursor-pointer transition-all ${
                           selectedAddressId === addr.id
-                            ? 'border-amber-600 bg-amber-50/40 text-stone-900'
+                            ? 'border-[#991b1b] bg-red-50/40 text-stone-900'
                             : 'border-stone-200 hover:border-stone-300 text-stone-700'
                         }`}
                       >
@@ -319,10 +319,10 @@ export const CheckoutPage: React.FC = () => {
                           name="address"
                           checked={selectedAddressId === addr.id}
                           onChange={() => setSelectedAddressId(addr.id)}
-                          className="mt-1 text-amber-600 focus:ring-amber-500"
+                          className="mt-1 text-[#991b1b] focus:ring-red-500"
                         />
                         <div className="flex-1">
-                          <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md">
+                          <span className="text-xs font-bold uppercase tracking-wider text-[#991b1b] bg-red-100 px-2 py-0.5 rounded-md">
                             {addr.label}
                           </span>
                           <p className="text-xs sm:text-sm text-stone-800 mt-1">
@@ -349,7 +349,7 @@ export const CheckoutPage: React.FC = () => {
                         value={newAddress.street}
                         onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })}
                         placeholder="e.g. Flat 302, Green Valley Apartments"
-                        className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                        className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-3">
@@ -362,7 +362,7 @@ export const CheckoutPage: React.FC = () => {
                           value={newAddress.area}
                           onChange={(e) => setNewAddress({ ...newAddress, area: e.target.value })}
                           placeholder="e.g. Indiranagar Sector 2"
-                          className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                          className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                         />
                       </div>
                       <div>
@@ -375,7 +375,7 @@ export const CheckoutPage: React.FC = () => {
                           value={newAddress.city}
                           onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
                           placeholder="Bengaluru"
-                          className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                          className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                         />
                       </div>
                     </div>
@@ -391,7 +391,7 @@ export const CheckoutPage: React.FC = () => {
                           value={newAddress.pincode}
                           onChange={(e) => setNewAddress({ ...newAddress, pincode: e.target.value })}
                           placeholder="560038"
-                          className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                          className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                         />
                       </div>
                       <div>
@@ -403,7 +403,7 @@ export const CheckoutPage: React.FC = () => {
                           value={newAddress.landmark}
                           onChange={(e) => setNewAddress({ ...newAddress, landmark: e.target.value })}
                           placeholder="Near Metro Station"
-                          className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                          className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                         />
                       </div>
                     </div>
@@ -422,12 +422,12 @@ export const CheckoutPage: React.FC = () => {
                   onClick={() => setPaymentMethod('COD')}
                   className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
                     paymentMethod === 'COD'
-                      ? 'border-amber-600 bg-amber-50/40 text-stone-900'
+                      ? 'border-[#991b1b] bg-red-50/40 text-stone-900'
                       : 'border-stone-200 hover:border-stone-300 text-stone-700'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Banknote className="w-5 h-5 text-amber-600" />
+                    <Banknote className="w-5 h-5 text-[#991b1b]" />
                     <div>
                       <span className="text-sm font-bold block">Cash on Delivery (COD)</span>
                       <span className="text-xs text-stone-500">
@@ -440,7 +440,7 @@ export const CheckoutPage: React.FC = () => {
                     name="payment"
                     checked={paymentMethod === 'COD'}
                     onChange={() => setPaymentMethod('COD')}
-                    className="text-amber-600 focus:ring-amber-500"
+                    className="text-[#991b1b] focus:ring-red-500"
                   />
                 </label>
 
@@ -448,12 +448,12 @@ export const CheckoutPage: React.FC = () => {
                   onClick={() => setPaymentMethod('RAZORPAY')}
                   className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
                     paymentMethod === 'RAZORPAY'
-                      ? 'border-amber-600 bg-amber-50/40 text-stone-900'
+                      ? 'border-[#991b1b] bg-red-50/40 text-stone-900'
                       : 'border-stone-200 hover:border-stone-300 text-stone-700'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <CreditCard className="w-5 h-5 text-amber-600" />
+                    <CreditCard className="w-5 h-5 text-[#991b1b]" />
                     <div>
                       <span className="text-sm font-bold block">Online Payment (Razorpay)</span>
                       <span className="text-xs text-stone-500">
@@ -466,7 +466,7 @@ export const CheckoutPage: React.FC = () => {
                     name="payment"
                     checked={paymentMethod === 'RAZORPAY'}
                     onChange={() => setPaymentMethod('RAZORPAY')}
-                    className="text-amber-600 focus:ring-amber-500"
+                    className="text-[#991b1b] focus:ring-red-500"
                   />
                 </label>
               </div>
@@ -483,7 +483,7 @@ export const CheckoutPage: React.FC = () => {
                 placeholder="e.g. Ring the bell twice, keep it less spicy..."
                 rows={2}
                 maxLength={200}
-                className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600 resize-none"
+                className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b] resize-none"
               />
             </div>
           </div>
@@ -507,7 +507,7 @@ export const CheckoutPage: React.FC = () => {
                         <p className="text-stone-500 text-[11px]">{item.selectedVariation.name}</p>
                       )}
                       {item.selectedAddons.length > 0 && (
-                        <p className="text-amber-700 text-[11px]">
+                        <p className="text-[#991b1b] text-[11px]">
                           +{item.selectedAddons.map((a) => a.name).join(', ')}
                         </p>
                       )}
@@ -555,7 +555,7 @@ export const CheckoutPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 disabled:opacity-50 text-white font-bold py-4 rounded-2xl shadow-md hover:shadow-lg transition-all"
+                className="w-full flex items-center justify-center gap-2 bg-[#991b1b] hover:bg-[#7f1d1d] disabled:opacity-50 text-white font-bold py-4 rounded-2xl shadow-md hover:shadow-lg transition-all"
               >
                 {isSubmitting ? (
                   <>

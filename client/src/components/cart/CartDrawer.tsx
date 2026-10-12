@@ -64,9 +64,9 @@ export const CartDrawer: React.FC = () => {
         {/* Drawer Header */}
         <div className="p-5 border-b border-stone-200 bg-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <ShoppingBag className="w-5 h-5 text-amber-600" />
+            <ShoppingBag className="w-5 h-5 text-[#991b1b]" />
             <h2 className="font-serif font-bold text-lg text-stone-900">Your Order</h2>
-            <span className="text-xs bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full">
+            <span className="text-xs bg-red-100 text-[#991b1b] font-bold px-2 py-0.5 rounded-full">
               {items.length} items
             </span>
           </div>
@@ -84,37 +84,37 @@ export const CartDrawer: React.FC = () => {
             onClick={() => setOrderType('DELIVERY')}
             className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold transition-all ${
               orderType === 'DELIVERY'
-                ? 'bg-white text-amber-800 shadow-xs border border-stone-200'
+                ? 'bg-white text-[#991b1b] shadow-xs border border-stone-200'
                 : 'text-stone-600 hover:text-stone-900'
             }`}
           >
-            <Truck className="w-4 h-4 text-amber-600" />
+            <Truck className="w-4 h-4 text-[#991b1b]" />
             <span>Home Delivery</span>
           </button>
           <button
             onClick={() => setOrderType('TAKEAWAY')}
             className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold transition-all ${
               orderType === 'TAKEAWAY'
-                ? 'bg-white text-amber-800 shadow-xs border border-stone-200'
+                ? 'bg-white text-[#991b1b] shadow-xs border border-stone-200'
                 : 'text-stone-600 hover:text-stone-900'
             }`}
           >
-            <Store className="w-4 h-4 text-amber-600" />
+            <Store className="w-4 h-4 text-[#991b1b]" />
             <span>Takeaway Pickup</span>
           </button>
         </div>
 
         {/* Free Delivery Banner (Delivery mode only) */}
         {orderType === 'DELIVERY' && items.length > 0 && (
-          <div className="px-5 py-3 bg-amber-50 border-b border-amber-200/60 text-xs">
+          <div className="px-5 py-3 bg-red-50 border-b border-red-200/60 text-xs">
             {amountNeededForFreeDelivery > 0 ? (
               <div>
-                <p className="text-amber-900 font-medium mb-1.5">
+                <p className="text-stone-900 font-medium mb-1.5">
                   Add <strong className="font-bold">{formatPrice(amountNeededForFreeDelivery)}</strong> more to get <span className="text-emerald-700 font-bold">FREE Delivery</span>!
                 </p>
-                <div className="w-full bg-amber-200/80 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full bg-red-200/80 h-1.5 rounded-full overflow-hidden">
                   <div
-                    className="bg-amber-600 h-full rounded-full transition-all duration-300"
+                    className="bg-[#991b1b] h-full rounded-full transition-all duration-300"
                     style={{ width: `${freeDeliveryProgress}%` }}
                   />
                 </div>
@@ -141,7 +141,7 @@ export const CartDrawer: React.FC = () => {
                   setIsCartOpen(false);
                   navigate('/menu');
                 }}
-                className="bg-amber-600 hover:bg-amber-700 text-white font-medium text-xs px-5 py-2.5 rounded-full shadow-sm"
+                className="bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-medium text-xs px-5 py-2.5 rounded-full shadow-sm"
               >
                 Explore Menu
               </button>
@@ -163,7 +163,7 @@ export const CartDrawer: React.FC = () => {
                       </span>
                     )}
                     {item.selectedAddons.length > 0 && (
-                      <span className="text-xs text-amber-700 block">
+                      <span className="text-xs text-[#991b1b] block">
                         + {item.selectedAddons.map((a) => a.name).join(', ')}
                       </span>
                     )}
@@ -236,7 +236,7 @@ export const CartDrawer: React.FC = () => {
                     value={couponCodeInput}
                     onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
                     placeholder="Enter Coupon Code (e.g. WELCOME50)"
-                    className="flex-1 text-xs px-3 py-2 rounded-xl border border-stone-300 focus:outline-hidden focus:border-amber-600 font-mono uppercase"
+                    className="flex-1 text-xs px-3 py-2 rounded-xl border border-stone-300 focus:outline-hidden focus:border-[#991b1b] font-mono uppercase"
                   />
                   <button
                     type="submit"
@@ -290,7 +290,7 @@ export const CartDrawer: React.FC = () => {
                 setIsCartOpen(false);
                 navigate('/checkout');
               }}
-              className="w-full flex items-center justify-between bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold py-3.5 px-5 rounded-2xl shadow-md hover:shadow-lg transition-all"
+              className="w-full flex items-center justify-between bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-bold py-3.5 px-5 rounded-2xl shadow-md hover:shadow-lg transition-all"
             >
               <span>Proceed to Checkout</span>
               <div className="flex items-center gap-1.5">

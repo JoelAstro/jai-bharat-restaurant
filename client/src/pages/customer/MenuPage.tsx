@@ -72,7 +72,7 @@ export const MenuPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Title */}
         <div className="text-center max-w-2xl mx-auto mb-8">
-          <span className="text-xs uppercase font-bold tracking-widest text-amber-700 bg-amber-100/70 px-3 py-1 rounded-full">
+          <span className="text-xs uppercase font-bold tracking-widest text-[#991b1b] bg-red-100/80 px-3 py-1 rounded-full">
             Our Kitchen Creations
           </span>
           <h1 className="text-3xl sm:text-5xl font-serif font-bold text-stone-900 mt-3 mb-3">
@@ -94,7 +94,7 @@ export const MenuPage: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search dishes (e.g. Biryani, Paneer, Naan)..."
-                className="w-full text-xs sm:text-sm pl-10 pr-9 py-2.5 rounded-2xl border border-stone-200 focus:outline-hidden focus:border-amber-600 focus:ring-1 focus:ring-amber-600"
+                className="w-full text-xs sm:text-sm pl-10 pr-9 py-2.5 rounded-2xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b] focus:ring-1 focus:ring-[#991b1b]"
               />
               {searchQuery && (
                 <button
@@ -156,7 +156,7 @@ export const MenuPage: React.FC = () => {
         {/* Dishes Grid */}
         {isLoading ? (
           <div className="py-20 text-center">
-            <div className="w-10 h-10 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <div className="w-10 h-10 border-4 border-[#991b1b] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
             <p className="text-stone-500 text-sm">Loading authentic dishes...</p>
           </div>
         ) : filteredItems.length === 0 ? (
@@ -174,7 +174,7 @@ export const MenuPage: React.FC = () => {
                 setSelectedCategory('all');
                 setVegFilter('all');
               }}
-              className="text-xs font-semibold bg-amber-600 text-white px-5 py-2.5 rounded-full hover:bg-amber-700"
+              className="text-xs font-semibold bg-[#991b1b] text-white px-5 py-2.5 rounded-full hover:bg-[#7f1d1d]"
             >
               Reset Filters
             </button>

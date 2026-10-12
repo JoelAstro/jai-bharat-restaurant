@@ -93,7 +93,7 @@ export const OrderHistoryPage: React.FC = () => {
         </p>
         <Link
           to="/auth"
-          className="bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm px-6 py-3 rounded-full"
+          className="bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-semibold text-sm px-6 py-3 rounded-full"
         >
           Sign In
         </Link>
@@ -104,7 +104,7 @@ export const OrderHistoryPage: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center">
-        <div className="w-10 h-10 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mb-4" />
+        <div className="w-10 h-10 border-4 border-[#991b1b] border-t-transparent rounded-full animate-spin mb-4" />
         <p className="text-stone-500 text-sm">Loading your order history...</p>
       </div>
     );
@@ -124,7 +124,7 @@ export const OrderHistoryPage: React.FC = () => {
           </div>
           <Link
             to="/menu"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-full shadow-xs"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold bg-[#991b1b] hover:bg-[#7f1d1d] text-white px-5 py-2.5 rounded-full shadow-xs"
           >
             <span>Explore Menu</span>
             <ArrowRight className="w-4 h-4" />
@@ -132,8 +132,8 @@ export const OrderHistoryPage: React.FC = () => {
         </div>
 
         {reorderNotice && (
-          <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-center gap-3">
-            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
+          <div className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-200 text-stone-900 text-xs sm:text-sm flex items-center gap-3">
+            <AlertTriangle className="w-5 h-5 text-[#991b1b] shrink-0" />
             <span>{reorderNotice}</span>
           </div>
         )}
@@ -149,7 +149,7 @@ export const OrderHistoryPage: React.FC = () => {
             </p>
             <Link
               to="/menu"
-              className="bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold px-6 py-2.5 rounded-full"
+              className="bg-[#991b1b] hover:bg-[#7f1d1d] text-white text-xs font-semibold px-6 py-2.5 rounded-full"
             >
               Order Now
             </Link>
@@ -224,7 +224,7 @@ export const OrderHistoryPage: React.FC = () => {
                   <div className="pt-4 border-t border-stone-100 flex items-center justify-between gap-4">
                     <Link
                       to={`/orders/${order.id}`}
-                      className="text-xs font-bold text-amber-700 hover:text-amber-800 inline-flex items-center gap-1"
+                      className="text-xs font-bold text-[#991b1b] hover:text-[#7f1d1d] inline-flex items-center gap-1"
                     >
                       <span>Track / View Receipt</span>
                       <ArrowRight className="w-3.5 h-3.5" />

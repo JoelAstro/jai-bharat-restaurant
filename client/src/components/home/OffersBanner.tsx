@@ -25,11 +25,11 @@ export const OffersBanner: React.FC = () => {
   };
 
   return (
-    <section className="py-12 bg-amber-50/60 border-y border-amber-200/60">
+    <section className="py-12 bg-white border-y border-stone-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-1.5 text-xs uppercase font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full mb-2">
-            <Tag className="w-3.5 h-3.5 text-amber-700" />
+          <div className="inline-flex items-center gap-1.5 text-xs uppercase font-bold text-[#991b1b] bg-red-100/80 px-3 py-1 rounded-full mb-2">
+            <Tag className="w-3.5 h-3.5 text-[#991b1b]" />
             <span>Exclusive Savings</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
@@ -44,11 +44,11 @@ export const OffersBanner: React.FC = () => {
           {coupons.map((coupon) => (
             <div
               key={coupon.code}
-              className="bg-white rounded-2xl p-5 border border-dashed border-amber-300 shadow-xs flex items-center justify-between gap-4"
+              className="bg-[#fdfbf7] rounded-2xl p-5 border border-dashed border-red-300 shadow-xs flex items-center justify-between gap-4"
             >
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-mono font-bold text-base text-amber-900 bg-amber-100/80 px-2.5 py-0.5 rounded-md tracking-wider">
+                  <span className="font-mono font-bold text-base text-[#991b1b] bg-red-100/80 px-2.5 py-0.5 rounded-md tracking-wider">
                     {coupon.code}
                   </span>
                   <span className="text-xs font-semibold text-emerald-700">

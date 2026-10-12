@@ -55,7 +55,7 @@ export const OrderTrackingPage: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center">
-        <div className="w-10 h-10 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mb-4" />
+        <div className="w-10 h-10 border-4 border-[#991b1b] border-t-transparent rounded-full animate-spin mb-4" />
         <p className="text-stone-500 text-sm">Retrieving order details...</p>
       </div>
     );
@@ -69,7 +69,7 @@ export const OrderTrackingPage: React.FC = () => {
         <p className="text-stone-500 text-sm mb-6 max-w-md">{error}</p>
         <Link
           to="/menu"
-          className="bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm px-6 py-3 rounded-full"
+          className="bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-semibold text-sm px-6 py-3 rounded-full"
         >
           Return to Menu
         </Link>
@@ -108,7 +108,7 @@ export const OrderTrackingPage: React.FC = () => {
         <div className="flex items-center justify-between mb-6">
           <Link
             to="/orders"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-stone-600 hover:text-amber-700 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-stone-600 hover:text-[#991b1b] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Orders</span>
@@ -174,7 +174,7 @@ export const OrderTrackingPage: React.FC = () => {
                   {/* Connecting Progress Line */}
                   <div className="absolute top-5 left-0 right-0 h-1 bg-stone-200 z-0">
                     <div
-                      className="bg-amber-600 h-full transition-all duration-500"
+                      className="bg-[#991b1b] h-full transition-all duration-500"
                       style={{
                         width: `${(Math.max(0, currentIndex) / (steps.length - 1)) * 100}%`,
                       }}
@@ -191,9 +191,9 @@ export const OrderTrackingPage: React.FC = () => {
                         <div
                           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-xs ${
                             isDone
-                              ? 'bg-amber-600 text-white ring-4 ring-amber-100'
+                              ? 'bg-[#991b1b] text-white ring-4 ring-red-100'
                               : 'bg-white border-2 border-stone-300 text-stone-400'
-                          } ${isCurrent ? 'scale-110 ring-amber-200' : ''}`}
+                          } ${isCurrent ? 'scale-110 ring-red-200' : ''}`}
                         >
                           <Icon className="w-5 h-5" />
                         </div>
@@ -221,7 +221,7 @@ export const OrderTrackingPage: React.FC = () => {
               <div className="space-y-3">
                 {order.statusHistory.map((hist) => (
                   <div key={hist.id} className="flex items-start gap-3 text-xs">
-                    <div className="w-2 h-2 rounded-full bg-amber-600 mt-1.5 shrink-0" />
+                    <div className="w-2 h-2 rounded-full bg-[#991b1b] mt-1.5 shrink-0" />
                     <div>
                       <span className="font-bold text-stone-800 uppercase tracking-wider text-[11px]">
                         {hist.status}
@@ -255,7 +255,7 @@ export const OrderTrackingPage: React.FC = () => {
                         <p className="text-stone-500 text-[11px]">{item.variationName}</p>
                       )}
                       {item.addons && item.addons.length > 0 && (
-                        <p className="text-amber-700 text-[11px]">
+                        <p className="text-[#991b1b] text-[11px]">
                           +{item.addons.map((a) => a.addonName).join(', ')}
                         </p>
                       )}
@@ -306,7 +306,7 @@ export const OrderTrackingPage: React.FC = () => {
 
                 {order.orderType === 'DELIVERY' && parsedAddress && (
                   <div className="mt-4 p-3.5 bg-stone-50 rounded-2xl border border-stone-200 flex items-start gap-2.5">
-                    <MapPin className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <MapPin className="w-4 h-4 text-[#991b1b] shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-stone-800 block">Delivery Address:</strong>
                       <span>
@@ -317,7 +317,7 @@ export const OrderTrackingPage: React.FC = () => {
                 )}
 
                 {order.specialInstructions && (
-                  <div className="mt-3 p-3 bg-amber-50 rounded-xl text-amber-900 text-[11px]">
+                  <div className="mt-3 p-3 bg-red-50 rounded-xl text-stone-900 text-[11px]">
                     <strong>Special Instructions:</strong> {order.specialInstructions}
                   </div>
                 )}
@@ -334,7 +334,7 @@ export const OrderTrackingPage: React.FC = () => {
                 {settings.phone ? (
                   <a
                     href={`tel:${settings.phone}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-800"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#991b1b] hover:text-[#7f1d1d]"
                   >
                     <Phone className="w-3.5 h-3.5" />
                     <span>Call Restaurant: {settings.phone}</span>

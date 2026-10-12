@@ -20,6 +20,8 @@ import { OrderHistoryPage } from './pages/customer/OrderHistoryPage.js';
 import { FavoritesPage } from './pages/customer/FavoritesPage.js';
 import { ProfilePage } from './pages/customer/ProfilePage.js';
 import { AuthPage } from './pages/customer/AuthPage.js';
+import { AboutUsPage } from './pages/customer/AboutUsPage.js';
+import { ContactPage } from './pages/customer/ContactPage.js';
 
 // Admin Pages
 import { AdminLoginPage } from './pages/admin/AdminLoginPage.js';
@@ -33,7 +35,7 @@ import { AdminSettingsPage } from './pages/admin/AdminSettingsPage.js';
 
 const CustomerLayout: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#fdfbf7]">
+    <div className="min-h-screen flex flex-col justify-between bg-[#faf7f0]">
       <Navbar />
       <CartDrawer />
       <main className="flex-1">
@@ -55,6 +57,8 @@ export const App: React.FC = () => {
               <Route path="/" element={<CustomerLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="menu" element={<MenuPage />} />
+                <Route path="about" element={<AboutUsPage />} />
+                <Route path="contact" element={<ContactPage />} />
                 <Route path="offers" element={<OffersPage />} />
                 <Route path="checkout" element={<CheckoutPage />} />
                 <Route path="orders" element={<OrderHistoryPage />} />

@@ -18,8 +18,8 @@ export const FeaturedDishes: React.FC<FeaturedDishesProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="flex items-center gap-2 text-amber-700 text-xs font-bold uppercase tracking-widest mb-2">
-              <Sparkles className="w-4 h-4 text-amber-600" />
+            <div className="flex items-center gap-2 text-[#991b1b] text-xs font-bold uppercase tracking-widest mb-2">
+              <Sparkles className="w-4 h-4 text-[#991b1b]" />
               <span>Chef's Recommendations</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight">
@@ -32,7 +32,7 @@ export const FeaturedDishes: React.FC<FeaturedDishesProps> = ({
 
           <Link
             to="/menu"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-amber-700 hover:text-amber-800 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#991b1b] hover:text-[#7f1d1d] transition-colors"
           >
             <span>View Full Menu</span>
             <ArrowRight className="w-4 h-4" />

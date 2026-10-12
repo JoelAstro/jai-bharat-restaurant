@@ -31,8 +31,8 @@ export const CategoryPills: React.FC<CategoryPillsProps> = ({
           onClick={() => handleCategoryClick('all')}
           className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all border ${
             !selectedSlug || selectedSlug === 'all'
-              ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
-              : 'bg-white text-stone-700 border-stone-200 hover:border-amber-400'
+              ? 'bg-[#991b1b] text-white border-[#991b1b] shadow-xs'
+              : 'bg-white text-stone-700 border-stone-200 hover:border-red-300'
           }`}
         >
           All Dishes
@@ -46,8 +46,8 @@ export const CategoryPills: React.FC<CategoryPillsProps> = ({
               onClick={() => handleCategoryClick(cat.slug)}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all border ${
                 isSelected
-                  ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
-                  : 'bg-white text-stone-700 border-stone-200 hover:border-amber-400'
+                  ? 'bg-[#991b1b] text-white border-[#991b1b] shadow-xs'
+                  : 'bg-white text-stone-700 border-stone-200 hover:border-red-300'
               }`}
             >
               <span>{cat.name.replace(' (Sample)', '')}</span>

@@ -51,7 +51,7 @@ export const AuthPage: React.FC = () => {
         {/* Header Branding */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center text-amber-100 font-serif font-bold text-lg shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-[#991b1b] flex items-center justify-center text-red-100 font-serif font-bold text-lg shadow-sm">
               JB
             </div>
             <span className="font-serif font-bold text-xl text-stone-900">
@@ -121,7 +121,7 @@ export const AuthPage: React.FC = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Rohan Sharma"
-                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                 />
               </div>
             </div>
@@ -139,7 +139,7 @@ export const AuthPage: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
               />
             </div>
           </div>
@@ -157,7 +157,7 @@ export const AuthPage: React.FC = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="9876543210"
-                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                  className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                 />
               </div>
             </div>
@@ -175,7 +175,7 @@ export const AuthPage: React.FC = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
               />
             </div>
           </div>
@@ -183,7 +183,7 @@ export const AuthPage: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 disabled:opacity-50 text-white font-bold py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-all text-sm mt-2"
+            className="w-full flex items-center justify-center gap-2 bg-[#991b1b] hover:bg-[#7f1d1d] disabled:opacity-50 text-white font-bold py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-all text-sm mt-2"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -199,7 +199,7 @@ export const AuthPage: React.FC = () => {
         <div className="mt-8 pt-6 border-t border-stone-100 text-center">
           <p className="text-xs text-stone-500">
             Are you a restaurant staff or administrator?{' '}
-            <Link to="/admin" className="text-amber-700 font-semibold hover:underline">
+            <Link to="/admin" className="text-[#991b1b] font-semibold hover:underline">
               Admin Login
             </Link>
           </p>

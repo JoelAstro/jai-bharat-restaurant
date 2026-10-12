@@ -116,7 +116,7 @@ export const ProfilePage: React.FC = () => {
           {/* Left: Profile Edit Form */}
           <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs h-fit space-y-4">
             <div className="flex items-center gap-3 pb-4 border-b border-stone-100">
-              <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-900 font-bold text-lg flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-red-100 text-[#991b1b] font-bold text-lg flex items-center justify-center">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <div>
@@ -142,7 +142,7 @@ export const ProfilePage: React.FC = () => {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                  className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                 />
               </div>
 
@@ -156,7 +156,7 @@ export const ProfilePage: React.FC = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="10 digit mobile"
-                  className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                  className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                 />
               </div>
 
@@ -206,7 +206,7 @@ export const ProfilePage: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setShowAddAddressModal(true)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white px-3.5 py-2 rounded-xl shadow-xs"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold bg-[#991b1b] hover:bg-[#7f1d1d] text-white px-3.5 py-2 rounded-xl shadow-xs"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add Address</span>
@@ -229,7 +229,7 @@ export const ProfilePage: React.FC = () => {
                     >
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-bold uppercase tracking-wider text-amber-900 bg-amber-100 px-2 py-0.5 rounded-md">
+                          <span className="text-xs font-bold uppercase tracking-wider text-[#991b1b] bg-red-100 px-2 py-0.5 rounded-md">
                             {addr.label}
                           </span>
                           {addr.isDefault && (
@@ -293,7 +293,7 @@ export const ProfilePage: React.FC = () => {
                       onClick={() => setNewAddress({ ...newAddress, label })}
                       className={`flex-1 py-1.5 text-xs font-semibold rounded-xl border ${
                         newAddress.label === label
-                          ? 'border-amber-600 bg-amber-50 text-amber-900'
+                          ? 'border-[#991b1b] bg-red-50 text-[#991b1b]'
                           : 'border-stone-200 text-stone-600'
                       }`}
                     >
@@ -312,7 +312,7 @@ export const ProfilePage: React.FC = () => {
                     value={newAddress.street}
                     onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })}
                     placeholder="e.g. 402 Sunshine Apts"
-                    className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                    className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                   />
                 </div>
 
@@ -326,7 +326,7 @@ export const ProfilePage: React.FC = () => {
                       value={newAddress.area}
                       onChange={(e) => setNewAddress({ ...newAddress, area: e.target.value })}
                       placeholder="e.g. MG Road"
-                      className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                      className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                     />
                   </div>
                   <div>
@@ -339,7 +339,7 @@ export const ProfilePage: React.FC = () => {
                       value={newAddress.city}
                       onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
                       placeholder="Bengaluru"
-                      className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                      className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                     />
                   </div>
                 </div>
@@ -356,7 +356,7 @@ export const ProfilePage: React.FC = () => {
                       value={newAddress.pincode}
                       onChange={(e) => setNewAddress({ ...newAddress, pincode: e.target.value })}
                       placeholder="560001"
-                      className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                      className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                     />
                   </div>
                   <div>
@@ -368,7 +368,7 @@ export const ProfilePage: React.FC = () => {
                       value={newAddress.landmark}
                       onChange={(e) => setNewAddress({ ...newAddress, landmark: e.target.value })}
                       placeholder="Near City Park"
-                      className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
+                      className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                     />
                   </div>
                 </div>
@@ -379,7 +379,7 @@ export const ProfilePage: React.FC = () => {
                       type="checkbox"
                       checked={newAddress.isDefault}
                       onChange={(e) => setNewAddress({ ...newAddress, isDefault: e.target.checked })}
-                      className="rounded-sm text-amber-600 focus:ring-amber-500"
+                      className="rounded-sm text-[#991b1b] focus:ring-red-500"
                     />
                     <span>Set as primary default address</span>
                   </label>
@@ -395,7 +395,7 @@ export const ProfilePage: React.FC = () => {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 text-xs font-semibold py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white shadow-xs"
+                    className="flex-1 text-xs font-semibold py-2.5 rounded-xl bg-[#991b1b] hover:bg-[#7f1d1d] text-white shadow-xs"
                   >
                     Save Address
                   </button>
