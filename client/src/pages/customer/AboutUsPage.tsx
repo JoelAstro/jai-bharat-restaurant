@@ -48,89 +48,77 @@ export const AboutUsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#faf7f0] text-stone-900">
       {/* ========================================================================= */}
-      {/* SECTION 1: MAIN ABOUT US HERO SECTION */}
+      {/* SECTION 1: INITIAL ABOVE-THE-FOLD ABOUT US & STORY HERO */}
       {/* ========================================================================= */}
-      <section className="relative overflow-hidden pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-stone-200">
-        {/* Subtle patterned background texture */}
-        <div
-          className="absolute inset-0 opacity-[0.035] pointer-events-none"
-          style={{
-            backgroundImage: 'radial-gradient(circle at center, #991b1b 1.5px, transparent 1.5px)',
-            backgroundSize: '28px 28px',
-          }}
-        />
+      <section
+        className="relative overflow-hidden pt-12 sm:pt-20 pb-16 sm:pb-24 border-b border-stone-200"
+        style={{
+          backgroundColor: '#faf6ee',
+          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><g stroke='%23b89052' fill='none' opacity='0.18'><g transform='translate(40,40)'><circle cx='0' cy='0' r='10' stroke-width='1.2'/><line x1='0' y1='-14' x2='0' y2='-19' stroke-width='1.2' stroke-linecap='round'/><line x1='0' y1='14' x2='0' y2='19' stroke-width='1.2' stroke-linecap='round'/><line x1='-14' y1='0' x2='-19' y2='0' stroke-width='1.2' stroke-linecap='round'/><line x1='14' y1='0' x2='19' y2='0' stroke-width='1.2' stroke-linecap='round'/><line x1='-10' y1='-10' x2='-14' y2='-14' stroke-width='1.2' stroke-linecap='round'/><line x1='10' y1='10' x2='14' y2='14' stroke-width='1.2' stroke-linecap='round'/><line x1='-10' y1='10' x2='-14' y2='14' stroke-width='1.2' stroke-linecap='round'/><line x1='10' y1='-10' x2='14' y2='-14' stroke-width='1.2' stroke-linecap='round'/></g><g transform='translate(120,120)'><line x1='0' y1='-16' x2='0' y2='16' stroke-width='1.2' stroke-linecap='round'/><line x1='-16' y1='0' x2='16' y2='0' stroke-width='1.2' stroke-linecap='round'/><line x1='-11' y1='-11' x2='11' y2='11' stroke-width='1.2' stroke-linecap='round'/><line x1='-11' y1='11' x2='11' y2='-11' stroke-width='1.2' stroke-linecap='round'/><circle cx='0' cy='0' r='3' fill='%23b89052' stroke='none'/></g><circle cx='120' cy='40' r='1.5' fill='%23b89052' stroke='none'/><circle cx='40' cy='120' r='1.5' fill='%23b89052' stroke='none'/></g></svg>")`,
+          backgroundSize: '160px 160px',
+        }}
+      >
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          {/* Top Intro Section */}
+          <div className="max-w-3xl mx-auto space-y-4">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-950 tracking-tight">
+              About Us
+            </h1>
+            <p className="text-stone-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
+              Discover Jai Bharat Family Restaurant, where delicious food, warm hospitality, and memorable meals come together in Nandigama.
+            </p>
+          </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Column: Editorial Storytelling */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              {/* Location Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-100/80 border border-red-200 text-[#991b1b] text-xs font-bold uppercase tracking-wider shadow-sm">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                <span>PROUDLY SERVING NANDIGAMA, ANDHRA PRADESH</span>
+          {/* Generous Vertical Gap */}
+          <div className="my-12 sm:my-20" />
+
+          {/* Main Story Hero Section */}
+          <div className="max-w-4xl mx-auto space-y-4 sm:space-y-5">
+            {/* Small uppercase letter-spaced label */}
+            <span className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#b45309] uppercase block">
+              THE JAI BHARAT STORY
+            </span>
+
+            {/* Main heading over two lines */}
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-950 tracking-tight leading-[1.18]">
+              Good Food, Warm Hospitality <br />
+              A Taste of Nandigama
+            </h2>
+
+            {/* Subtle, elegant gold divider with central traditional motif */}
+            <div className="flex items-center justify-center gap-3 my-5 sm:my-6" aria-hidden="true">
+              <div className="h-[1px] w-16 sm:w-28 bg-[#c99a4c]/50" />
+              <div className="flex items-center gap-2 text-[#b47a2a]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c99a4c]/70 inline-block" />
+                <svg className="w-5 h-5 text-[#b47a2a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <circle cx="12" cy="12" r="3" fill="currentColor" fillOpacity="0.25" />
+                  <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" strokeLinejoin="round" />
+                </svg>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c99a4c]/70 inline-block" />
               </div>
-
-              {/* Main Heading */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-900 tracking-tight leading-[1.15]">
-                The Jai Bharat Story. <br />
-                <span className="text-[#991b1b]">Tradition in Every Bite, Warmth in Every Welcome.</span>
-              </h1>
-
-              {/* Tagline */}
-              <p className="text-lg sm:text-xl font-serif text-amber-900/90 italic font-medium">
-                Where authentic regional flavors and heartfelt Indian hospitality bring families together.
-              </p>
-
-              {/* Verified Nandigama Intro Paragraph */}
-              <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Welcome to <strong>{settings.restaurant_name}</strong>. Nestled in the heart of Nandigama, Andhra Pradesh, our kitchen was built on a simple, timeless promise: to prepare honest, delicious Indian food that honours our heritage. From royal handi biryanis layered with fragrant spices to sizzling tandoori starters and comforting curries, every meal is prepared with sincere care, hygiene, and the authentic spirit of home.
-              </p>
-
-              {/* Call to Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                <Link
-                  to="/menu"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-xl shadow-md hover:shadow-lg transition-all active:scale-95"
-                >
-                  <span>Explore Our Menu</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-
-                <Link
-                  to="/contact"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-stone-800 font-bold text-xs uppercase tracking-wider px-7 py-4 rounded-xl shadow-sm hover:shadow transition-all border border-stone-300 active:scale-95"
-                >
-                  <span>Visit Our Restaurant</span>
-                </Link>
-              </div>
-
-              {/* Trust Pillars Bar */}
-              <div className="pt-6 border-t border-stone-200/90 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-stone-600">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-600" />
-                  <span className="font-semibold text-stone-800">Fresh Daily Prep</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#991b1b]" />
-                  <span className="font-semibold text-stone-800">Authentic Dum & Tandoor</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-600" />
-                  <span className="font-semibold text-stone-800">Family-Friendly Ambiance</span>
-                </div>
-              </div>
+              <div className="h-[1px] w-16 sm:w-28 bg-[#c99a4c]/50" />
             </div>
 
-            {/* Right Column: High Quality Real Food Photograph (No Overlay Cards) */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative aspect-4/3 sm:aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-stone-100 group">
-                <img
-                  src="/images/hero/hero-3.jpg"
-                  alt="Royal Dum Biryani in Copper Handi at Jai Bharat Family Restaurant"
-                  className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                  loading="eager"
-                />
-              </div>
+            {/* Short sentence below divider */}
+            <p className="text-stone-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
+              Every meal is an opportunity to share delicious flavors, welcome people with care, and bring families and friends together.
+            </p>
+
+            {/* Horizontally aligned buttons matching reference screenshot */}
+            <div className="flex flex-row items-center justify-center gap-4 pt-6 sm:pt-8">
+              <Link
+                to="/menu"
+                className="inline-flex items-center justify-center bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-3.5 rounded-md shadow-sm hover:shadow transition-all active:scale-98"
+              >
+                Explore Our Menu
+              </Link>
+
+              <Link
+                to="/menu"
+                className="inline-flex items-center justify-center bg-[#ede3d0] hover:bg-[#e2d5bd] text-stone-900 font-semibold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-3.5 rounded-md shadow-sm hover:shadow transition-all border border-[#dfd2ba] active:scale-98"
+              >
+                Order Now
+              </Link>
             </div>
           </div>
         </div>
