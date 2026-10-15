@@ -21,7 +21,24 @@ CREATE TABLE IF NOT EXISTS home_banners (
 CREATE INDEX IF NOT EXISTS idx_home_banners_is_active ON home_banners(is_active);
 CREATE INDEX IF NOT EXISTS idx_home_banners_display_order ON home_banners(display_order);
 
--- 2. MENU CATEGORIES TABLE
+-- 2. HOME FEATURES TABLE
+CREATE TABLE IF NOT EXISTS home_features (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    icon_name VARCHAR(100),
+    image_url TEXT,
+    cloudinary_public_id VARCHAR(255),
+    display_order INT DEFAULT 0 NOT NULL,
+    is_active BOOLEAN DEFAULT true NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_home_features_is_active ON home_features(is_active);
+CREATE INDEX IF NOT EXISTS idx_home_features_display_order ON home_features(display_order);
+
+-- 3. MENU CATEGORIES TABLE
 CREATE TABLE IF NOT EXISTS menu_categories (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(150) NOT NULL,
