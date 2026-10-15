@@ -41,7 +41,7 @@ app.use(
 // Body parsing with raw buffer preservation for Razorpay webhook verification
 app.use(
   express.json({
-    verify: (req: any, _res, buf) => {
+    verify: (req: any, _res: any, buf: Buffer) => {
       req.rawBody = buf.toString();
     },
   })
@@ -64,7 +64,7 @@ app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
 
 // Health check endpoint
-app.get('/api/health', (_req, res) => {
+app.get('/api/health', (_req: express.Request, res: express.Response) => {
   res.status(200).json({
     status: 'healthy',
     service: 'Jai Bharat Family Restaurant API',
@@ -79,12 +79,12 @@ app.use('/api', apiRouter);
 const clientDistPath = path.resolve(__dirname, '../../client/dist');
 if (fs.existsSync(clientDistPath)) {
   app.use(express.static(clientDistPath));
-  app.get('*', (_req, res) => {
+  app.get('*', (_req: express.Request, res: express.Response) => {
     res.sendFile(path.join(clientDistPath, 'index.html'));
   });
 } else {
   // 404 Handler for API-only deployment
-  app.use('*', (_req, res) => {
+  app.use('*', (_req: express.Request, res: express.Response) => {
     res.status(404).json({
       success: false,
       message: 'API endpoint not found',

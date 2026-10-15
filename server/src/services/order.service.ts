@@ -46,7 +46,7 @@ export class OrderService {
       let selectedVariation = null;
 
       if (itemInput.variationId) {
-        selectedVariation = menuItem.variations.find((v) => v.id === itemInput.variationId);
+        selectedVariation = menuItem.variations.find((v: any) => v.id === itemInput.variationId);
         if (!selectedVariation) {
           throw new Error(`Selected size/variation for "${menuItem.name}" is invalid.`);
         }
@@ -58,7 +58,7 @@ export class OrderService {
 
       if (itemInput.addonIds && itemInput.addonIds.length > 0) {
         for (const addonId of itemInput.addonIds) {
-          const addon = menuItem.addons.find((a) => a.id === addonId);
+          const addon = menuItem.addons.find((a: any) => a.id === addonId);
           if (!addon) {
             throw new Error(`Selected add-on for "${menuItem.name}" is invalid.`);
           }
@@ -170,7 +170,7 @@ export class OrderService {
     const orderNumber = `JB-${todayStr}-${randomSuffix}`;
 
     // 4. Execute atomic creation in transaction
-    const order = await prisma.$transaction(async (tx) => {
+    const order = await prisma.$transaction(async (tx: any) => {
       // If coupon used, increment timesUsed
       if (calculation.appliedCoupon) {
         await tx.coupon.update({
@@ -382,7 +382,7 @@ export class OrderService {
       );
     }
 
-    return prisma.$transaction(async (tx) => {
+    return prisma.$transaction(async (tx: any) => {
       // If moving to COMPLETED and COD, record payment collected if needed
       let paymentStatus = order.paymentStatus;
       if (newStatus === 'COMPLETED' && order.paymentMethod === 'COD') {

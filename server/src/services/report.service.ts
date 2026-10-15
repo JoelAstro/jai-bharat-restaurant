@@ -179,7 +179,7 @@ export class ReportService {
       'Total (INR)',
     ];
 
-    const rows = orders.map((o) => [
+    const rows = orders.map((o: any) => [
       `"${o.orderNumber}"`,
       `"${o.createdAt.toISOString()}"`,
       `"${o.customerName.replace(/"/g, '""')}"`,
@@ -195,6 +195,6 @@ export class ReportService {
       (o.total / 100).toFixed(2),
     ]);
 
-    return [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
+    return [headers.join(','), ...rows.map((r: any) => r.join(','))].join('\n');
   }
 }
