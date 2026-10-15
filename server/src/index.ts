@@ -1,10 +1,16 @@
 import app from './app.js';
 import { ENV } from './config/env.js';
 import { ensureAdminAccount } from './config/initAdmin.js';
+import { verifyCloudinaryConnection } from './config/cloudinary.js';
 
 // Ensure the configured administrator account is initialized in the database
 ensureAdminAccount().catch((err) => {
   console.error('Failed to initialize administrator account:', err);
+});
+
+// Run startup verification for Cloudinary if configured
+verifyCloudinaryConnection().catch((err) => {
+  console.warn('[Cloudinary Startup Check Warning]:', err?.message || err);
 });
 
 const server = app.listen(ENV.PORT, () => {
