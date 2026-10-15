@@ -16,10 +16,8 @@ build/
 .env.production.local
 
 # Databases and storage
-*.db
-*.db-journal
-*.sqlite
-*.sqlite-journal
+server/prisma/dev.db
+server/prisma/dev.db-journal
 uploads/
 
 # Logs
