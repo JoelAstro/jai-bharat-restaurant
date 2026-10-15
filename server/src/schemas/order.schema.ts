@@ -31,7 +31,7 @@ export const createOrderSchema = z.object({
     .optional(),
   customerName: z.string().min(2, 'Customer name is required'),
   customerPhone: z.string().regex(/^[0-9]{10}$/, '10-digit mobile number is required'),
-  customerEmail: z.string().email('Valid email is required'),
+  customerEmail: z.string().email('Valid email is required').optional().or(z.literal('')),
 });
 
 export const updateOrderStatusSchema = z.object({

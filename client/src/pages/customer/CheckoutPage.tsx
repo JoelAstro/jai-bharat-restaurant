@@ -175,6 +175,14 @@ export const CheckoutPage: React.FC = () => {
         }
       }
 
+      try {
+        const recentOrders = JSON.parse(localStorage.getItem('jb_recent_orders') || '[]');
+        if (!recentOrders.includes(createdOrder.id)) {
+          recentOrders.unshift(createdOrder.id);
+          localStorage.setItem('jb_recent_orders', JSON.stringify(recentOrders.slice(0, 15)));
+        }
+      } catch {}
+
       clearCart();
       navigate(`/orders/${createdOrder.id}`);
     } catch (err: any) {

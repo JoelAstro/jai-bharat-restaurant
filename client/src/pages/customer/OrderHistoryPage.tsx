@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Clock, ArrowRight, RotateCw, AlertTriangle } from 'lucide-react';
+import { ShoppingBag, Clock, ArrowRight, RotateCw, AlertTriangle, Search, CheckCircle2 } from 'lucide-react';
 import { Order, OrderItem, OrderItemAddon } from '../../types/index.js';
 import { api } from '../../services/api.js';
 import { useCart } from '../../context/CartContext.js';
@@ -12,6 +12,7 @@ export const OrderHistoryPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [reorderingId, setReorderingId] = useState<string | null>(null);
   const [reorderNotice, setReorderNotice] = useState<string | null>(null);
+  const [searchOrderNumber, setSearchOrderNumber] = useState('');
 
   const { addItem, setIsCartOpen } = useCart();
   const { formatPrice } = useRestaurant();
@@ -19,17 +20,59 @@ export const OrderHistoryPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      setIsLoading(false);
-      return;
-    }
+    const loadOrders = async () => {
+      setIsLoading(true);
+      const ordersMap = new Map<string, Order>();
 
-    api
-      .getCustomerOrders()
-      .then((data) => setOrders(data))
-      .catch((err) => console.error('Failed to load customer orders:', err))
-      .finally(() => setIsLoading(false));
+      // 1. Load orders from server if authenticated
+      if (user) {
+        try {
+          const userOrders = await api.getCustomerOrders();
+          userOrders.forEach((o) => ordersMap.set(o.id, o));
+        } catch (err) {
+          console.error('Failed to load user orders:', err);
+        }
+      }
+
+      // 2. Load recent guest orders saved in browser local storage
+      try {
+        const storedOrderIds: string[] = JSON.parse(
+          localStorage.getItem('jb_recent_orders') || '[]'
+        );
+
+        const guestPromises = storedOrderIds.map((id) =>
+          api.getOrderById(id).catch(() => null)
+        );
+
+        const results = await Promise.all(guestPromises);
+        results.forEach((res) => {
+          if (res && res.id) {
+            ordersMap.set(res.id, res);
+          }
+        });
+      } catch (err) {
+        console.error('Failed to read recent orders from storage:', err);
+      }
+
+      // Sort by creation date descending
+      const sorted = Array.from(ordersMap.values()).sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+
+      setOrders(sorted);
+      setIsLoading(false);
+    };
+
+    loadOrders();
   }, [user]);
+
+  const handleTrackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const query = searchOrderNumber.trim();
+    if (query) {
+      navigate(`/orders/${query}`);
+    }
+  };
 
   /**
    * Re-order: fetch current live menu data, verify item availability and fresh prices
@@ -59,9 +102,10 @@ export const OrderHistoryPage: React.FC = () => {
         );
 
         // Match add-ons if applicable
-        const matchedAddons = liveItem.addons?.filter((addon: any) =>
-          orderItem.addons?.some((a: OrderItemAddon) => a.addonName === addon.name)
-        ) || [];
+        const matchedAddons =
+          liveItem.addons?.filter((addon: any) =>
+            orderItem.addons?.some((a: OrderItemAddon) => a.addonName === addon.name)
+          ) || [];
 
         addItem(liveItem, orderItem.quantity, variation, matchedAddons);
         addedCount++;
@@ -75,40 +119,30 @@ export const OrderHistoryPage: React.FC = () => {
         setIsCartOpen(true);
       }
     } catch (err: any) {
-      alert('Could not re-order: ' + err.message);
+      alert('Could not re-order: ' + (err.message || 'Error'));
     } finally {
       setReorderingId(null);
     }
   };
 
-  if (!user) {
-    return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center">
-        <ShoppingBag className="w-16 h-16 text-stone-300 mb-4" />
-        <h2 className="text-2xl font-serif font-bold text-stone-900 mb-2">
-          Please log in to view your orders
-        </h2>
-        <p className="text-stone-500 text-sm mb-6">
-          Access your order history, receipts, and 1-click re-ordering.
-        </p>
-        <Link
-          to="/auth"
-          className="bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-semibold text-sm px-6 py-3 rounded-full"
-        >
-          Sign In
-        </Link>
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center">
-        <div className="w-10 h-10 border-4 border-[#991b1b] border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-stone-500 text-sm">Loading your order history...</p>
-      </div>
-    );
-  }
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'PENDING':
+        return <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-bold">Placed</span>;
+      case 'CONFIRMED':
+        return <span className="bg-sky-100 text-sky-800 px-3 py-1 rounded-full text-xs font-bold">Accepted</span>;
+      case 'PREPARING':
+        return <span className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-xs font-bold">Cooking</span>;
+      case 'READY':
+        return <span className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-xs font-bold">Out for Delivery</span>;
+      case 'COMPLETED':
+        return <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold">Delivered</span>;
+      case 'CANCELLED':
+        return <span className="bg-rose-100 text-rose-800 px-3 py-1 rounded-full text-xs font-bold">Cancelled</span>;
+      default:
+        return <span className="bg-stone-100 text-stone-800 px-3 py-1 rounded-full text-xs font-bold">{status}</span>;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#fdfbf7] py-8 sm:py-12">
@@ -116,19 +150,43 @@ export const OrderHistoryPage: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-2xl sm:text-4xl font-serif font-bold text-stone-900">
-              Your Orders
+              Track & View Orders
             </h1>
             <p className="text-stone-500 text-sm mt-1">
-              Track live food deliveries or easily re-order your favourite meals.
+              Check live order progress or quickly re-order your favorite dishes.
             </p>
           </div>
           <Link
             to="/menu"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold bg-[#991b1b] hover:bg-[#7f1d1d] text-white px-5 py-2.5 rounded-full shadow-xs"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold bg-[#991b1b] hover:bg-[#7f1d1d] text-white px-5 py-2.5 rounded-full shadow-xs self-start sm:self-auto"
           >
             <span>Explore Menu</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
+        </div>
+
+        {/* Quick Order Search / Tracker Form */}
+        <div className="bg-white rounded-2xl p-4 sm:p-6 border border-stone-200/80 shadow-xs mb-8">
+          <h2 className="text-sm font-bold text-stone-900 mb-2 flex items-center gap-2">
+            <Search className="w-4 h-4 text-amber-600" />
+            <span>Have an Order Number?</span>
+          </h2>
+          <form onSubmit={handleTrackSubmit} className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="text"
+              placeholder="Enter Order ID or Number (e.g. JB-20261015-1234)"
+              value={searchOrderNumber}
+              onChange={(e) => setSearchOrderNumber(e.target.value)}
+              className="flex-1 text-xs sm:text-sm px-4 py-3 rounded-xl border border-stone-300 focus:outline-hidden focus:border-[#991b1b] bg-stone-50"
+            />
+            <button
+              type="submit"
+              disabled={!searchOrderNumber.trim()}
+              className="bg-[#991b1b] hover:bg-[#7f1d1d] disabled:opacity-50 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-colors"
+            >
+              Track Live Order
+            </button>
+          </form>
         </div>
 
         {reorderNotice && (
@@ -138,115 +196,109 @@ export const OrderHistoryPage: React.FC = () => {
           </div>
         )}
 
-        {orders.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-stone-200 p-12 text-center max-w-md mx-auto">
-            <Clock className="w-16 h-16 text-stone-300 mx-auto mb-4" />
-            <h3 className="font-serif font-bold text-lg text-stone-800 mb-1">
-              No orders placed yet
+        {isLoading ? (
+          <div className="py-16 flex flex-col items-center justify-center text-center">
+            <div className="w-10 h-10 border-4 border-[#991b1b] border-t-transparent rounded-full animate-spin mb-4" />
+            <p className="text-stone-500 text-sm">Retrieving your orders...</p>
+          </div>
+        ) : orders.length === 0 ? (
+          <div className="bg-white rounded-3xl p-10 sm:p-14 border border-stone-200/80 text-center max-w-lg mx-auto shadow-xs">
+            <ShoppingBag className="w-16 h-16 text-stone-300 mx-auto mb-4 stroke-1" />
+            <h3 className="font-serif font-bold text-xl text-stone-900 mb-2">
+              No recent orders found
             </h3>
-            <p className="text-xs text-stone-500 mb-6">
-              When you order dishes, you can track them here in real-time.
+            <p className="text-stone-500 text-sm mb-6">
+              When you place an order, your live tracking and receipts will appear here automatically.
             </p>
             <Link
               to="/menu"
-              className="bg-[#991b1b] hover:bg-[#7f1d1d] text-white text-xs font-semibold px-6 py-2.5 rounded-full"
+              className="bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-full inline-block shadow-sm"
             >
-              Order Now
+              Order Something Delicious
             </Link>
           </div>
         ) : (
-          <div className="space-y-6">
-            {orders.map((order: Order) => {
-              const statusColors: Record<string, string> = {
-                PENDING: 'bg-amber-100 text-amber-800 border-amber-200',
-                CONFIRMED: 'bg-blue-100 text-blue-800 border-blue-200',
-                PREPARING: 'bg-indigo-100 text-indigo-800 border-indigo-200',
-                READY: 'bg-purple-100 text-purple-800 border-purple-200',
-                COMPLETED: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-                CANCELLED: 'bg-rose-100 text-rose-800 border-rose-200',
-              };
-
-              return (
-                <div
-                  key={order.id}
-                  className="bg-white rounded-3xl border border-stone-200/80 shadow-xs p-6 hover:shadow-md transition-shadow"
-                >
-                  <div className="flex flex-col sm:flex-row justify-between sm:items-center pb-4 border-b border-stone-100 gap-3">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-mono font-bold text-base text-stone-900">
-                          #{order.orderNumber}
-                        </span>
-                        <span className="text-stone-300">•</span>
-                        <span className="text-xs text-stone-500">
-                          {new Date(order.createdAt).toLocaleDateString('en-IN', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric',
-                          })}
-                        </span>
-                      </div>
-                      <span className="text-xs text-stone-500 uppercase tracking-wider font-semibold">
-                        {order.orderType} • Payment: {order.paymentMethod} ({order.paymentStatus})
+          <div className="space-y-4 sm:space-y-6">
+            {orders.map((order) => (
+              <div
+                key={order.id}
+                className="bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 p-5 sm:p-6 shadow-xs hover:shadow-md transition-shadow"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-100 gap-3">
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <span className="font-serif font-bold text-base sm:text-lg text-stone-900">
+                        #{order.orderNumber}
                       </span>
+                      {getStatusBadge(order.status)}
                     </div>
-
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={`text-xs font-bold px-3 py-1 rounded-full border uppercase tracking-wider ${
-                          statusColors[order.status] || 'bg-stone-100 text-stone-700'
-                        }`}
-                      >
-                        {order.status}
-                      </span>
-                      <span className="font-serif font-bold text-lg text-stone-900">
-                        {formatPrice(order.total)}
+                    <div className="flex items-center gap-2 text-xs text-stone-400">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>{new Date(order.createdAt).toLocaleString()}</span>
+                      <span>•</span>
+                      <span className="uppercase font-semibold tracking-wider text-stone-500">
+                        {order.orderType}
                       </span>
                     </div>
                   </div>
 
-                  {/* Items list preview */}
-                  <div className="py-4 space-y-1.5 text-xs text-stone-600">
-                    {order.items.map((item: OrderItem) => (
-                      <div key={item.id} className="flex justify-between">
-                        <span>
-                          <strong className="text-stone-800">{item.quantity}x</strong> {item.itemName}{' '}
-                          {item.variationName && `(${item.variationName})`}
-                        </span>
-                        <span className="font-medium text-stone-800">
-                          {formatPrice(item.subtotal)}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Action buttons */}
-                  <div className="pt-4 border-t border-stone-100 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 self-end sm:self-auto">
+                    <span className="font-bold text-lg text-stone-900">
+                      {formatPrice(order.total)}
+                    </span>
                     <Link
                       to={`/orders/${order.id}`}
-                      className="text-xs font-bold text-[#991b1b] hover:text-[#7f1d1d] inline-flex items-center gap-1"
+                      className="bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold px-4 py-2 rounded-xl transition-colors flex items-center gap-1"
                     >
-                      <span>Track / View Receipt</span>
+                      <span>Track</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
-
-                    <button
-                      onClick={() => handleReorder(order)}
-                      disabled={reorderingId === order.id}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold bg-stone-900 hover:bg-stone-800 disabled:opacity-50 text-white px-4 py-2 rounded-xl transition-all shadow-xs"
-                    >
-                      <RotateCw
-                        className={`w-3.5 h-3.5 ${reorderingId === order.id ? 'animate-spin' : ''}`}
-                      />
-                      <span>Re-Order Dishes</span>
-                    </button>
                   </div>
                 </div>
-              );
-            })}
+
+                <div className="py-4 space-y-2">
+                  {order.items.map((item, idx) => (
+                    <div key={idx} className="flex justify-between items-center text-xs sm:text-sm">
+                      <div className="text-stone-700">
+                        <span className="font-semibold text-stone-900">{item.quantity}x</span>{' '}
+                        <span>{item.itemName}</span>
+                        {item.variationName && (
+                          <span className="text-stone-400 text-xs ml-1.5">
+                            ({item.variationName})
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-stone-500 font-medium">
+                        {formatPrice(item.subtotal)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="pt-4 border-t border-stone-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                  <span className="text-stone-500">
+                    Payment:{' '}
+                    <strong className="text-stone-700 uppercase">
+                      {order.paymentMethod} ({order.paymentStatus})
+                    </strong>
+                  </span>
+
+                  <button
+                    onClick={() => handleReorder(order)}
+                    disabled={reorderingId === order.id}
+                    className="inline-flex items-center gap-1.5 font-bold text-[#991b1b] hover:text-[#7f1d1d] py-1 transition-colors self-start sm:self-auto"
+                  >
+                    <RotateCw className={`w-3.5 h-3.5 ${reorderingId === order.id ? 'animate-spin' : ''}`} />
+                    <span>Re-order Meals</span>
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
     </div>
   );
 };
+
+export default OrderHistoryPage;

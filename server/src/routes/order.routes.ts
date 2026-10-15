@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { OrderController } from '../controllers/order.controller.js';
-import { requireAuth, requireAdmin } from '../middlewares/auth.middleware.js';
+import { requireAuth, requireAdmin, optionalAuth } from '../middlewares/auth.middleware.js';
 import { validateBody } from '../middlewares/validation.middleware.js';
 import {
   calculateCartSchema,
@@ -13,10 +13,10 @@ const router = Router();
 // Public cart calculations (backend-verified pricing)
 router.post('/calculate', validateBody(calculateCartSchema), OrderController.calculateCart);
 
-// Customer order operations
-router.post('/', requireAuth, validateBody(createOrderSchema), OrderController.createOrder);
-router.get('/customer', requireAuth, OrderController.getCustomerOrders);
-router.get('/:id', requireAuth, OrderController.getOrderById);
+// Customer order operations (guest checkout supported without sign-in/registration)
+router.post('/', optionalAuth, validateBody(createOrderSchema), OrderController.createOrder);
+router.get('/customer', optionalAuth, OrderController.getCustomerOrders);
+router.get('/:id', optionalAuth, OrderController.getOrderById);
 
 // Admin order operations
 router.get('/admin/list', requireAuth, requireAdmin, OrderController.getAdminOrders);

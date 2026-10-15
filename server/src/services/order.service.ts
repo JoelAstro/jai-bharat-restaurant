@@ -1,4 +1,5 @@
 import prisma from '../config/prisma.js';
+import bcrypt from 'bcryptjs';
 import { CouponService } from './coupon.service.js';
 import { SettingService } from './setting.service.js';
 
@@ -125,7 +126,7 @@ export class OrderService {
    * Create order in database inside a safe transaction
    */
   static async createOrder(data: {
-    userId: string;
+    userId?: string;
     items: CartItemInput[];
     orderType: 'DELIVERY' | 'TAKEAWAY';
     paymentMethod: 'RAZORPAY' | 'COD';
@@ -141,15 +142,49 @@ export class OrderService {
     };
     customerName: string;
     customerPhone: string;
-    customerEmail: string;
+    customerEmail?: string;
   }) {
     // 1. Calculate and validate entire cart
     const calculation = await this.calculateCart(data.items, data.couponCode, data.orderType);
 
-    // 2. Validate delivery address if Delivery
+    // 2. Resolve customer user account (zero registration friction)
+    const effectiveEmail = (
+      data.customerEmail && data.customerEmail.trim()
+        ? data.customerEmail.trim().toLowerCase()
+        : `${data.customerPhone.trim()}@customer.jaibharat.com`
+    );
+
+    let assignedUserId = data.userId;
+    if (!assignedUserId) {
+      // Find existing customer by email or phone
+      let existingCustomer = await prisma.user.findFirst({
+        where: {
+          OR: [
+            { email: effectiveEmail },
+            { phone: data.customerPhone.trim() },
+          ],
+        },
+      });
+
+      if (!existingCustomer) {
+        const dummyHash = await bcrypt.hash(`guest_${Date.now()}_${Math.random()}`, 10);
+        existingCustomer = await prisma.user.create({
+          data: {
+            email: effectiveEmail,
+            phone: data.customerPhone.trim(),
+            name: data.customerName.trim(),
+            passwordHash: dummyHash,
+            role: 'CUSTOMER',
+          },
+        });
+      }
+      assignedUserId = existingCustomer.id;
+    }
+
+    // 3. Validate delivery address if Delivery
     let addressSnapshot = null;
     if (data.orderType === 'DELIVERY') {
-      if (data.addressId) {
+      if (data.addressId && data.userId) {
         const address = await prisma.address.findFirst({
           where: { id: data.addressId, userId: data.userId },
         });
@@ -164,12 +199,12 @@ export class OrderService {
       }
     }
 
-    // 3. Generate human-friendly sequential order number: JB-YYYYMMDD-XXXX
+    // 4. Generate human-friendly sequential order number: JB-YYYYMMDD-XXXX
     const todayStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const orderNumber = `JB-${todayStr}-${randomSuffix}`;
 
-    // 4. Execute atomic creation in transaction
+    // 5. Execute atomic creation in transaction
     const order = await prisma.$transaction(async (tx: any) => {
       // If coupon used, increment timesUsed
       if (calculation.appliedCoupon) {
@@ -182,7 +217,7 @@ export class OrderService {
       const newOrder = await tx.order.create({
         data: {
           orderNumber,
-          userId: data.userId,
+          userId: assignedUserId,
           orderType: data.orderType,
           status: 'PENDING',
           paymentMethod: data.paymentMethod,
@@ -197,7 +232,7 @@ export class OrderService {
           deliveryAddressSnapshot: addressSnapshot,
           customerName: data.customerName.trim(),
           customerPhone: data.customerPhone.trim(),
-          customerEmail: data.customerEmail.toLowerCase().trim(),
+          customerEmail: effectiveEmail,
           items: {
             create: calculation.items.map((val) => ({
               menuItemId: val.menuItem.id,
@@ -232,7 +267,7 @@ export class OrderService {
       // Create notification for customer
       await tx.notification.create({
         data: {
-          userId: data.userId,
+          userId: assignedUserId,
           title: 'Order Placed Successfully!',
           message: `Your order #${orderNumber} for ₹${(calculation.totalPaise / 100).toFixed(0)} has been received.`,
         },

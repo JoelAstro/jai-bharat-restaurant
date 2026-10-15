@@ -17,7 +17,7 @@ export class OrderController {
   static async createOrder(req: AuthenticatedRequest, res: Response) {
     try {
       const order = await OrderService.createOrder({
-        userId: req.user!.userId,
+        userId: req.user?.userId,
         ...req.body,
       });
       return sendSuccess(res, order, 'Order created successfully', 201);
@@ -28,7 +28,10 @@ export class OrderController {
 
   static async getCustomerOrders(req: AuthenticatedRequest, res: Response) {
     try {
-      const orders = await OrderService.getCustomerOrders(req.user!.userId);
+      if (!req.user?.userId) {
+        return sendSuccess(res, []);
+      }
+      const orders = await OrderService.getCustomerOrders(req.user.userId);
       return sendSuccess(res, orders);
     } catch (err: any) {
       return sendError(res, err.message, 400);

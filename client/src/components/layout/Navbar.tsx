@@ -205,14 +205,7 @@ export const Navbar: React.FC = () => {
                     </div>
                   )}
                 </div>
-              ) : (
-                <button
-                  onClick={() => navigate('/auth')}
-                  className="hidden sm:inline-flex text-xs font-bold uppercase tracking-wider text-white hover:text-amber-300 transition-colors"
-                >
-                  Sign in
-                </button>
-              )}
+              ) : null}
 
               {/* Bawarchi-Style Solid Black "Order" / "Order Online" Button */}
               <Link
@@ -279,15 +272,6 @@ export const Navbar: React.FC = () => {
             >
               Track Order / History
             </Link>
-            {!user && (
-              <Link
-                to="/auth"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-xl text-amber-300 font-bold text-sm bg-black/20"
-              >
-                Customer Sign In
-              </Link>
-            )}
             {isAdmin && (
               <Link
                 to="/admin"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, Heart, SlidersHorizontal } from 'lucide-react';
 import { MenuItem } from '../../types/index.js';
 import { VegBadge } from './VegBadge.js';
@@ -25,6 +25,17 @@ export const FoodCard: React.FC<FoodCardProps> = ({
   const { user } = useAuth();
   const [favoriteActive, setFavoriteActive] = useState(isFavorited);
 
+  useEffect(() => {
+    if (!user) {
+      try {
+        const storedFavs: string[] = JSON.parse(localStorage.getItem('jb_favorites') || '[]');
+        setFavoriteActive(storedFavs.includes(item.id));
+      } catch {}
+    } else {
+      setFavoriteActive(isFavorited);
+    }
+  }, [item.id, isFavorited, user]);
+
   const hasOptions =
     (item.variations && item.variations.length > 0) ||
     (item.addons && item.addons.length > 0);
@@ -42,7 +53,19 @@ export const FoodCard: React.FC<FoodCardProps> = ({
   const handleFavoriteClick = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!user) {
-      alert('Please log in to save dishes to your favorites.');
+      try {
+        const storedFavs: string[] = JSON.parse(localStorage.getItem('jb_favorites') || '[]');
+        let updated: string[];
+        if (storedFavs.includes(item.id)) {
+          updated = storedFavs.filter((id) => id !== item.id);
+          setFavoriteActive(false);
+        } else {
+          updated = [...storedFavs, item.id];
+          setFavoriteActive(true);
+        }
+        localStorage.setItem('jb_favorites', JSON.stringify(updated));
+        if (onToggleFavorite) onToggleFavorite(item.id);
+      } catch {}
       return;
     }
     try {

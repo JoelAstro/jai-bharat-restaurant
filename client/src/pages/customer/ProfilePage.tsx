@@ -32,7 +32,7 @@ export const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/auth');
+      navigate('/orders');
       return;
     }
     setName(user.name);
