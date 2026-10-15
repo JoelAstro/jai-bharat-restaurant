@@ -1,52 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Hero } from '../../components/home/Hero.js';
-import { HomeAboutSection } from '../../components/home/HomeAboutSection.js';
 import { BawarchiCategoryGrid } from '../../components/home/BawarchiCategoryGrid.js';
 import { FreshnessShowcase } from '../../components/home/FreshnessShowcase.js';
-import { FeaturedDishes } from '../../components/home/FeaturedDishes.js';
-import { OffersBanner } from '../../components/home/OffersBanner.js';
-import { OwnerInfoNotice } from '../../components/home/OwnerInfoNotice.js';
+import { HomeQuoteSection } from '../../components/home/HomeQuoteSection.js';
+import { CustomerReviewsSection } from '../../components/home/CustomerReviewsSection.js';
+import { FindYourJaiBharat } from '../../components/home/FindYourJaiBharat.js';
 import { ItemCustomizerModal } from '../../components/menu/ItemCustomizerModal.js';
 import { MenuItem } from '../../types/index.js';
-import { api } from '../../services/api.js';
 
 export const HomePage: React.FC = () => {
-  const [featuredItems, setFeaturedItems] = useState<MenuItem[]>([]);
   const [selectedItemForCustomization, setSelectedItemForCustomization] =
     useState<MenuItem | null>(null);
 
-  useEffect(() => {
-    api
-      .getMenuItems({ isFeatured: true })
-      .then((items) => setFeaturedItems(items))
-      .catch((err) => console.error('Error fetching featured items:', err));
-  }, []);
-
   return (
     <div>
-      {/* 1. Bawarchi-Style Split Editorial Hero with Nandigama Announcement Ticker & Video Banner */}
+      {/* 1 & 2. Bawarchi-Style Split Editorial Hero & Continuously Moving Announcement Bar */}
       <Hero />
 
-      {/* 2. About Jai Bharat Family Restaurant in Nandigama */}
-      <HomeAboutSection />
-
-      {/* 3. "Flavors You Can't Resist!" 8-Category Visual Grid with Solid Red Banners */}
+      {/* 3. "Flavors You Can't Resist!" 8-Category Visual Grid */}
       <BawarchiCategoryGrid />
 
-      {/* 3. "Freshness. Hospitality" Kitchen Gallery Carousel */}
+      {/* 4. "Sealed. Steamed. Served." Food Preparation & Freshness Showcase */}
       <FreshnessShowcase />
 
-      {/* 4. Featured Specialities from Real Database Menu */}
-      <FeaturedDishes
-        items={featuredItems}
-        onCustomize={(item) => setSelectedItemForCustomization(item)}
-      />
+      {/* 5. Inspirational Quote Section */}
+      <HomeQuoteSection />
 
-      {/* 5. Special Promotional Offers & Coupons */}
-      <OffersBanner />
+      {/* 6. "What Our Customers Are Saying" Animated Customer Review Cards */}
+      <CustomerReviewsSection />
 
-      {/* 6. Location, Hours, & Hospitality Notice */}
-      <OwnerInfoNotice />
+      {/* 7. "Find Your Jai Bharat" Dedicated Building Photo Card & Nandigama Discovery */}
+      <FindYourJaiBharat />
 
       {/* Food Customization Modal */}
       <ItemCustomizerModal

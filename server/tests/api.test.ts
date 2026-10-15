@@ -13,8 +13,8 @@ describe('Jai Bharat Family Restaurant API Integration Tests', () => {
     const adminRes = await request(app)
       .post('/api/auth/login')
       .send({
-        email: 'admin@jaibharatrestaurant.com',
-        password: 'JaiBharatAdmin2026!',
+        email: process.env.ADMIN_EMAIL || 'joelramieddy@gmail.com',
+        password: process.env.ADMIN_PASSWORD || 'JaiBharatAdmin2026!',
       });
     expect(adminRes.status).toBe(200);
     adminToken = adminRes.body.data.token;

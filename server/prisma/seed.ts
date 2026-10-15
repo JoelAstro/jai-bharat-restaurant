@@ -10,7 +10,7 @@ async function main() {
   console.log('--- Seeding Jai Bharat Family Restaurant Database ---');
 
   // 1. Initial Admin User
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@jaibharatrestaurant.com';
+  const adminEmail = process.env.ADMIN_EMAIL || 'joelramieddy@gmail.com';
   const adminPassword = process.env.ADMIN_PASSWORD || 'JaiBharatAdmin2026!';
   const adminPasswordHash = await bcrypt.hash(adminPassword, 10);
 

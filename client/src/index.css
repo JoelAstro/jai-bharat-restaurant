@@ -42,9 +42,32 @@ body {
   animation-play-state: paused;
 }
 
+/* Continuous Horizontal Customer Reviews Ticker */
+@keyframes continuous-reviews-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-reviews-marquee {
+  display: flex;
+  width: max-content;
+  animation: continuous-reviews-scroll 36s linear infinite;
+  will-change: transform;
+}
+
+.animate-reviews-marquee:hover {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-ticker-marquee {
+  .animate-ticker-marquee,
+  .animate-reviews-marquee {
     animation: none !important;
     transform: none !important;
   }
 }
+
