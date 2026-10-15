@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ShieldCheck, Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, AlertCircle, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.js';
 import { useRestaurant } from '../../context/RestaurantContext.js';
 
 export const AdminLoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const { settings } = useRestaurant();
   const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ export const AdminLoginPage: React.FC = () => {
     try {
       const user = await login(email.trim(), password);
       if (user.role !== 'ADMIN') {
+        logout();
         throw new Error('Access denied. Administrator privileges required.');
       }
       navigate('/admin');
@@ -77,15 +79,28 @@ export const AdminLoginPage: React.FC = () => {
               Admin Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Lock className="w-4 h-4 text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="w-full text-xs sm:text-sm pl-10 pr-3 py-3 rounded-xl border border-stone-800 bg-stone-900 text-white placeholder-stone-500 focus:outline-hidden focus:border-amber-500"
+                className="w-full text-xs sm:text-sm pl-10 pr-10 py-3 rounded-xl border border-stone-800 bg-stone-900 text-white placeholder-stone-500 focus:outline-hidden focus:border-amber-500"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-200 transition-colors focus:outline-hidden"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                title={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? (
+                  <EyeOff className="w-4 h-4" />
+                ) : (
+                  <Eye className="w-4 h-4" />
+                )}
+              </button>
             </div>
           </div>
 
