@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext.js';
 import { useCart } from '../../context/CartContext.js';
 
@@ -30,9 +29,6 @@ const TickerPhrase: React.FC = () => (
 export const Hero: React.FC = () => {
   const { settings } = useRestaurant();
   const { setOrderType } = useCart();
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -181,66 +177,7 @@ export const Hero: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* 3. Full-Width Sizzling Cooking Video Showcase Section */}
-      <div className="relative bg-stone-950 text-white overflow-hidden py-14 sm:py-20 border-t border-stone-800">
-        {/* Background Poster (Instant Fallback) */}
-        <img
-          src="/images/restaurant-hero-poster.webp"
-          alt="Jai Bharat Cooking Ambience"
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
-            videoLoaded && !videoFailed && isPlaying ? 'opacity-30' : 'opacity-60'
-          }`}
-          loading="eager"
-        />
-
-        {/* Video Element */}
-        {!prefersReducedMotion && !videoFailed && (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/images/restaurant-hero-poster.webp"
-            onLoadedData={() => setVideoLoaded(true)}
-            onError={() => {
-              console.info('Hero video asset not available. Displaying high-res cooking poster.');
-              setVideoFailed(true);
-            }}
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
-              videoLoaded && isPlaying ? 'opacity-40' : 'opacity-0'
-            }`}
-          >
-            <source src="/videos/restaurant-hero.mp4" type="video/mp4" />
-          </video>
-        )}
-
-        <div className="absolute inset-0 bg-gradient-to-r from-stone-950 via-stone-950/70 to-stone-950/90 pointer-events-none" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl space-y-4">
-            <span className="text-xs uppercase font-bold tracking-widest text-amber-400">
-              Live From Our Kitchen
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-serif font-bold text-white tracking-tight">
-              Sizzling Tawa, Aromatic Spices, Pure Passion.
-            </h2>
-            <p className="text-stone-300 text-xs sm:text-sm leading-relaxed">
-              Watch our chefs prepare authentic Indian curries, tandoor flatbreads, and sizzling kebabs made to order.
-            </p>
-            <div className="pt-2">
-              <Link
-                to="/menu"
-                className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shadow-md"
-              >
-                <span>Browse Full Menu</span>
-                <ArrowRight className="w-4 h-4 text-stone-950" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
+

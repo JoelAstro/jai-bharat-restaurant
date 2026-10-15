@@ -56,7 +56,7 @@ export const FreshnessShowcase: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <h2 className="text-3xl sm:text-5xl font-serif font-bold text-stone-900 tracking-tight mb-3">
-            Freshness. Hospitality
+            Sealed. Steamed. Served.
           </h2>
           <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
             Authentic Indian cuisine made fresh daily, using quality ingredients and traditional recipes for bold, unforgettable flavors.
