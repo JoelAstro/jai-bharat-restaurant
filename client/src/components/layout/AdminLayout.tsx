@@ -14,6 +14,7 @@ import {
   X,
   ShieldCheck,
   Image as ImageIcon,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext.js';
 import { useRestaurant } from '../../context/RestaurantContext.js';
@@ -41,6 +42,7 @@ export const AdminLayout: React.FC = () => {
   const navItems = [
     { name: 'Overview', path: '/admin', icon: LayoutDashboard },
     { name: 'Live Orders', path: '/admin/orders', icon: ShoppingBag },
+    { name: 'Content Manager', path: '/admin/manager', icon: Sparkles },
     { name: 'Menu & Dishes', path: '/admin/menu', icon: UtensilsCrossed },
     { name: 'Website Images', path: '/admin/images', icon: ImageIcon },
     { name: 'Customers', path: '/admin/customers', icon: Users },

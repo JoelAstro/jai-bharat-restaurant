@@ -1,4 +1,5 @@
 import prisma from '../config/prisma.js';
+import { deleteCloudinaryImage } from '../controllers/upload.controller.js';
 
 export class MenuService {
   // --- Categories ---
@@ -256,6 +257,13 @@ export class MenuService {
   }
 
   static async deleteMenuItem(id: string) {
+    const item = await prisma.menuItem.findUnique({ where: { id } });
+    if (!item) throw new Error('Menu item not found.');
+
+    if (item.cloudinaryPublicId) {
+      await deleteCloudinaryImage(item.cloudinaryPublicId);
+    }
+
     return prisma.menuItem.delete({
       where: { id },
     });

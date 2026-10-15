@@ -4,9 +4,12 @@ import { requireAuth, requireAdmin } from '../middlewares/auth.middleware.js';
 import { validateBody } from '../middlewares/validation.middleware.js';
 import { categorySchema, menuItemSchema } from '../schemas/menu.schema.js';
 
+import { getMenu } from '../controllers/content.controller.js';
+
 const router = Router();
 
 // Public menu browsing routes
+router.get('/', getMenu);
 router.get('/categories', MenuController.getCategories);
 router.get('/items', MenuController.getMenuItems);
 router.get('/items/:id', MenuController.getMenuItemById);

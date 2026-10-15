@@ -91,3 +91,20 @@ export async function deleteImage(req: Request, res: Response): Promise<any> {
     return sendError(res, error.message || 'Failed to delete image.', 500);
   }
 }
+
+export async function deleteCloudinaryImage(publicId: string): Promise<boolean> {
+  if (!isCloudinaryConfigured() || !publicId) {
+    return false;
+  }
+  try {
+    const result = await cloudinary.uploader.destroy(publicId, {
+      resource_type: 'image',
+      invalidate: true,
+    });
+    return result.result === 'ok';
+  } catch (error) {
+    console.error(`[Cloudinary Destroy Error] Failed to destroy ${publicId}:`, error);
+    return false;
+  }
+}
+

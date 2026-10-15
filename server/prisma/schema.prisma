@@ -46,15 +46,16 @@ model Address {
 }
 
 model Category {
-  id           String     @id @default(uuid())
-  name         String
-  slug         String     @unique
-  description  String?
-  displayOrder Int        @default(0)
-  isActive     Boolean    @default(true)
-  imageUrl     String?
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  id                 String     @id @default(uuid())
+  name               String
+  slug               String     @unique
+  description        String?
+  displayOrder       Int        @default(0)
+  isActive           Boolean    @default(true)
+  imageUrl           String?
+  cloudinaryPublicId String?    @map("cloudinary_public_id")
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
 
   items MenuItem[]
 
@@ -62,18 +63,19 @@ model Category {
 }
 
 model MenuItem {
-  id          String          @id @default(uuid())
-  categoryId  String
-  category    Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
-  name        String
-  description String
-  price       Int             // Price in paise (e.g. 25000 = ₹250.00)
-  isVeg       Boolean         @default(true)
-  isAvailable Boolean         @default(true)
-  isFeatured  Boolean         @default(false)
-  imageUrl    String?
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+  id                 String          @id @default(uuid())
+  categoryId         String
+  category           Category        @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  name               String
+  description        String
+  price              Int             // Price in paise (e.g. 25000 = ₹250.00)
+  isVeg              Boolean         @default(true)
+  isAvailable        Boolean         @default(true)
+  isFeatured         Boolean         @default(false)
+  imageUrl           String?
+  cloudinaryPublicId String?         @map("cloudinary_public_id")
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
 
   variations ItemVariation[]
   addons     ItemAddon[]
@@ -108,19 +110,21 @@ model ItemAddon {
 }
 
 model Coupon {
-  id             String    @id @default(uuid())
-  code           String    @unique
-  description    String?
-  discountType   String    // "PERCENTAGE" | "FIXED"
-  discountValue  Int       // Percentage (e.g., 20 for 20%) or Fixed amount in paise (e.g., 5000 for ₹50)
-  minOrderAmount Int       @default(0) // in paise
-  maxDiscount    Int?      // in paise (maximum discount for percentage coupons)
-  expiresAt      DateTime?
-  usageLimit     Int?      // Max global times this coupon can be used
-  timesUsed      Int       @default(0)
-  isActive       Boolean   @default(true)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id                 String    @id @default(uuid())
+  code               String    @unique
+  description        String?
+  discountType       String    // "PERCENTAGE" | "FIXED"
+  discountValue      Int       // Percentage (e.g., 20 for 20%) or Fixed amount in paise (e.g., 5000 for ₹50)
+  minOrderAmount     Int       @default(0) // in paise
+  maxDiscount        Int?      // in paise (maximum discount for percentage coupons)
+  imageUrl           String?   @map("image_url")
+  cloudinaryPublicId String?   @map("cloudinary_public_id")
+  expiresAt          DateTime?
+  usageLimit         Int?      // Max global times this coupon can be used
+  timesUsed          Int       @default(0)
+  isActive           Boolean   @default(true)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
   @@index([code])
   @@index([isActive])
@@ -238,19 +242,78 @@ model RestaurantSetting {
 }
 
 model WebsiteImage {
-  id           String   @id @default(uuid())
-  section      String   // "hero" | "categories" | "dum_ritual" | "about" | "owner" | "building"
-  title        String
-  imageUrl     String
-  altText      String?
-  displayOrder Int      @default(0)
-  isDefault    Boolean  @default(false)
-  isEnabled    Boolean  @default(true)
-  metadata     String?  // Optional JSON for custom metadata (e.g. slug for categories, step description)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                 String   @id @default(uuid())
+  section            String   // "hero" | "categories" | "dum_ritual" | "about" | "owner" | "building"
+  title              String
+  imageUrl           String
+  cloudinaryPublicId String?  @map("cloudinary_public_id")
+  altText            String?
+  displayOrder       Int      @default(0)
+  isDefault          Boolean  @default(false)
+  isEnabled          Boolean  @default(true)
+  metadata           String?  // Optional JSON for custom metadata (e.g. slug for categories, step description)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   @@index([section])
   @@index([isEnabled])
   @@index([displayOrder])
 }
+
+model HomeBanner {
+  id                 String   @id @default(uuid())
+  title              String
+  subtitle           String?
+  imageUrl           String   @map("image_url")
+  cloudinaryPublicId String?  @map("cloudinary_public_id")
+  buttonText         String?  @map("button_text")
+  buttonLink         String?  @map("button_link")
+  displayOrder       Int      @default(0) @map("display_order")
+  isActive           Boolean  @default(true) @map("is_active")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@map("home_banners")
+  @@index([isActive])
+  @@index([displayOrder])
+}
+
+model AboutSection {
+  id                 String   @id @default(uuid())
+  sectionKey         String   @unique @map("section_key")
+  title              String
+  subtitle           String?
+  content            String
+  imageUrl           String?  @map("image_url")
+  cloudinaryPublicId String?  @map("cloudinary_public_id")
+  displayOrder       Int      @default(0) @map("display_order")
+  isActive           Boolean  @default(true) @map("is_active")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  @@map("about_sections")
+  @@index([sectionKey])
+  @@index([isActive])
+}
+
+model Offer {
+  id                 String    @id @default(uuid())
+  title              String
+  description        String?
+  code               String    @unique
+  discountType       String    @default("PERCENTAGE") @map("discount_type") // "PERCENTAGE" | "FIXED"
+  discountValue      Int       @map("discount_value")
+  minOrderAmount     Int       @default(0) @map("min_order_amount")
+  maxDiscount        Int?      @map("max_discount")
+  imageUrl           String?   @map("image_url")
+  cloudinaryPublicId String?   @map("cloudinary_public_id")
+  expiresAt          DateTime? @map("expires_at")
+  isActive           Boolean   @default(true) @map("is_active")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  @@map("offers")
+  @@index([code])
+  @@index([isActive])
+}
+

@@ -280,6 +280,58 @@ export const api = {
     request<void>(`/images/${id}`, {
       method: 'DELETE',
     }),
+
+  // Public Customer-Facing Section Endpoints
+  getPublicHomeBanners: () => request<any[]>('/home/banners'),
+  getPublicMenu: () => request<any[]>('/menu'),
+  getPublicAbout: () => request<any[]>('/about'),
+  getPublicOffers: () => request<any[]>('/offers'),
+
+  // Dedicated Admin Content Manager Endpoints
+  getAdminHomeBanners: () => request<any[]>('/admin/home/banners'),
+  createAdminHomeBanner: (formData: FormData) =>
+    request<any>('/admin/home/banner', {
+      method: 'POST',
+      body: formData,
+    }),
+  deleteAdminHomeBanner: (id: string) =>
+    request<any>(`/admin/home/banner/${id}`, {
+      method: 'DELETE',
+    }),
+
+  createAdminCategory: (formData: FormData) =>
+    request<any>('/admin/menu/category', {
+      method: 'POST',
+      body: formData,
+    }),
+
+  createAdminMenuItem: (formData: FormData) =>
+    request<any>('/admin/menu/item', {
+      method: 'POST',
+      body: formData,
+    }),
+  deleteAdminMenuItem: (id: string) =>
+    request<any>(`/admin/menu/item/${id}`, {
+      method: 'DELETE',
+    }),
+
+  getAdminAbout: () => request<any[]>('/admin/about'),
+  updateAdminAboutSection: (sectionKey: string, formData: FormData) =>
+    request<any>(`/admin/about/${sectionKey}`, {
+      method: 'PUT',
+      body: formData,
+    }),
+
+  getAdminOffers: () => request<any[]>('/admin/offers'),
+  createAdminOffer: (formData: FormData) =>
+    request<any>('/admin/offers', {
+      method: 'POST',
+      body: formData,
+    }),
+  deleteAdminOffer: (id: string) =>
+    request<any>(`/admin/offers/${id}`, {
+      method: 'DELETE',
+    }),
 };
 
 export interface WebsiteImageItem {
