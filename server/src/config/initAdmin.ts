@@ -6,9 +6,9 @@ import prisma from './prisma.js';
  * updating any existing admin account without creating duplicate accounts.
  */
 export async function ensureAdminAccount() {
-  const adminEmail = (process.env.ADMIN_EMAIL || 'joelramireddy@gmail.com').toLowerCase().trim();
-  const adminPassword = process.env.ADMIN_PASSWORD || 'Joel@2007';
-  const adminName = process.env.ADMIN_NAME || 'Joel Ramireddy';
+  const adminEmail = (process.env.ADMIN_EMAIL || 'jaibharath@gmail.com').toLowerCase().trim();
+  const adminPassword = process.env.ADMIN_PASSWORD || 'JaiBharath@2026';
+  const adminName = process.env.ADMIN_NAME || 'Jai Bharat Administrator';
   const adminPhone = process.env.ADMIN_PHONE || '9876543210';
 
   try {
