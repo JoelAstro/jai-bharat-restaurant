@@ -9,6 +9,7 @@ import reportRoutes from './report.routes.js';
 import customerRoutes from './customer.routes.js';
 import favoriteRoutes from './favorite.routes.js';
 import uploadRoutes from './upload.routes.js';
+import imageRoutes from './image.routes.js';
 
 const apiRouter = Router();
 
@@ -22,5 +23,6 @@ apiRouter.use('/reports', reportRoutes);
 apiRouter.use('/customers', customerRoutes);
 apiRouter.use('/favorites', favoriteRoutes);
 apiRouter.use('/upload', uploadRoutes);
+apiRouter.use('/images', imageRoutes);
 
 export default apiRouter;

@@ -10,6 +10,10 @@ import { ENV } from './config/env.js';
 
 export const app = express();
 
+// Serve uploaded assets
+const uploadsPath = path.resolve(process.cwd(), 'uploads');
+app.use('/uploads', express.static(uploadsPath));
+
 // Security HTTP headers
 app.use(
   helmet({
@@ -52,6 +56,7 @@ app.use(express.urlencoded({ extended: true }));
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 50, // limit each IP to 50 login/register requests per windowMs
+  skip: () => process.env.NODE_ENV === 'test',
   standardHeaders: true,
   legacyHeaders: false,
   message: {

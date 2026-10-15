@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../../services/api.js';
 
 interface CategoryCard {
   title: string;
@@ -7,51 +8,85 @@ interface CategoryCard {
   imageUrl: string;
 }
 
+const defaultCategories: CategoryCard[] = [
+  {
+    title: 'Appetizers',
+    categorySlug: 'starters',
+    imageUrl: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80',
+  },
+  {
+    title: 'Indo-Chinese',
+    categorySlug: 'starters',
+    imageUrl: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80',
+  },
+  {
+    title: 'Signature Biryanis',
+    categorySlug: 'biryani-rice',
+    imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80',
+  },
+  {
+    title: 'Entrees & Curries',
+    categorySlug: 'main-course',
+    imageUrl: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80',
+  },
+  {
+    title: 'Fresh Tandoori Breads',
+    categorySlug: 'breads',
+    imageUrl: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?w=600&q=80',
+  },
+  {
+    title: 'Vegetarian Delicacies',
+    categorySlug: 'main-course',
+    imageUrl: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600&q=80',
+  },
+  {
+    title: 'Tandoori & Kebab Specials',
+    categorySlug: 'starters',
+    imageUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=600&q=80',
+  },
+  {
+    title: 'Desserts & Beverages',
+    categorySlug: 'desserts-beverages',
+    imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&q=80',
+  },
+];
+
 export const BawarchiCategoryGrid: React.FC = () => {
   const navigate = useNavigate();
+  const [categories, setCategories] = useState<CategoryCard[]>(defaultCategories);
 
-  const categories: CategoryCard[] = [
-    {
-      title: 'Appetizers',
-      categorySlug: 'starters',
-      imageUrl: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80',
-    },
-    {
-      title: 'Indo-Chinese',
-      categorySlug: 'starters',
-      imageUrl: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80',
-    },
-    {
-      title: 'Signature Biryanis',
-      categorySlug: 'biryani-rice',
-      imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80',
-    },
-    {
-      title: 'Entrees & Curries',
-      categorySlug: 'main-course',
-      imageUrl: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80',
-    },
-    {
-      title: 'Fresh Tandoori Breads',
-      categorySlug: 'breads',
-      imageUrl: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?w=600&q=80',
-    },
-    {
-      title: 'Vegetarian Delicacies',
-      categorySlug: 'main-course',
-      imageUrl: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600&q=80',
-    },
-    {
-      title: 'Tandoori & Kebab Specials',
-      categorySlug: 'starters',
-      imageUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=600&q=80',
-    },
-    {
-      title: 'Desserts & Beverages',
-      categorySlug: 'desserts-beverages',
-      imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&q=80',
-    },
-  ];
+  useEffect(() => {
+    let isMounted = true;
+    api
+      .getPublicImages('categories')
+      .then((data) => {
+        if (!isMounted || !data || data.length === 0) return;
+        const mapped = data.map((item, idx) => {
+          let categorySlug = defaultCategories[idx]?.categorySlug || 'menu';
+          try {
+            if (item.metadata) {
+              const meta = JSON.parse(item.metadata);
+              if (meta.categorySlug) categorySlug = meta.categorySlug;
+            }
+          } catch {
+            // Keep default
+          }
+          return {
+            title: item.title,
+            imageUrl: item.imageUrl,
+            categorySlug,
+          };
+        });
+        setCategories(mapped);
+      })
+      .catch((err) => {
+        console.warn('Using default category cards:', err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleCardClick = (slug: string) => {
     navigate(`/menu?category=${slug}`);

@@ -243,4 +243,56 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ menuItemId }),
     }),
+
+  // Website Images
+  getPublicImages: (section?: string) =>
+    request<WebsiteImageItem[]>(`/images/public${section ? `?section=${section}` : ''}`),
+  getAdminImages: (section?: string) =>
+    request<WebsiteImageItem[]>(`/images${section ? `?section=${section}` : ''}`),
+  uploadImageFile: (file: File) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    return request<{ imageUrl: string; filename: string }>('/images/upload', {
+      method: 'POST',
+      body: formData,
+    });
+  },
+  createWebsiteImage: (data: Partial<WebsiteImageItem>) =>
+    request<WebsiteImageItem>('/images', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  updateWebsiteImage: (id: string, data: Partial<WebsiteImageItem>) =>
+    request<WebsiteImageItem>(`/images/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }),
+  setDefaultWebsiteImage: (id: string) =>
+    request<WebsiteImageItem>(`/images/${id}/default`, {
+      method: 'PUT',
+    }),
+  reorderWebsiteImages: (items: { id: string; displayOrder: number; isDefault?: boolean }[]) =>
+    request<void>('/images/reorder', {
+      method: 'PUT',
+      body: JSON.stringify({ items }),
+    }),
+  deleteWebsiteImage: (id: string) =>
+    request<void>(`/images/${id}`, {
+      method: 'DELETE',
+    }),
 };
+
+export interface WebsiteImageItem {
+  id: string;
+  section: string;
+  title: string;
+  imageUrl: string;
+  altText?: string | null;
+  displayOrder: number;
+  isDefault: boolean;
+  isEnabled: boolean;
+  metadata?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+

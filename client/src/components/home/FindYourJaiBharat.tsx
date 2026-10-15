@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Clock, Phone, Navigation, ArrowRight, UploadCloud } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext.js';
+import { api } from '../../services/api.js';
 
 export const FindYourJaiBharat: React.FC = () => {
   const { settings } = useRestaurant();
+  const [buildingSrc, setBuildingSrc] = useState<string>('/images/jai-bharat-building.jpg');
   const [photoError, setPhotoError] = useState(false);
 
-  // Fallback to building placeholder SVG if the actual photograph is not yet uploaded
-  const buildingPhotoSrc = photoError
-    ? '/images/building-placeholder.svg'
-    : '/images/jai-bharat-building.jpg';
+  useEffect(() => {
+    let isMounted = true;
+    api
+      .getPublicImages('building')
+      .then((data) => {
+        if (isMounted && data && data.length > 0 && data[0].imageUrl) {
+          setBuildingSrc(data[0].imageUrl);
+        }
+      })
+      .catch((err) => {
+        console.warn('Using default building image path:', err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Fallback to building placeholder SVG if the actual photograph is missing or fails to load
+  const buildingPhotoSrc = photoError ? '/images/building-placeholder.svg' : buildingSrc;
 
   const mapQuery = encodeURIComponent(
     settings.address
@@ -20,7 +38,7 @@ export const FindYourJaiBharat: React.FC = () => {
   const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
   return (
-    <section className="py-16 sm:py-24 bg-[#faf7f0] border-b border-stone-200 relative overflow-hidden">
+    <section className="py-16 sm:py-24 bg-[#f4eee3] border-t border-[#dfd4c0] border-b border-[#dfd4c0] relative overflow-hidden">
       {/* Background Texture */}
       <div
         className="absolute inset-0 opacity-[0.035] pointer-events-none"

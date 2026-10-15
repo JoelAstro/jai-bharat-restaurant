@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Utensils,
@@ -19,10 +19,39 @@ import {
   Coffee,
 } from 'lucide-react';
 import { useRestaurant } from '../../context/RestaurantContext.js';
+import { api } from '../../services/api.js';
 
 export const AboutUsPage: React.FC = () => {
   const { settings } = useRestaurant();
   const [ownerImgSrc, setOwnerImgSrc] = useState<string>('/images/owner.jpg');
+  const [philosophyImgSrc, setPhilosophyImgSrc] = useState<string>('/images/hero/hero-2.jpg');
+
+  useEffect(() => {
+    let isMounted = true;
+    // Fetch owner image
+    api
+      .getPublicImages('owner')
+      .then((data) => {
+        if (isMounted && data && data.length > 0 && data[0].imageUrl) {
+          setOwnerImgSrc(data[0].imageUrl);
+        }
+      })
+      .catch((err) => console.warn('Using default owner image:', err));
+
+    // Fetch philosophy/about image
+    api
+      .getPublicImages('about')
+      .then((data) => {
+        if (isMounted && data && data.length > 0 && data[0].imageUrl) {
+          setPhilosophyImgSrc(data[0].imageUrl);
+        }
+      })
+      .catch((err) => console.warn('Using default philosophy image:', err));
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const tickerPhrase = (
     <div className="flex items-center shrink-0">
@@ -64,13 +93,10 @@ export const AboutUsPage: React.FC = () => {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-950 tracking-tight">
               About Us
             </h1>
-            <p className="text-stone-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
-              Discover Jai Bharat Family Restaurant, where delicious food, warm hospitality, and memorable meals come together in Nandigama.
-            </p>
           </div>
 
-          {/* Generous Vertical Gap */}
-          <div className="my-12 sm:my-20" />
+          {/* Vertical Gap */}
+          <div className="my-8 sm:my-14" />
 
           {/* Main Story Hero Section */}
           <div className="max-w-4xl mx-auto space-y-4 sm:space-y-5">
@@ -79,10 +105,9 @@ export const AboutUsPage: React.FC = () => {
               THE JAI BHARAT STORY
             </span>
 
-            {/* Main heading over two lines */}
+            {/* Main heading */}
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-950 tracking-tight leading-[1.18]">
-              Good Food, Warm Hospitality <br />
-              A Taste of Nandigama
+              Good Food. Honest Service. A Family That Cares.
             </h2>
 
             {/* Subtle, elegant gold divider with central traditional motif */}
@@ -99,10 +124,15 @@ export const AboutUsPage: React.FC = () => {
               <div className="h-[1px] w-16 sm:w-28 bg-[#c99a4c]/50" />
             </div>
 
-            {/* Short sentence below divider */}
-            <p className="text-stone-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
-              Every meal is an opportunity to share delicious flavors, welcome people with care, and bring families and friends together.
-            </p>
+            {/* Restaurant Introduction */}
+            <div className="space-y-4 text-stone-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
+              <p>
+                At Jai Bharat Family Restaurant, we believe good food brings people together. We serve delicious Indian food in a friendly, welcoming place where families can enjoy their time together.
+              </p>
+              <p>
+                Every day, we work hard to serve fresh, tasty food and make every guest feel at home. Your happiness and trust mean a lot to us.
+              </p>
+            </div>
 
             {/* Horizontally aligned buttons matching reference screenshot */}
             <div className="flex flex-row items-center justify-center gap-4 pt-6 sm:pt-8">
@@ -250,8 +280,9 @@ export const AboutUsPage: React.FC = () => {
             <div className="lg:col-span-5 relative order-2 lg:order-1">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-stone-100 group aspect-4/3 sm:aspect-square">
                 <img
-                  src="/images/hero/hero-2.jpg"
+                  src={philosophyImgSrc}
                   alt="Crispy Starters and Fresh Indian Delicacies at Jai Bharat Family Restaurant"
+                  onError={() => setPhilosophyImgSrc('/images/hero/hero-2.jpg')}
                   className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
               </div>
@@ -349,14 +380,14 @@ export const AboutUsPage: React.FC = () => {
 
                 {/* Subtle Owner Tag Overlay */}
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-stone-950 via-stone-950/80 to-transparent p-6 pt-12">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 block mb-1">
-                    LEADERSHIP & CULINARY DEDICATION
-                  </span>
                   <p className="font-serif font-bold text-white text-xl sm:text-2xl">
-                    Owner & Founder
+                    Our Owner
                   </p>
-                  <p className="text-stone-400 text-xs sm:text-sm">
-                    {settings.restaurant_name}, Nandigama
+                  <p className="text-amber-400 text-xs sm:text-sm font-medium mt-1">
+                    Jai Bharat Family Restaurant
+                  </p>
+                  <p className="text-stone-300 text-xs">
+                    Nandigama
                   </p>
                 </div>
               </div>
@@ -370,30 +401,26 @@ export const AboutUsPage: React.FC = () => {
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
-                Driven by Passion, <br className="hidden sm:inline" />
-                <span className="text-amber-400">Built on Trust and Integrity.</span>
+                A Personal Touch in Every Meal
               </h2>
 
               <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
-                Behind every flavorful recipe and smooth dining experience at <strong>{settings.restaurant_name}</strong> is a deep personal commitment to hospitality and the community of Nandigama. Guided by a lifelong appreciation for authentic Indian cooking, the restaurant was founded to provide families with a welcoming place where quality is never compromised.
+                Jai Bharat is built on a simple belief: serve good food and treat every customer like family.
               </p>
 
               <p className="text-stone-300 text-sm sm:text-base leading-relaxed">
-                From handpicking spices every morning to actively supervising the kitchen and greeting guests at the door, our owner’s hands-on leadership ensures that every dish leaving the kitchen represents the pride of our family.
+                Our owner takes pride in the food we serve and the care we show our guests. Every visit matters to us, and we always want you to leave happy and come back with a smile.
               </p>
 
               {/* Prominent Pull Quote */}
               <div className="bg-stone-900/90 border-l-4 border-amber-400 p-6 rounded-r-2xl text-left shadow-lg space-y-3">
                 <Quote className="w-8 h-8 text-amber-400/50" />
                 <p className="font-serif italic text-base sm:text-lg text-stone-100 leading-relaxed">
-                  “Our goal is simple: serve our customers with care, welcome them with warmth, and give them a reason to visit us again.”
+                  “We welcome every customer like family and serve every meal with care. Thank you for being part of our journey.”
                 </p>
                 <div className="pt-2 border-t border-stone-800">
                   <p className="font-bold text-amber-400 text-xs uppercase tracking-wider">
-                    — Owner &amp; Founder
-                  </p>
-                  <p className="text-stone-400 text-xs">
-                    Jai Bharat Family Restaurant, Nandigama
+                    — Owner, Jai Bharat Family Restaurant
                   </p>
                 </div>
               </div>

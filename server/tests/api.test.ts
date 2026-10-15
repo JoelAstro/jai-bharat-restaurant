@@ -1,6 +1,7 @@
 import request from 'supertest';
 import app from '../src/app.js';
 import prisma from '../src/config/prisma.js';
+import { ensureAdminAccount } from '../src/config/initAdmin.js';
 
 describe('Jai Bharat Family Restaurant API Integration Tests', () => {
   let customerToken: string;
@@ -9,12 +10,15 @@ describe('Jai Bharat Family Restaurant API Integration Tests', () => {
   let sampleItemId: string;
 
   beforeAll(async () => {
+    // 0. Ensure admin account exists with configured password
+    await ensureAdminAccount();
+
     // 1. Login demo admin
     const adminRes = await request(app)
       .post('/api/auth/login')
       .send({
-        email: process.env.ADMIN_EMAIL || 'joelramieddy@gmail.com',
-        password: process.env.ADMIN_PASSWORD || 'JaiBharatAdmin2026!',
+        email: process.env.ADMIN_EMAIL || 'joelramireddy@gmail.com',
+        password: process.env.ADMIN_PASSWORD || 'Joel@2007',
       });
     expect(adminRes.status).toBe(200);
     adminToken = adminRes.body.data.token;

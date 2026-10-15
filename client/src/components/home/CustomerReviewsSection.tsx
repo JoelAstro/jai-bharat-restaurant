@@ -82,7 +82,7 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
-    <div className="w-[300px] sm:w-[360px] md:w-[380px] shrink-0 bg-white rounded-2xl p-6 border border-stone-200/90 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+    <div className="w-[300px] sm:w-[360px] md:w-[380px] shrink-0 bg-white rounded-2xl p-6 border border-stone-200/90 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
       <div>
         {/* Card Header: Avatar, Name & Stars */}
         <div className="flex items-start justify-between gap-3 mb-4">
@@ -144,10 +144,19 @@ export const CustomerReviewsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-16 sm:py-24 bg-white border-b border-stone-200 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14 text-center">
+    <section className="py-16 sm:py-24 bg-[#faf7f0] border-b border-[#e2d8c6] overflow-hidden relative">
+      {/* Background Subtle Texture */}
+      <div
+        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at center, #991b1b 1.5px, transparent 1.5px)`,
+          backgroundSize: '28px 28px',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14 text-center relative z-10">
         {/* Section Heading */}
-        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#991b1b] bg-red-50 px-3.5 py-1.5 rounded-full mb-3">
+        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#991b1b] bg-red-100/70 border border-red-200/80 px-3.5 py-1.5 rounded-full mb-3">
           <span>✦</span>
           <span>Guest Testimonials</span>
           <span>✦</span>
@@ -162,10 +171,10 @@ export const CustomerReviewsSection: React.FC = () => {
       </div>
 
       {/* Continuously Moving Review Cards Row */}
-      <div className="w-full overflow-hidden select-none relative">
-        {/* Subtle Fade Gradients on edges for smooth visual entrance and exit */}
-        <div className="absolute left-0 inset-y-0 w-12 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 inset-y-0 w-12 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+      <div className="w-full overflow-hidden select-none relative z-10">
+        {/* Subtle Fade Gradients on edges for smooth visual entrance and exit matching cream bg */}
+        <div className="absolute left-0 inset-y-0 w-12 sm:w-24 bg-gradient-to-r from-[#faf7f0] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-12 sm:w-24 bg-gradient-to-l from-[#faf7f0] to-transparent z-10 pointer-events-none" />
 
         <div className="overflow-hidden w-full flex items-center">
           <div
