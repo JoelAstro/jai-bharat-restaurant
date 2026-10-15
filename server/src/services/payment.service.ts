@@ -150,7 +150,7 @@ export class PaymentService {
     }
 
     // Update order status atomically
-    return prisma.$transaction(async (tx) => {
+    return prisma.$transaction(async (tx: any) => {
       const updatedOrder = await tx.order.update({
         where: { id: order.id },
         data: {

@@ -7,10 +7,10 @@ export function validateBody(schema: ZodSchema) {
     try {
       req.body = await schema.parseAsync(req.body);
       next();
-    } catch (error) {
-      if (error instanceof ZodError) {
-        const issues = error.errors.map((err) => ({
-          field: err.path.join('.'),
+    } catch (error: any) {
+      if (error instanceof ZodError || error?.name === 'ZodError') {
+        const issues = (error.errors || []).map((err: any) => ({
+          field: Array.isArray(err.path) ? err.path.join('.') : String(err.path || ''),
           message: err.message,
         }));
         return sendError(res, 'Validation failed. Please check submitted fields.', 422, issues);
@@ -25,10 +25,10 @@ export function validateQuery(schema: ZodSchema) {
     try {
       req.query = await schema.parseAsync(req.query);
       next();
-    } catch (error) {
-      if (error instanceof ZodError) {
-        const issues = error.errors.map((err) => ({
-          field: err.path.join('.'),
+    } catch (error: any) {
+      if (error instanceof ZodError || error?.name === 'ZodError') {
+        const issues = (error.errors || []).map((err: any) => ({
+          field: Array.isArray(err.path) ? err.path.join('.') : String(err.path || ''),
           message: err.message,
         }));
         return sendError(res, 'Invalid query parameters.', 422, issues);

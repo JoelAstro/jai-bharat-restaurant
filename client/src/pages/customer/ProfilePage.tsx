@@ -141,7 +141,7 @@ export const ProfilePage: React.FC = () => {
                   type="text"
                   required
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                   className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                 />
               </div>
@@ -154,7 +154,7 @@ export const ProfilePage: React.FC = () => {
                   type="tel"
                   pattern="[0-9]{10}"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
                   placeholder="10 digit mobile"
                   className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                 />
@@ -222,7 +222,7 @@ export const ProfilePage: React.FC = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {addresses.map((addr) => (
+                  {addresses.map((addr: Address) => (
                     <div
                       key={addr.id}
                       className="p-4 rounded-2xl border border-stone-200 bg-stone-50/50 flex flex-col justify-between"
@@ -286,7 +286,7 @@ export const ProfilePage: React.FC = () => {
 
               <form onSubmit={handleCreateAddress} className="space-y-3">
                 <div className="flex gap-2 mb-2">
-                  {['Home', 'Work', 'Other'].map((label) => (
+                  {['Home', 'Work', 'Other'].map((label: string) => (
                     <button
                       type="button"
                       key={label}
@@ -310,7 +310,9 @@ export const ProfilePage: React.FC = () => {
                     type="text"
                     required
                     value={newAddress.street}
-                    onChange={(e) => setNewAddress({ ...newAddress, street: e.target.value })}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setNewAddress({ ...newAddress, street: e.target.value })
+                    }
                     placeholder="e.g. 402 Sunshine Apts"
                     className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                   />
@@ -324,7 +326,9 @@ export const ProfilePage: React.FC = () => {
                     <input
                       type="text"
                       value={newAddress.area}
-                      onChange={(e) => setNewAddress({ ...newAddress, area: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNewAddress({ ...newAddress, area: e.target.value })
+                      }
                       placeholder="e.g. MG Road"
                       className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                     />
@@ -337,7 +341,9 @@ export const ProfilePage: React.FC = () => {
                       type="text"
                       required
                       value={newAddress.city}
-                      onChange={(e) => setNewAddress({ ...newAddress, city: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNewAddress({ ...newAddress, city: e.target.value })
+                      }
                       placeholder="Bengaluru"
                       className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                     />
@@ -354,7 +360,9 @@ export const ProfilePage: React.FC = () => {
                       required
                       pattern="[0-9]{6}"
                       value={newAddress.pincode}
-                      onChange={(e) => setNewAddress({ ...newAddress, pincode: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNewAddress({ ...newAddress, pincode: e.target.value })
+                      }
                       placeholder="560001"
                       className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                     />
@@ -366,7 +374,9 @@ export const ProfilePage: React.FC = () => {
                     <input
                       type="text"
                       value={newAddress.landmark}
-                      onChange={(e) => setNewAddress({ ...newAddress, landmark: e.target.value })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNewAddress({ ...newAddress, landmark: e.target.value })
+                      }
                       placeholder="Near City Park"
                       className="w-full text-xs p-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                     />
@@ -378,7 +388,9 @@ export const ProfilePage: React.FC = () => {
                     <input
                       type="checkbox"
                       checked={newAddress.isDefault}
-                      onChange={(e) => setNewAddress({ ...newAddress, isDefault: e.target.checked })}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setNewAddress({ ...newAddress, isDefault: e.target.checked })
+                      }
                       className="rounded-sm text-[#991b1b] focus:ring-red-500"
                     />
                     <span>Set as primary default address</span>

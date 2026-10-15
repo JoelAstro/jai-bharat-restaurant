@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingBag, Clock, ArrowRight, RotateCw, AlertTriangle } from 'lucide-react';
-import { Order } from '../../types/index.js';
+import { Order, OrderItem, OrderItemAddon } from '../../types/index.js';
 import { api } from '../../services/api.js';
 import { useCart } from '../../context/CartContext.js';
 import { useRestaurant } from '../../context/RestaurantContext.js';
@@ -60,7 +60,7 @@ export const OrderHistoryPage: React.FC = () => {
 
         // Match add-ons if applicable
         const matchedAddons = liveItem.addons?.filter((addon: any) =>
-          orderItem.addons?.some((a: any) => a.addonName === addon.name)
+          orderItem.addons?.some((a: OrderItemAddon) => a.addonName === addon.name)
         ) || [];
 
         addItem(liveItem, orderItem.quantity, variation, matchedAddons);
@@ -156,7 +156,7 @@ export const OrderHistoryPage: React.FC = () => {
           </div>
         ) : (
           <div className="space-y-6">
-            {orders.map((order) => {
+            {orders.map((order: Order) => {
               const statusColors: Record<string, string> = {
                 PENDING: 'bg-amber-100 text-amber-800 border-amber-200',
                 CONFIRMED: 'bg-blue-100 text-blue-800 border-blue-200',
@@ -207,7 +207,7 @@ export const OrderHistoryPage: React.FC = () => {
 
                   {/* Items list preview */}
                   <div className="py-4 space-y-1.5 text-xs text-stone-600">
-                    {order.items.map((item) => (
+                    {order.items.map((item: OrderItem) => (
                       <div key={item.id} className="flex justify-between">
                         <span>
                           <strong className="text-stone-800">{item.quantity}x</strong> {item.itemName}{' '}

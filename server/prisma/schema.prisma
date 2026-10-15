@@ -1,12 +1,12 @@
 // Prisma Schema for Jai Bharat Family Restaurant
-// Designed for SQLite (dev/test) and 100% compatible with PostgreSQL (production)
+// Using NeonDB PostgreSQL
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

@@ -1,6 +1,7 @@
 import request from 'supertest';
 import app from '../src/app.js';
 import prisma from '../src/config/prisma.js';
+import { ensureAdminAccount } from '../src/config/initAdmin.js';
 
 describe('Website Image Management Integration Tests', () => {
   let adminToken: string;
@@ -8,6 +9,9 @@ describe('Website Image Management Integration Tests', () => {
   let testImageId: string;
 
   beforeAll(async () => {
+    // 0. Ensure admin account exists with configured password
+    await ensureAdminAccount();
+
     // 1. Authenticate admin
     const adminRes = await request(app)
       .post('/api/auth/login')

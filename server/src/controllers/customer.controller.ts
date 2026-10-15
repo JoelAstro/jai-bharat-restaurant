@@ -35,8 +35,8 @@ export class CustomerController {
         orderBy: { createdAt: 'desc' },
       });
 
-      const formatted = customers.map((c) => {
-        const totalSpendPaise = c.orders.reduce((acc, o) => acc + o.total, 0);
+      const formatted = customers.map((c: any) => {
+        const totalSpendPaise = c.orders.reduce((acc: number, o: any) => acc + o.total, 0);
         return {
           id: c.id,
           name: c.name,

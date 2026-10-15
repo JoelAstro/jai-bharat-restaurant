@@ -206,12 +206,12 @@ export class MenuService {
     const { variations, addons, ...itemData } = data;
 
     // Use transaction if variations/addons are being synchronized
-    return prisma.$transaction(async (tx) => {
+    return prisma.$transaction(async (tx: any) => {
       if (variations) {
         await tx.itemVariation.deleteMany({ where: { menuItemId: id } });
         if (variations.length > 0) {
           await tx.itemVariation.createMany({
-            data: variations.map((v) => ({
+            data: variations.map((v: any) => ({
               menuItemId: id,
               name: v.name,
               price: v.price,

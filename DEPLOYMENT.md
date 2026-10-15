@@ -90,16 +90,42 @@ pm2 startup
 
 ---
 
-## 4. Frontend Deployment
+## 4. Frontend & Render Deployment
 
-### Option A: Static Hosting (Vercel, Netlify, Cloudflare Pages)
-1. Point build command to: `cd client && npm run build`
-2. Set publish directory to: `client/dist`
-3. Configure rewrite rule in `vercel.json` or `_redirects`:
-   ```
-   /*    /index.html   200
-   ```
-4. Set API proxy or set backend URL in environment variables.
+### Option A: Render Deployment (Recommended)
+This repository includes a `render.yaml` Blueprint that automatically configures both services:
+
+#### Service 1: Backend API (Render Web Service)
+- **Root Directory:** `server`
+- **Build Command:** `npm install && npm run build`
+- **Start Command:** `npm start`
+- **Environment Variables:**
+  - `DATABASE_URL`: `postgresql://...` (your Neon connection string)
+  - `NODE_ENV`: `production`
+  - `PORT`: `5000`
+  - `JWT_SECRET`: (your secure 64-char JWT secret)
+  - `CLIENT_URL`: `https://your-frontend-domain.onrender.com`
+  - `RAZORPAY_KEY_ID`: (your key)
+  - `RAZORPAY_KEY_SECRET`: (your secret)
+  - `ADMIN_EMAIL`: `admin@jaibharatrestaurant.com`
+  - `ADMIN_PASSWORD`: (your admin password)
+
+#### Service 2: Frontend (Render Static Site)
+- **Root Directory:** `client`
+- **Build Command:** `npm install && npm run build`
+- **Publish Directory:** `dist`
+- **Rewrite Rule:** `/*` -> `/index.html` (SPA routing)
+- **Environment Variables:**
+  - `VITE_API_URL`: `https://your-backend-api.onrender.com`
+
+---
+
+### Option B: Static Hosting (Vercel, Netlify, Cloudflare Pages)
+1. Set Root Directory to: `client`
+2. Set Build Command to: `npm install && npm run build`
+3. Set Publish Directory to: `dist` (or `client/dist` if building from repo root)
+4. Set Environment Variable: `VITE_API_URL=https://your-backend-api.onrender.com`
+5. Configure SPA rewrite rule (`/*` -> `/index.html`).
 
 ### Option B: Nginx Reverse Proxy on Single VPS
 Build the client:
