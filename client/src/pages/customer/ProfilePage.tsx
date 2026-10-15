@@ -141,7 +141,7 @@ export const ProfilePage: React.FC = () => {
                   type="text"
                   required
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                   className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                 />
               </div>
@@ -154,7 +154,7 @@ export const ProfilePage: React.FC = () => {
                   type="tel"
                   pattern="[0-9]{10}"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
                   placeholder="10 digit mobile"
                   className="w-full text-xs sm:text-sm p-3 rounded-xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b]"
                 />
@@ -222,7 +222,7 @@ export const ProfilePage: React.FC = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {addresses.map((addr) => (
+                  {addresses.map((addr: Address) => (
                     <div
                       key={addr.id}
                       className="p-4 rounded-2xl border border-stone-200 bg-stone-50/50 flex flex-col justify-between"

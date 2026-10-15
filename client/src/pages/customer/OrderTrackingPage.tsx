@@ -12,7 +12,7 @@ import {
   MapPin,
   ArrowLeft,
 } from 'lucide-react';
-import { Order, OrderStatus } from '../../types/index.js';
+import { Order, OrderStatus, OrderItem, OrderItemAddon, OrderStatusHistory } from '../../types/index.js';
 import { api } from '../../services/api.js';
 import { useRestaurant } from '../../context/RestaurantContext.js';
 
@@ -219,7 +219,7 @@ export const OrderTrackingPage: React.FC = () => {
                 Status Updates Timeline
               </h3>
               <div className="space-y-3">
-                {order.statusHistory.map((hist) => (
+                {order.statusHistory.map((hist: OrderStatusHistory) => (
                   <div key={hist.id} className="flex items-start gap-3 text-xs">
                     <div className="w-2 h-2 rounded-full bg-[#991b1b] mt-1.5 shrink-0" />
                     <div>
@@ -245,7 +245,7 @@ export const OrderTrackingPage: React.FC = () => {
                 Items Ordered
               </h3>
               <div className="divide-y divide-stone-100">
-                {order.items.map((item) => (
+                {order.items.map((item: OrderItem) => (
                   <div key={item.id} className="py-2.5 flex justify-between gap-3 text-xs">
                     <div>
                       <p className="font-bold text-stone-800">
@@ -256,7 +256,7 @@ export const OrderTrackingPage: React.FC = () => {
                       )}
                       {item.addons && item.addons.length > 0 && (
                         <p className="text-[#991b1b] text-[11px]">
-                          +{item.addons.map((a) => a.addonName).join(', ')}
+                          +{item.addons.map((a: OrderItemAddon) => a.addonName).join(', ')}
                         </p>
                       )}
                     </div>
