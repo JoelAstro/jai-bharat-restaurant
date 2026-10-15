@@ -1,10 +1,16 @@
 import app from './app.js';
 import { ENV } from './config/env.js';
 import { ensureAdminAccount } from './config/initAdmin.js';
+import { ImageService } from './services/image.service.js';
 
 // Ensure the configured administrator account is initialized in the database
 ensureAdminAccount().catch((err) => {
   console.error('Failed to initialize administrator account:', err);
+});
+
+// Ensure default website images exist in the database
+ImageService.seedDefaultsIfEmpty().catch((err) => {
+  console.error('Failed to seed default website images:', err);
 });
 
 const server = app.listen(ENV.PORT, () => {

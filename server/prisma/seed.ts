@@ -10,8 +10,8 @@ async function main() {
   console.log('--- Seeding Jai Bharat Family Restaurant Database ---');
 
   // 1. Initial Admin User
-  const adminEmail = process.env.ADMIN_EMAIL || 'joelramieddy@gmail.com';
-  const adminPassword = process.env.ADMIN_PASSWORD || 'JaiBharatAdmin2026!';
+  const adminEmail = process.env.ADMIN_EMAIL || 'joelramireddy@gmail.com';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'Joel@2007';
   const adminPasswordHash = await bcrypt.hash(adminPassword, 10);
 
   const admin = await prisma.user.upsert({
@@ -356,6 +356,161 @@ async function main() {
     });
   }
   console.log(`✓ ${couponsData.length} Promotional coupons seeded`);
+
+  // 9. Website Images Seed
+  const websiteImageCount = await prisma.websiteImage.count();
+  if (websiteImageCount === 0) {
+    const websiteImages = [
+      {
+        section: 'hero',
+        title: 'Delicious Chicken Dum Biryani in Clay Handi',
+        imageUrl: '/images/hero/hero-1.jpg',
+        altText: 'Delicious Chicken Dum Biryani in Clay Handi',
+        displayOrder: 0,
+        isDefault: true,
+        isEnabled: true,
+      },
+      {
+        section: 'hero',
+        title: 'Crispy Spicy Chicken 65 with Fresh Garnish',
+        imageUrl: '/images/hero/hero-2.jpg',
+        altText: 'Crispy Spicy Chicken 65 with Fresh Garnish',
+        displayOrder: 1,
+        isDefault: false,
+        isEnabled: true,
+      },
+      {
+        section: 'hero',
+        title: 'Royal Dum Biryani in Copper Handi with Egg & Lemon',
+        imageUrl: '/images/hero/hero-3.jpg',
+        altText: 'Royal Dum Biryani in Copper Handi with Egg & Lemon',
+        displayOrder: 2,
+        isDefault: false,
+        isEnabled: true,
+      },
+      {
+        section: 'hero',
+        title: 'Aromatic Steaming Chicken Biryani Handi',
+        imageUrl: '/images/hero/hero-4.jpg',
+        altText: 'Aromatic Steaming Chicken Biryani Handi',
+        displayOrder: 3,
+        isDefault: false,
+        isEnabled: true,
+      },
+      {
+        section: 'building',
+        title: 'Jai Bharat Restaurant Building Exterior',
+        imageUrl: '/images/jai-bharat-building.jpg',
+        altText: 'Jai Bharat Family Restaurant Building Exterior - Nandigama',
+        displayOrder: 0,
+        isDefault: true,
+        isEnabled: true,
+      },
+      {
+        section: 'owner',
+        title: 'Owner and Founder',
+        imageUrl: '/images/owner.jpg',
+        altText: 'Owner & Founder of Jai Bharat Family Restaurant',
+        displayOrder: 0,
+        isDefault: true,
+        isEnabled: true,
+      },
+      {
+        section: 'categories',
+        title: 'Appetizers',
+        imageUrl: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80',
+        altText: 'Appetizers',
+        displayOrder: 0,
+        isDefault: false,
+        isEnabled: true,
+        metadata: JSON.stringify({ categorySlug: 'starters' }),
+      },
+      {
+        section: 'categories',
+        title: 'Indo-Chinese',
+        imageUrl: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80',
+        altText: 'Indo-Chinese',
+        displayOrder: 1,
+        isDefault: false,
+        isEnabled: true,
+        metadata: JSON.stringify({ categorySlug: 'starters' }),
+      },
+      {
+        section: 'categories',
+        title: 'Signature Biryanis',
+        imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80',
+        altText: 'Signature Biryanis',
+        displayOrder: 2,
+        isDefault: false,
+        isEnabled: true,
+        metadata: JSON.stringify({ categorySlug: 'biryani-rice' }),
+      },
+      {
+        section: 'categories',
+        title: 'Entrees & Curries',
+        imageUrl: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80',
+        altText: 'Entrees & Curries',
+        displayOrder: 3,
+        isDefault: false,
+        isEnabled: true,
+        metadata: JSON.stringify({ categorySlug: 'main-course' }),
+      },
+      {
+        section: 'categories',
+        title: 'Fresh Tandoori Breads',
+        imageUrl: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?w=600&q=80',
+        altText: 'Fresh Tandoori Breads',
+        displayOrder: 4,
+        isDefault: false,
+        isEnabled: true,
+        metadata: JSON.stringify({ categorySlug: 'breads' }),
+      },
+      {
+        section: 'categories',
+        title: 'Vegetarian Delicacies',
+        imageUrl: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600&q=80',
+        altText: 'Vegetarian Delicacies',
+        displayOrder: 5,
+        isDefault: false,
+        isEnabled: true,
+        metadata: JSON.stringify({ categorySlug: 'main-course' }),
+      },
+      {
+        section: 'categories',
+        title: 'Tandoori & Kebab Specials',
+        imageUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=600&q=80',
+        altText: 'Tandoori & Kebab Specials',
+        displayOrder: 6,
+        isDefault: false,
+        isEnabled: true,
+        metadata: JSON.stringify({ categorySlug: 'starters' }),
+      },
+      {
+        section: 'categories',
+        title: 'Desserts & Beverages',
+        imageUrl: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&q=80',
+        altText: 'Desserts & Beverages',
+        displayOrder: 7,
+        isDefault: false,
+        isEnabled: true,
+        metadata: JSON.stringify({ categorySlug: 'desserts-beverages' }),
+      },
+      {
+        section: 'about',
+        title: 'Our Culinary Philosophy',
+        imageUrl: '/images/hero/hero-2.jpg',
+        altText: 'Crispy Starters and Fresh Indian Delicacies at Jai Bharat',
+        displayOrder: 0,
+        isDefault: true,
+        isEnabled: true,
+      },
+    ];
+
+    for (const img of websiteImages) {
+      await prisma.websiteImage.create({ data: img });
+    }
+    console.log(`✓ ${websiteImages.length} Default website images seeded`);
+  }
 
   console.log('--- Database Seeding Completed Successfully ---');
 }

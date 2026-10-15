@@ -2,11 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
 import apiRouter from './routes/index.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 import { ENV } from './config/env.js';
 
 export const app = express();
+
+// Serve uploaded assets
+const uploadsPath = path.resolve(process.cwd(), 'uploads');
+app.use('/uploads', express.static(uploadsPath));
 
 // Security HTTP headers
 app.use(

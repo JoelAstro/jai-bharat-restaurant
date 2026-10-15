@@ -32,6 +32,7 @@ import { AdminCustomersPage } from './pages/admin/AdminCustomersPage.js';
 import { AdminCouponsPage } from './pages/admin/AdminCouponsPage.js';
 import { AdminReportsPage } from './pages/admin/AdminReportsPage.js';
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage.js';
+import { AdminImagesPage } from './pages/admin/AdminImagesPage.js';
 
 const CustomerLayout: React.FC = () => {
   return (
@@ -76,6 +77,7 @@ export const App: React.FC = () => {
                 <Route index element={<AdminDashboardPage />} />
                 <Route path="orders" element={<AdminOrdersPage />} />
                 <Route path="menu" element={<AdminMenuPage />} />
+                <Route path="images" element={<AdminImagesPage />} />
                 <Route path="customers" element={<AdminCustomersPage />} />
                 <Route path="coupons" element={<AdminCouponsPage />} />
                 <Route path="reports" element={<AdminReportsPage />} />

@@ -1,115 +1,141 @@
-import React, { useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Timer, Layers, Flame, Hand } from 'lucide-react';
 
-interface ReelCard {
+interface RitualStep {
+  number: string;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
-  imageUrl: string;
 }
 
+const steps: RitualStep[] = [
+  {
+    number: '01',
+    icon: Timer,
+    title: 'Marinate overnight',
+    description: 'Meat rests in yogurt, saffron and whole spices until the flavors settle deep.',
+  },
+  {
+    number: '02',
+    icon: Layers,
+    title: 'Layer the basmati',
+    description: 'Half-cooked rice is layered over the marinade with fried onions and mint.',
+  },
+  {
+    number: '03',
+    icon: Flame,
+    title: 'Seal with dough',
+    description: 'The pot is closed under a purdah of dough — no steam escapes, no flavor either.',
+  },
+  {
+    number: '04',
+    icon: Hand,
+    title: 'Slow-steam on dum',
+    description: "Low coals finish the pot. It's opened only at your table's order.",
+  },
+];
+
 export const FreshnessShowcase: React.FC = () => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const reelItems: ReelCard[] = [
-    {
-      title: 'Sizzling Tawa',
-      description: 'Char-grilled on cast iron tawa',
-      imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80',
-    },
-    {
-      title: 'Tandoori Roast',
-      description: 'Marinated in yogurt & whole spices',
-      imageUrl: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=600&q=80',
-    },
-    {
-      title: 'Chef Wok Fire',
-      description: 'High heat wok tossed preparations',
-      imageUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80',
-    },
-    {
-      title: 'Dum Handi Biryani',
-      description: 'Sealed with dough & slow cooked',
-      imageUrl: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80',
-    },
-    {
-      title: 'Spiced Tawa Fry',
-      description: 'Crispy carom seeds and fresh curry leaves',
-      imageUrl: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=600&q=80',
-    },
-    {
-      title: 'Simmering Makhani',
-      description: 'Slow simmered with butter and fenugreek',
-      imageUrl: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600&q=80',
-    },
-  ];
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const offset = direction === 'left' ? -320 : 320;
-      scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section className="py-16 sm:py-24 bg-[#faf7f0] border-b border-stone-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-stone-900 tracking-tight mb-3">
+    <section className="py-16 sm:py-24 bg-[#faf7f0] border-b border-[#e2d8c6] relative overflow-hidden">
+      {/* Background Subtle Watermark Texture */}
+      <div
+        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle at center, #991b1b 1.5px, transparent 1.5px)`,
+          backgroundSize: '28px 28px',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Top Header: Line Swirl + Tag */}
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <div className="h-[1px] w-12 sm:w-20 bg-[#c99a4c]/50" />
+            <svg
+              className="w-4 h-4 text-[#c99a4c]"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path
+                d="M12 4a8 8 0 1 0 8 8 6 6 0 1 0-6-6 4 4 0 1 0 4 4"
+                strokeLinecap="round"
+              />
+            </svg>
+            <div className="h-[1px] w-12 sm:w-20 bg-[#c99a4c]/50" />
+          </div>
+
+          <span className="text-[11px] sm:text-xs font-serif font-bold uppercase tracking-[0.25em] text-[#991b1b] block mb-3">
+            THE DUM RITUAL
+          </span>
+
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-stone-900 tracking-tight mb-3">
             Sealed. Steamed. Served.
           </h2>
-          <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
-            Authentic Indian cuisine made fresh daily, using quality ingredients and traditional recipes for bold, unforgettable flavors.
+
+          <p className="text-stone-600 text-xs sm:text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+            Every biryani follows the same four-step ritual it has for generations.
           </p>
         </div>
 
-        {/* Gallery Carousel Container */}
+        {/* 4 Connected Stepper Cards with Dashed Line */}
         <div className="relative">
-          {/* Scroll Controls */}
-          <button
-            onClick={() => scroll('left')}
-            aria-label="Scroll left"
-            className="hidden sm:flex absolute -left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-lg border border-stone-200 items-center justify-center text-stone-700 hover:text-[#991b1b] transition-colors"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={() => scroll('right')}
-            aria-label="Scroll right"
-            className="hidden sm:flex absolute -right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow-lg border border-stone-200 items-center justify-center text-stone-700 hover:text-[#991b1b] transition-colors"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-
-          {/* Cards Reel */}
+          {/* Dashed Connector Line behind circles on Desktop */}
           <div
-            ref={scrollContainerRef}
-            className="flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar pb-4 pt-2 px-1 snap-x snap-mandatory"
-          >
-            {reelItems.map((item, idx) => (
-              <div
-                key={idx}
-                className="snap-start shrink-0 w-48 sm:w-56 md:w-60 aspect-[9/16] rounded-2xl overflow-hidden shadow-md relative group border border-stone-200"
-              >
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+            className="hidden lg:block absolute top-7 left-[12%] right-[12%] h-[1px] border-t border-dashed border-stone-300/90 pointer-events-none"
+            aria-hidden="true"
+          />
 
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <h4 className="font-serif font-bold text-sm sm:text-base leading-tight mb-1">
-                    {item.title}
-                  </h4>
-                  <p className="text-[11px] text-stone-300 leading-tight">
-                    {item.description}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 lg:gap-6 relative z-10">
+            {steps.map((step) => {
+              const Icon = step.icon;
+              return (
+                <div key={step.number} className="text-center flex flex-col items-center">
+                  {/* Step Number Circle */}
+                  <div className="relative inline-flex flex-col items-center mb-5">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border border-stone-200 shadow-sm flex items-center justify-center">
+                      <span className="font-serif font-bold text-xl sm:text-2xl text-stone-900 tracking-tight">
+                        {step.number}
+                      </span>
+                    </div>
+
+                    {/* Diamond Accent below Circle */}
+                    <div className="mt-2 text-[#c99a4c] text-[10px] select-none" aria-hidden="true">
+                      ◆
+                    </div>
+                  </div>
+
+                  {/* Red/Crimson Outline Icon */}
+                  <div className="mb-3.5 text-[#991b1b] flex items-center justify-center">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.5]" />
+                  </div>
+
+                  {/* Step Title */}
+                  <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg lg:text-xl mb-2 tracking-tight">
+                    {step.title}
+                  </h3>
+
+                  {/* Step Description */}
+                  <p className="text-stone-600 text-xs sm:text-sm leading-relaxed max-w-[260px] mx-auto">
+                    {step.description}
                   </p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="mt-12 sm:mt-16 text-center">
+          <Link
+            to="/menu?category=biryani-rice"
+            className="inline-flex items-center justify-center bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-bold text-xs uppercase tracking-wider px-8 py-3.5 rounded-md shadow-md hover:shadow-lg transition-all active:scale-95"
+          >
+            Taste the ritual
+          </Link>
         </div>
       </div>
     </section>

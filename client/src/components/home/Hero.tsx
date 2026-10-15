@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useRestaurant } from '../../context/RestaurantContext.js';
 import { useCart } from '../../context/CartContext.js';
+import { api } from '../../services/api.js';
 
-const heroImages = [
+const defaultHeroImages = [
   { src: '/images/hero/hero-1.jpg', alt: 'Delicious Chicken Dum Biryani in Clay Handi' },
   { src: '/images/hero/hero-2.jpg', alt: 'Crispy Spicy Chicken 65 with Fresh Garnish' },
   { src: '/images/hero/hero-3.jpg', alt: 'Royal Dum Biryani in Copper Handi with Egg & Lemon' },
@@ -30,6 +31,7 @@ export const Hero: React.FC = () => {
   const { settings } = useRestaurant();
   const { setOrderType } = useCart();
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [sliderImages, setSliderImages] = useState(defaultHeroImages);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -42,14 +44,45 @@ export const Hero: React.FC = () => {
     return () => mediaQuery.removeEventListener('change', listener);
   }, []);
 
-  // 2. 6-second auto-rotation across the 4 user-provided hero images
+  // 2. Fetch dynamic hero images from database (with first/default image at index 0)
   useEffect(() => {
+    let isMounted = true;
+    api
+      .getPublicImages('hero')
+      .then((data) => {
+        if (!isMounted || !data || data.length === 0) return;
+        // Sort so the default/first image is at index 0, followed by displayOrder
+        const sorted = [...data].sort((a, b) => {
+          if (a.isDefault) return -1;
+          if (b.isDefault) return 1;
+          return a.displayOrder - b.displayOrder;
+        });
+        setSliderImages(
+          sorted.map((item) => ({
+            src: item.imageUrl,
+            alt: item.altText || item.title,
+          }))
+        );
+        setCurrentImageIndex(0);
+      })
+      .catch((err) => {
+        console.warn('Using default hero images:', err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // 3. 6-second auto-rotation across active hero images
+  useEffect(() => {
+    if (sliderImages.length <= 1) return;
     const timer = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+      setCurrentImageIndex((prev) => (prev + 1) % sliderImages.length);
     }, 6000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [sliderImages.length]);
 
   // 3. Scroll listener: hide full-width announcement bar at very top, reveal on scroll
   useEffect(() => {
@@ -134,9 +167,9 @@ export const Hero: React.FC = () => {
           {/* Right Column: 4-Image Slideshow (No overlay card, changes every 6s with fade) */}
           <div className="lg:col-span-6 relative">
             <div className="relative aspect-square sm:aspect-4/3 lg:aspect-square w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-stone-100">
-              {heroImages.map((image, idx) => (
+              {sliderImages.map((image, idx) => (
                 <img
-                  key={image.src}
+                  key={`${image.src}-${idx}`}
                   src={image.src}
                   alt={image.alt}
                   className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
