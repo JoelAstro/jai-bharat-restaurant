@@ -294,8 +294,29 @@ export const api = {
       method: 'POST',
       body: formData,
     }),
+  updateAdminHomeBanner: (id: string, formData: FormData) =>
+    request<any>(`/admin/home/banner/${id}`, {
+      method: 'PUT',
+      body: formData,
+    }),
   deleteAdminHomeBanner: (id: string) =>
     request<any>(`/admin/home/banner/${id}`, {
+      method: 'DELETE',
+    }),
+
+  getAdminHomeFeatures: () => request<any[]>('/admin/home/features'),
+  createAdminHomeFeature: (formData: FormData) =>
+    request<any>('/admin/home/feature', {
+      method: 'POST',
+      body: formData,
+    }),
+  updateAdminHomeFeature: (id: string, formData: FormData) =>
+    request<any>(`/admin/home/feature/${id}`, {
+      method: 'PUT',
+      body: formData,
+    }),
+  deleteAdminHomeFeature: (id: string) =>
+    request<any>(`/admin/home/feature/${id}`, {
       method: 'DELETE',
     }),
 
@@ -304,10 +325,24 @@ export const api = {
       method: 'POST',
       body: formData,
     }),
+  updateAdminCategory: (id: string, formData: FormData) =>
+    request<any>(`/admin/menu/category/${id}`, {
+      method: 'PUT',
+      body: formData,
+    }),
+  deleteAdminCategory: (id: string) =>
+    request<any>(`/admin/menu/category/${id}`, {
+      method: 'DELETE',
+    }),
 
   createAdminMenuItem: (formData: FormData) =>
     request<any>('/admin/menu/item', {
       method: 'POST',
+      body: formData,
+    }),
+  updateAdminMenuItem: (id: string, formData: FormData) =>
+    request<any>(`/admin/menu/item/${id}`, {
+      method: 'PUT',
       body: formData,
     }),
   deleteAdminMenuItem: (id: string) =>
@@ -321,11 +356,20 @@ export const api = {
       method: 'PUT',
       body: formData,
     }),
+  deleteAdminAboutSection: (sectionKey: string) =>
+    request<any>(`/admin/about/${sectionKey}`, {
+      method: 'DELETE',
+    }),
 
   getAdminOffers: () => request<any[]>('/admin/offers'),
   createAdminOffer: (formData: FormData) =>
     request<any>('/admin/offers', {
       method: 'POST',
+      body: formData,
+    }),
+  updateAdminOffer: (id: string, formData: FormData) =>
+    request<any>(`/admin/offers/${id}`, {
+      method: 'PUT',
       body: formData,
     }),
   deleteAdminOffer: (id: string) =>

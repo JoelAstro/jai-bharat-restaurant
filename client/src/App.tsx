@@ -34,6 +34,7 @@ import { AdminReportsPage } from './pages/admin/AdminReportsPage.js';
 import { AdminSettingsPage } from './pages/admin/AdminSettingsPage.js';
 import { AdminImagesPage } from './pages/admin/AdminImagesPage.js';
 import { AdminManager } from './pages/admin/AdminManager.js';
+import { AdminContentManager } from './pages/admin/AdminContentManager.js';
 
 const CustomerLayout: React.FC = () => {
   return (
@@ -79,6 +80,7 @@ export const App: React.FC = () => {
                 <Route path="orders" element={<AdminOrdersPage />} />
                 <Route path="manager" element={<AdminManager />} />
                 <Route path="content" element={<AdminManager />} />
+                <Route path="cms" element={<AdminContentManager />} />
                 <Route path="menu" element={<AdminMenuPage />} />
                 <Route path="images" element={<AdminImagesPage />} />
                 <Route path="customers" element={<AdminCustomersPage />} />
