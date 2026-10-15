@@ -2,13 +2,17 @@
   "name": "jai-bharat-family-restaurant",
   "version": "1.0.0",
   "description": "Jai Bharat Family Restaurant - Full Stack Ordering & Management Platform",
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "dev": "npm run dev --prefix server & npm run dev --prefix client",
     "dev:server": "npm run dev --prefix server",
     "dev:client": "npm run dev --prefix client",
     "install:server": "npm install --prefix server",
     "install:client": "npm install --prefix client",
-    "install:all": "npm run install:server && npm run install:client",
+    "install:all": "npm install --prefix server && npm install --prefix client",
     "build:server": "npm install --prefix server && npm run build --prefix server",
     "build:client": "npm install --prefix client && npm run build --prefix client",
     "build": "npm run build:server && npm run build:client",
