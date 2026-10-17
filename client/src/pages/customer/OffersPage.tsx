@@ -67,13 +67,13 @@ export const OffersPage: React.FC = () => {
             {coupons.map((coupon) => (
               <div
                 key={coupon.code}
-                className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs hover:shadow-md transition-shadow relative overflow-hidden flex flex-col justify-between"
+                className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-stone-200 shadow-xs hover:shadow-md transition-shadow relative overflow-hidden flex flex-col justify-between"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-red-100 to-transparent rounded-bl-full pointer-events-none" />
 
                 <div>
-                  <div className="flex items-center justify-between gap-4 mb-4">
-                    <span className="font-mono font-bold text-lg text-[#991b1b] bg-red-50 border border-red-300 px-3.5 py-1 rounded-xl">
+                  <div className="flex flex-wrap items-center justify-between gap-2.5 mb-4">
+                    <span className="font-mono font-bold text-base sm:text-lg text-[#991b1b] bg-red-50 border border-red-300 px-3 sm:px-3.5 py-1 rounded-xl">
                       {coupon.code}
                     </span>
                     <span className="text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full uppercase">

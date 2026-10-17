@@ -61,18 +61,18 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/70 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-stone-200 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-950/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+      <div className="relative w-full max-w-lg max-h-[92vh] flex flex-col bg-white rounded-3xl shadow-2xl overflow-hidden border border-stone-200 animate-in fade-in zoom-in-95 duration-200">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-colors"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 p-2 rounded-full bg-stone-900/60 hover:bg-stone-900 text-white transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Modal Image */}
-        <div className="relative h-52 sm:h-60 w-full overflow-hidden bg-stone-100">
+        <div className="relative h-44 sm:h-56 w-full shrink-0 overflow-hidden bg-stone-100">
           <img
             src={
               item.imageUrl ||
@@ -82,21 +82,21 @@ export const ItemCustomizerModal: React.FC<ItemCustomizerModalProps> = ({
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4">
+          <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4">
             <div className="flex items-center gap-2 mb-1">
               <VegBadge isVeg={item.isVeg} />
               <span className="text-white/90 text-xs font-semibold uppercase tracking-wider">
                 {item.category?.name || 'Jai Bharat Special'}
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-serif font-bold text-white leading-tight">
+            <h2 className="text-lg sm:text-2xl font-serif font-bold text-white leading-tight">
               {item.name}
             </h2>
           </div>
         </div>
 
         {/* Modal Content Scroll Area */}
-        <div className="p-5 sm:p-6 max-h-[50vh] overflow-y-auto space-y-6">
+        <div className="p-4 sm:p-6 flex-1 overflow-y-auto space-y-5 sm:space-y-6">
           <p className="text-stone-600 text-sm leading-relaxed">{item.description}</p>
 
           {/* Size / Portion Variations */}

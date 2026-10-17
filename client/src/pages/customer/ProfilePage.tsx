@@ -114,7 +114,7 @@ export const ProfilePage: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Left: Profile Edit Form */}
-          <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs h-fit space-y-4">
+          <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs h-fit space-y-4">
             <div className="flex items-center gap-3 pb-4 border-b border-stone-100">
               <div className="w-12 h-12 rounded-full bg-red-100 text-[#991b1b] font-bold text-lg flex items-center justify-center">
                 {user.name.charAt(0).toUpperCase()}
@@ -271,8 +271,8 @@ export const ProfilePage: React.FC = () => {
 
         {/* Add Address Modal */}
         {showAddAddressModal && (
-          <div className="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl animate-in zoom-in-95 duration-200">
+          <div className="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 w-full max-w-md max-h-[92vh] overflow-y-auto shadow-2xl animate-in zoom-in-95 duration-200">
               <h3 className="font-serif font-bold text-stone-900 text-lg mb-4">
                 Add New Delivery Address
               </h3>

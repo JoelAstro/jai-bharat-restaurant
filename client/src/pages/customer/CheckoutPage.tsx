@@ -205,19 +205,19 @@ export const CheckoutPage: React.FC = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <form onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
           {/* Left Column: Form Details (8 Cols) */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6">
             {/* 1. Order Type Selection */}
-            <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs">
-              <h3 className="font-serif font-bold text-stone-900 text-lg mb-4">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs">
+              <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg mb-3 sm:mb-4">
                 1. Order Preference
               </h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 sm:gap-4">
                 <button
                   type="button"
                   onClick={() => setOrderType('DELIVERY')}
-                  className={`p-4 rounded-2xl border text-left transition-all ${
+                  className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all ${
                     orderType === 'DELIVERY'
                       ? 'border-[#991b1b] bg-red-50/50 shadow-xs'
                       : 'border-stone-200 hover:border-stone-300'
@@ -230,7 +230,7 @@ export const CheckoutPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setOrderType('TAKEAWAY')}
-                  className={`p-4 rounded-2xl border text-left transition-all ${
+                  className={`p-3.5 sm:p-4 rounded-2xl border text-left transition-all ${
                     orderType === 'TAKEAWAY'
                       ? 'border-[#991b1b] bg-red-50/50 shadow-xs'
                       : 'border-stone-200 hover:border-stone-300'
@@ -244,8 +244,8 @@ export const CheckoutPage: React.FC = () => {
             </div>
 
             {/* 2. Customer Contact Information */}
-            <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs">
-              <h3 className="font-serif font-bold text-stone-900 text-lg mb-4">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs">
+              <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg mb-3 sm:mb-4">
                 2. Contact Information
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -294,9 +294,9 @@ export const CheckoutPage: React.FC = () => {
 
             {/* 3. Delivery Address (Delivery only) */}
             {orderType === 'DELIVERY' && (
-              <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs">
+              <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-serif font-bold text-stone-900 text-lg">
+                  <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg">
                     3. Delivery Destination
                   </h3>
                   {savedAddresses.length > 0 && (
@@ -421,14 +421,14 @@ export const CheckoutPage: React.FC = () => {
             )}
 
             {/* 4. Payment Method */}
-            <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs">
-              <h3 className="font-serif font-bold text-stone-900 text-lg mb-4">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs">
+              <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg mb-3 sm:mb-4">
                 4. Payment Method
               </h3>
               <div className="space-y-3">
                 <label
                   onClick={() => setPaymentMethod('COD')}
-                  className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
+                  className={`flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border cursor-pointer transition-all ${
                     paymentMethod === 'COD'
                       ? 'border-[#991b1b] bg-red-50/40 text-stone-900'
                       : 'border-stone-200 hover:border-stone-300 text-stone-700'
@@ -454,7 +454,7 @@ export const CheckoutPage: React.FC = () => {
 
                 <label
                   onClick={() => setPaymentMethod('RAZORPAY')}
-                  className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
+                  className={`flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border cursor-pointer transition-all ${
                     paymentMethod === 'RAZORPAY'
                       ? 'border-[#991b1b] bg-red-50/40 text-stone-900'
                       : 'border-stone-200 hover:border-stone-300 text-stone-700'
@@ -481,7 +481,7 @@ export const CheckoutPage: React.FC = () => {
             </div>
 
             {/* Special Instructions */}
-            <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs">
+            <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs">
               <label className="block text-xs font-semibold text-stone-700 mb-2">
                 Order Delivery Notes or Requests (Optional)
               </label>
@@ -498,8 +498,8 @@ export const CheckoutPage: React.FC = () => {
 
           {/* Right Column: Order Summary (5 Cols) */}
           <div className="lg:col-span-5">
-            <div className="sticky top-28 bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs space-y-6">
-              <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
+            <div className="lg:sticky lg:top-28 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs space-y-4 sm:space-y-6">
+              <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg border-b border-stone-100 pb-3">
                 Order Summary ({items.length} items)
               </h3>
 

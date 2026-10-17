@@ -29,9 +29,9 @@ export const AdminCustomersPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+        <h1 className="text-xl sm:text-3xl font-serif font-bold text-stone-900">
           Customer Directory
         </h1>
         <p className="text-stone-500 text-xs sm:text-sm mt-1">
@@ -40,7 +40,7 @@ export const AdminCustomersPage: React.FC = () => {
       </div>
 
       {/* Search Header */}
-      <div className="bg-white p-4 sm:p-5 rounded-3xl border border-stone-200/80 shadow-xs flex justify-between items-center">
+      <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs flex justify-between items-center">
         <form onSubmit={handleSearch} className="relative w-full sm:w-96">
           <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -51,13 +51,13 @@ export const AdminCustomersPage: React.FC = () => {
             className="w-full text-xs pl-9 pr-3 py-2.5 rounded-xl border border-stone-200 focus:outline-hidden focus:border-amber-600"
           />
         </form>
-        <span className="text-xs text-stone-500 font-semibold hidden sm:inline">
+        <span className="text-xs text-stone-500 font-semibold hidden sm:inline ml-3">
           {customers.length} Customers Registered
         </span>
       </div>
 
       {/* Customer Directory Table */}
-      <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
         {isLoading ? (
           <div className="p-16 text-center">
             <div className="w-10 h-10 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
@@ -67,7 +67,7 @@ export const AdminCustomersPage: React.FC = () => {
           <p className="p-12 text-center text-stone-400 text-sm">No customers found.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+            <table className="w-full text-left text-xs min-w-[580px]">
               <thead>
                 <tr className="bg-stone-50 border-b border-stone-200 text-stone-500 uppercase font-semibold">
                   <th className="p-4">Customer Name</th>

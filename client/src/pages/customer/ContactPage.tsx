@@ -31,10 +31,10 @@ export const ContactPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
           {/* Left: Contact Info */}
-          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-stone-200 shadow-sm space-y-8">
-            <h2 className="text-2xl font-serif font-bold text-stone-900">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-stone-200 shadow-sm space-y-6 sm:space-y-8">
+            <h2 className="text-xl sm:text-2xl font-serif font-bold text-stone-900">
               Restaurant Details
             </h2>
 
@@ -117,8 +117,8 @@ export const ContactPage: React.FC = () => {
           </div>
 
           {/* Right: Message Form */}
-          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-stone-200 shadow-sm">
-            <h2 className="text-2xl font-serif font-bold text-stone-900 mb-2">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-stone-200 shadow-sm">
+            <h2 className="text-xl sm:text-2xl font-serif font-bold text-stone-900 mb-2">
               Send Us a Message
             </h2>
             <p className="text-stone-500 text-xs sm:text-sm mb-6">

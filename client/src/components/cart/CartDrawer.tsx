@@ -60,12 +60,12 @@ export const CartDrawer: React.FC = () => {
       />
 
       {/* Drawer Panel */}
-      <div className="relative w-full max-w-md bg-[#fdfbf7] h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-300">
+      <div className="relative w-full sm:max-w-md bg-[#fdfbf7] h-full shadow-2xl flex flex-col z-10 animate-in slide-in-from-right duration-300">
         {/* Drawer Header */}
-        <div className="p-5 border-b border-stone-200 bg-white flex items-center justify-between">
+        <div className="p-4 sm:p-5 border-b border-stone-200 bg-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <ShoppingBag className="w-5 h-5 text-[#991b1b]" />
-            <h2 className="font-serif font-bold text-lg text-stone-900">Your Order</h2>
+            <h2 className="font-serif font-bold text-base sm:text-lg text-stone-900">Your Order</h2>
             <span className="text-xs bg-red-100 text-[#991b1b] font-bold px-2 py-0.5 rounded-full">
               {items.length} items
             </span>
@@ -128,7 +128,7 @@ export const CartDrawer: React.FC = () => {
         )}
 
         {/* Items List (Scrollable) */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        <div className="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-3 sm:space-y-4">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-6 text-stone-400">
               <ShoppingBag className="w-16 h-16 stroke-1 text-stone-300 mb-4" />
@@ -150,7 +150,7 @@ export const CartDrawer: React.FC = () => {
             items.map((item) => (
               <div
                 key={item.id}
-                className="bg-white p-4 rounded-2xl border border-stone-200/80 shadow-xs flex flex-col gap-2.5"
+                className="bg-white p-3.5 sm:p-4 rounded-2xl border border-stone-200/80 shadow-xs flex flex-col gap-2.5"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex-1">
@@ -213,7 +213,7 @@ export const CartDrawer: React.FC = () => {
 
         {/* Footer Area: Coupons, Bill Breakdown, Checkout */}
         {items.length > 0 && (
-          <div className="p-5 border-t border-stone-200 bg-white space-y-4">
+          <div className="p-4 sm:p-5 border-t border-stone-200 bg-white space-y-3 sm:space-y-4">
             {/* Promo Code Input */}
             <div>
               {appliedCoupon ? (

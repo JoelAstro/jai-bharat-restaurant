@@ -49,11 +49,11 @@ export const AdminReportsPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-8">
+    <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto space-y-6 sm:space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+          <h1 className="text-xl sm:text-3xl font-serif font-bold text-stone-900">
             Sales & Order Analytics
           </h1>
           <p className="text-stone-500 text-xs sm:text-sm mt-1">
@@ -61,7 +61,7 @@ export const AdminReportsPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
           {/* Period Selector */}
           <div className="flex bg-stone-200/80 p-1 rounded-2xl text-xs font-semibold">
             {[7, 30, 90].map((days) => (

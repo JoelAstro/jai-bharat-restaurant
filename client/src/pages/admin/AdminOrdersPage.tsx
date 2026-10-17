@@ -93,11 +93,11 @@ export const AdminOrdersPage: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+          <h1 className="text-xl sm:text-3xl font-serif font-bold text-stone-900">
             Order Management
           </h1>
           <p className="text-stone-500 text-xs sm:text-sm mt-1">
@@ -107,7 +107,7 @@ export const AdminOrdersPage: React.FC = () => {
 
         <button
           onClick={loadOrders}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 px-3.5 py-2 rounded-xl shadow-xs"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 px-3.5 py-2 rounded-xl shadow-xs self-start sm:self-auto"
         >
           <RefreshCw className="w-3.5 h-3.5" />
           <span>Refresh List</span>
@@ -115,15 +115,15 @@ export const AdminOrdersPage: React.FC = () => {
       </div>
 
       {/* Filter Tabs & Search */}
-      <div className="bg-white p-4 sm:p-5 rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
+      <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs space-y-3 sm:space-y-4">
         <div className="flex flex-col sm:flex-row gap-3 items-center justify-between">
           {/* Status Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar w-full sm:w-auto">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar touch-pan-x w-full sm:w-auto -mx-1 px-1">
             {filterTabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setStatusFilter(tab)}
-                className={`text-xs font-bold px-3.5 py-2 rounded-xl transition-all whitespace-nowrap ${
+                className={`text-xs font-bold px-3 sm:px-3.5 py-2 rounded-xl transition-all whitespace-nowrap ${
                   statusFilter === tab
                     ? 'bg-amber-600 text-white shadow-xs'
                     : 'text-stone-600 hover:bg-stone-100'

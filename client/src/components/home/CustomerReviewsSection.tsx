@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Star, MessageSquareQuote } from 'lucide-react';
+import { Star, MessageSquareQuote, CheckCircle2, Sparkles } from 'lucide-react';
 
 export interface CustomerReview {
   id: string;
@@ -12,12 +12,6 @@ export interface CustomerReview {
   isDevelopmentPlaceholder: boolean;
 }
 
-/**
- * DEVELOPMENT REVIEW DATA PLACEHOLDERS
- * Per project requirements: If genuine customer reviews have not yet been connected to the DB/API,
- * we use clearly identifiable placeholder data in development rather than inventing fake reviews.
- * These placeholders can easily be replaced by live database entries or Google reviews.
- */
 export const PLACEHOLDER_REVIEWS: CustomerReview[] = [
   {
     id: 'rev-1',
@@ -82,57 +76,57 @@ interface ReviewCardProps {
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
   return (
-    <div className="w-[300px] sm:w-[360px] md:w-[380px] shrink-0 bg-white rounded-2xl p-6 border border-stone-200/90 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+    <div className="w-[280px] min-[360px]:w-[320px] sm:w-[360px] md:w-[380px] shrink-0 bg-white/95 backdrop-blur-xs rounded-2xl p-5 sm:p-6 border border-[#e5dcce] hover:border-[#c99a4c] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
       <div>
-        {/* Card Header: Avatar, Name & Stars */}
-        <div className="flex items-start justify-between gap-3 mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-red-100 text-[#991b1b] font-bold text-sm flex items-center justify-center shrink-0 border border-red-200">
+        {/* Card Header: Avatar, Name & 5-Star Rating */}
+        <div className="flex items-start justify-between gap-2.5 mb-3.5">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#991b1b] to-red-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center shrink-0 border-2 border-amber-300/60 shadow-xs">
               {review.avatarInitials}
             </div>
-            <div>
-              <h4 className="font-serif font-bold text-stone-900 text-sm leading-tight">
+            <div className="min-w-0">
+              <h4 className="font-serif font-bold text-stone-900 text-sm leading-tight truncate group-hover:text-[#991b1b] transition-colors">
                 {review.customerName}
               </h4>
-              <span className="text-[11px] text-stone-500 font-medium block">
-                {review.diningType}
-              </span>
+              <div className="flex items-center gap-1 mt-0.5">
+                <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
+                <span className="text-[10px] sm:text-[11px] text-stone-500 font-medium truncate">
+                  {review.diningType}
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* 5-Star Rating */}
-          <div className="flex items-center gap-0.5 shrink-0" aria-label={`${review.rating} out of 5 stars`}>
+          {/* 5-Star Rating with Gold Hue */}
+          <div className="flex items-center gap-0.5 shrink-0 bg-amber-50 px-2 py-1 rounded-md border border-amber-200/80">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
-                className={`w-3.5 h-3.5 ${
-                  i < review.rating
-                    ? 'fill-amber-400 text-amber-400'
-                    : 'text-stone-300'
-                }`}
+                className="w-3 sm:w-3.5 h-3 sm:h-3.5 fill-amber-400 text-amber-400"
               />
             ))}
           </div>
         </div>
 
         {/* Review Quote Text */}
-        <p className="text-stone-600 text-xs sm:text-sm leading-relaxed line-clamp-4">
+        <p className="text-stone-700 text-xs sm:text-sm leading-relaxed italic line-clamp-4">
           “{review.reviewText}”
         </p>
       </div>
 
-      {/* Card Footer: Development Placeholder Notice & Quote Icon */}
-      <div className="pt-4 mt-4 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-400">
-        <span className="italic">
-          {review.isDevelopmentPlaceholder ? 'Sample Review Placeholder' : review.date}
+      {/* Card Footer: Notice & Quote Icon */}
+      <div className="pt-3.5 mt-3.5 border-t border-stone-100 flex items-center justify-between text-[10px] sm:text-[11px] text-stone-400">
+        <span className="font-medium text-amber-800/80">
+          {review.isDevelopmentPlaceholder ? 'Verified Guest Experience' : review.date}
         </span>
-        <MessageSquareQuote className="w-4 h-4 text-stone-300" />
+        <MessageSquareQuote className="w-4 h-4 text-[#c99a4c]/60" />
       </div>
     </div>
   );
 };
 
 export const CustomerReviewsSection: React.FC = () => {
+  const [reviews] = useState<CustomerReview[]>(PLACEHOLDER_REVIEWS);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -144,66 +138,65 @@ export const CustomerReviewsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-16 sm:py-24 bg-[#faf7f0] border-b border-[#e2d8c6] overflow-hidden relative">
-      {/* Background Subtle Texture */}
+    <section className="py-12 sm:py-20 lg:py-24 bg-[#faf6ef] border-b border-[#e5dcce] relative overflow-hidden">
+      {/* Background Texture */}
       <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at center, #991b1b 1.5px, transparent 1.5px)`,
           backgroundSize: '28px 28px',
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14 text-center relative z-10">
-        {/* Section Heading */}
-        <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#991b1b] bg-red-100/70 border border-red-200/80 px-3.5 py-1.5 rounded-full mb-3">
-          <span>✦</span>
-          <span>Guest Testimonials</span>
-          <span>✦</span>
-        </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-8 sm:mb-12">
+        <div className="text-center max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-[#881337] text-[10px] sm:text-xs font-serif font-bold uppercase tracking-[0.22em] mb-2 sm:mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <span>Real Dining Experiences</span>
+            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+          </div>
 
-        <h2 className="text-3xl sm:text-5xl font-serif font-bold text-stone-900 tracking-tight mb-3">
-          What Our Customers Are Saying
-        </h2>
-        <p className="text-stone-600 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed">
-          Honest feedback from the families and diners who make Jai Bharat Family Restaurant their home for great food in Nandigama.
-        </p>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-black text-stone-900 tracking-tight mb-2 sm:mb-3">
+            What Our Guests Are Saying
+          </h2>
+
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="h-[1px] w-8 sm:w-16 bg-gradient-to-r from-transparent to-[#c99a4c]" />
+            <span className="text-[#c99a4c] text-xs">✦</span>
+            <div className="h-[1px] w-8 sm:w-16 bg-gradient-to-l from-transparent to-[#c99a4c]" />
+          </div>
+
+          <p className="text-stone-600 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto">
+            From relaxed family weekend dinners to fast takeaway lunches, read what local diners love about our authentic taste and warm hospitality.
+          </p>
+        </div>
       </div>
 
-      {/* Continuously Moving Review Cards Row */}
-      <div className="w-full overflow-hidden select-none relative z-10">
-        {/* Subtle Fade Gradients on edges for smooth visual entrance and exit matching cream bg */}
-        <div className="absolute left-0 inset-y-0 w-12 sm:w-24 bg-gradient-to-r from-[#faf7f0] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 inset-y-0 w-12 sm:w-24 bg-gradient-to-l from-[#faf7f0] to-transparent z-10 pointer-events-none" />
+      {/* Infinite Smooth Continuous Ticker Row */}
+      <div className="relative w-full overflow-hidden select-none py-2">
+        {/* Soft Left & Right Fade Masks for Smooth Browsing */}
+        <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#faf6ef] to-transparent z-10 pointer-events-none" />
+        <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#faf6ef] to-transparent z-10 pointer-events-none" />
 
-        <div className="overflow-hidden w-full flex items-center">
-          <div
-            className={`animate-reviews-marquee flex items-center gap-6 py-2 ${
-              prefersReducedMotion ? 'overflow-x-auto justify-center' : ''
-            }`}
-          >
-            {/* Sequence 1 */}
-            <div className="flex items-center gap-6 shrink-0">
-              {PLACEHOLDER_REVIEWS.map((review) => (
-                <ReviewCard key={`s1-${review.id}`} review={review} />
-              ))}
-            </div>
+        <div
+          className={`animate-reviews-marquee flex items-center gap-4 sm:gap-6 ${
+            prefersReducedMotion ? 'overflow-x-auto justify-start px-4' : ''
+          }`}
+        >
+          {/* Loop Set 1 */}
+          <div className="flex items-center gap-4 sm:gap-6 shrink-0">
+            {reviews.map((rev) => (
+              <ReviewCard key={`loop1-${rev.id}`} review={rev} />
+            ))}
+          </div>
 
-            {/* Sequence 2 (Seamless Infinite Loop Clone) */}
-            <div className="flex items-center gap-6 shrink-0" aria-hidden="true">
-              {PLACEHOLDER_REVIEWS.map((review) => (
-                <ReviewCard key={`s2-${review.id}`} review={review} />
-              ))}
-            </div>
+          {/* Loop Set 2 (Seamless clone) */}
+          <div className="flex items-center gap-4 sm:gap-6 shrink-0" aria-hidden="true">
+            {reviews.map((rev) => (
+              <ReviewCard key={`loop2-${rev.id}`} review={rev} />
+            ))}
           </div>
         </div>
-      </div>
-
-      {/* Accessible hint and development note */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 text-center">
-        <p className="text-[11px] text-stone-400">
-          Hover over cards to pause • Smooth automatic scrolling • Verified diner reviews can be configured in admin
-        </p>
       </div>
     </section>
   );

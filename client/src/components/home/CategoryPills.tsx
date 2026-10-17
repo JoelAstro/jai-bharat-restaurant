@@ -25,8 +25,8 @@ export const CategoryPills: React.FC<CategoryPillsProps> = ({
   };
 
   return (
-    <div className="py-6 overflow-x-auto no-scrollbar">
-      <div className="flex items-center gap-3 min-w-max px-2">
+    <div className="py-4 sm:py-6 overflow-x-auto no-scrollbar touch-pan-x -mx-4 px-4 sm:mx-0 sm:px-0">
+      <div className="flex items-center gap-2.5 sm:gap-3 min-w-max">
         <button
           onClick={() => handleCategoryClick('all')}
           className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all border ${

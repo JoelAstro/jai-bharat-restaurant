@@ -135,17 +135,17 @@ export const AboutUsPage: React.FC = () => {
             </div>
 
             {/* Horizontally aligned buttons matching reference screenshot */}
-            <div className="flex flex-row items-center justify-center gap-4 pt-6 sm:pt-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-6 sm:pt-8 w-full">
               <Link
                 to="/menu"
-                className="inline-flex items-center justify-center bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-3.5 rounded-md shadow-sm hover:shadow transition-all active:scale-98"
+                className="w-full sm:w-auto inline-flex items-center justify-center bg-[#991b1b] hover:bg-[#7f1d1d] text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-3.5 rounded-md shadow-sm hover:shadow transition-all active:scale-98"
               >
                 Explore Our Menu
               </Link>
 
               <Link
                 to="/menu"
-                className="inline-flex items-center justify-center bg-[#ede3d0] hover:bg-[#e2d5bd] text-stone-900 font-semibold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-3.5 rounded-md shadow-sm hover:shadow transition-all border border-[#dfd2ba] active:scale-98"
+                className="w-full sm:w-auto inline-flex items-center justify-center bg-[#ede3d0] hover:bg-[#e2d5bd] text-stone-900 font-semibold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-3.5 rounded-md shadow-sm hover:shadow transition-all border border-[#dfd2ba] active:scale-98"
               >
                 Order Now
               </Link>
@@ -426,7 +426,7 @@ export const AboutUsPage: React.FC = () => {
               </div>
 
               {/* 4 Effort Badges */}
-              <div className="grid grid-cols-2 gap-3 pt-2 text-left">
+              <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-2.5 sm:gap-3 pt-2 text-left">
                 <div className="bg-stone-900 border border-stone-800 p-3.5 rounded-xl flex items-center gap-3">
                   <Award className="w-5 h-5 text-amber-400 shrink-0" />
                   <span className="text-xs font-semibold text-stone-200">

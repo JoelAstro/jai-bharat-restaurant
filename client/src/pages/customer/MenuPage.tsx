@@ -84,8 +84,8 @@ export const MenuPage: React.FC = () => {
         </div>
 
         {/* Filter Controls Bar */}
-        <div className="bg-white rounded-3xl p-4 sm:p-6 border border-stone-200/80 shadow-xs mb-8 space-y-4">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div className="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border border-stone-200/80 shadow-xs mb-6 sm:mb-8 space-y-3 sm:space-y-4">
+          <div className="flex flex-col md:flex-row gap-3 sm:gap-4 items-center justify-between">
             {/* Live Search Input */}
             <div className="relative w-full md:w-96">
               <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -93,7 +93,7 @@ export const MenuPage: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search dishes (e.g. Biryani, Paneer, Naan)..."
+                placeholder="Search dishes (e.g. Biryani, Paneer)..."
                 className="w-full text-xs sm:text-sm pl-10 pr-9 py-2.5 rounded-2xl border border-stone-200 focus:outline-hidden focus:border-[#991b1b] focus:ring-1 focus:ring-[#991b1b]"
               />
               {searchQuery && (
@@ -107,10 +107,10 @@ export const MenuPage: React.FC = () => {
             </div>
 
             {/* Veg / Non-Veg Diet Toggle */}
-            <div className="flex items-center gap-1.5 p-1 bg-stone-100 rounded-2xl w-full sm:w-auto">
+            <div className="flex items-center gap-1 p-1 bg-stone-100 rounded-2xl w-full sm:w-auto">
               <button
                 onClick={() => setVegFilter('all')}
-                className={`flex-1 sm:flex-initial text-xs font-semibold px-4 py-2 rounded-xl transition-all ${
+                className={`flex-1 sm:flex-initial text-xs font-semibold px-3 sm:px-4 py-2 rounded-xl transition-all ${
                   vegFilter === 'all'
                     ? 'bg-white text-stone-900 shadow-xs'
                     : 'text-stone-600 hover:text-stone-900'
@@ -120,7 +120,7 @@ export const MenuPage: React.FC = () => {
               </button>
               <button
                 onClick={() => setVegFilter('veg')}
-                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-xl transition-all ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 text-xs font-semibold px-3 sm:px-4 py-2 rounded-xl transition-all ${
                   vegFilter === 'veg'
                     ? 'bg-white text-emerald-800 shadow-xs font-bold'
                     : 'text-stone-600 hover:text-emerald-700'
@@ -131,7 +131,7 @@ export const MenuPage: React.FC = () => {
               </button>
               <button
                 onClick={() => setVegFilter('non-veg')}
-                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-xl transition-all ${
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 text-xs font-semibold px-3 sm:px-4 py-2 rounded-xl transition-all ${
                   vegFilter === 'non-veg'
                     ? 'bg-white text-rose-800 shadow-xs font-bold'
                     : 'text-stone-600 hover:text-rose-700'
@@ -180,7 +180,7 @@ export const MenuPage: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {filteredItems.map((item) => (
               <FoodCard
                 key={item.id}

@@ -42,11 +42,11 @@ export const AdminDashboardPage: React.FC = () => {
   }
 
   return (
-    <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-8">
+    <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto space-y-6 sm:space-y-8">
       {/* Page Title */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+          <h1 className="text-xl sm:text-3xl font-serif font-bold text-stone-900">
             Restaurant Dashboard
           </h1>
           <p className="text-stone-500 text-xs sm:text-sm mt-1">
@@ -54,17 +54,17 @@ export const AdminDashboardPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Link
             to="/admin/orders"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white px-4 py-2.5 rounded-xl shadow-xs"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white px-3.5 sm:px-4 py-2.5 rounded-xl shadow-xs"
           >
             <ShoppingBag className="w-4 h-4" />
             <span>Manage Orders</span>
           </Link>
           <Link
             to="/admin/menu"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold bg-stone-900 hover:bg-stone-800 text-white px-4 py-2.5 rounded-xl shadow-xs"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold bg-stone-900 hover:bg-stone-800 text-white px-3.5 sm:px-4 py-2.5 rounded-xl shadow-xs"
           >
             <UtensilsCrossed className="w-4 h-4" />
             <span>Update Menu</span>
@@ -155,9 +155,9 @@ export const AdminDashboardPage: React.FC = () => {
       </div>
 
       {/* Recent Orders Preview */}
-      <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs p-6 sm:p-8">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="font-serif font-bold text-stone-900 text-lg">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs p-4 sm:p-8">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg">
             Recent Incoming Orders
           </h3>
           <Link
@@ -170,8 +170,8 @@ export const AdminDashboardPage: React.FC = () => {
         </div>
 
         {metrics?.recentOrders && metrics.recentOrders.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+            <table className="w-full text-left text-xs min-w-[520px]">
               <thead>
                 <tr className="border-b border-stone-200 text-stone-400 uppercase font-semibold">
                   <th className="pb-3">Order #</th>

@@ -127,7 +127,7 @@ export const OrderTrackingPage: React.FC = () => {
         {/* Tracking Card */}
         <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden mb-8">
           {/* Header Banner */}
-          <div className="bg-stone-900 text-white p-6 sm:p-8 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+          <div className="bg-stone-900 text-white p-4 sm:p-8 flex flex-col sm:flex-row justify-between sm:items-center gap-3 sm:gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-xs uppercase font-bold tracking-wider text-amber-400">
@@ -138,7 +138,7 @@ export const OrderTrackingPage: React.FC = () => {
                   {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+              <h1 className="text-xl sm:text-3xl font-serif font-bold text-white tracking-tight">
                 #{order.orderNumber}
               </h1>
             </div>
@@ -157,7 +157,7 @@ export const OrderTrackingPage: React.FC = () => {
           </div>
 
           {/* Stepper Progress Bar */}
-          <div className="p-6 sm:p-10 border-b border-stone-100">
+          <div className="p-4 sm:p-10 border-b border-stone-100">
             {isCancelled ? (
               <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-center gap-3">
                 <XCircle className="w-6 h-6 text-rose-600 shrink-0" />
@@ -170,7 +170,8 @@ export const OrderTrackingPage: React.FC = () => {
               </div>
             ) : (
               <div>
-                <div className="grid grid-cols-5 relative">
+                {/* Desktop / Tablet Stepper (Horizontal) */}
+                <div className="hidden sm:grid sm:grid-cols-5 relative">
                   {/* Connecting Progress Line */}
                   <div className="absolute top-5 left-0 right-0 h-1 bg-stone-200 z-0">
                     <div
@@ -198,12 +199,62 @@ export const OrderTrackingPage: React.FC = () => {
                           <Icon className="w-5 h-5" />
                         </div>
                         <span
-                          className={`text-[10px] sm:text-xs mt-2 font-semibold ${
+                          className={`text-xs mt-2 font-semibold ${
                             isDone ? 'text-stone-900' : 'text-stone-400'
                           }`}
                         >
                           {step.label}
                         </span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Mobile Stepper (Vertical Stack with connecting line) */}
+                <div className="sm:hidden relative pl-6 space-y-4">
+                  {/* Vertical Progress Line */}
+                  <div className="absolute left-2.5 top-2 bottom-2 w-0.5 bg-stone-200" />
+                  <div
+                    className="absolute left-2.5 top-2 w-0.5 bg-[#991b1b] transition-all duration-500"
+                    style={{
+                      height: `${(Math.max(0, currentIndex) / (steps.length - 1)) * 100}%`,
+                    }}
+                  />
+
+                  {steps.map((step, idx) => {
+                    const isDone = currentIndex >= idx;
+                    const isCurrent = currentIndex === idx;
+                    const Icon = step.icon;
+
+                    return (
+                      <div key={step.status} className="flex items-center gap-3 relative">
+                        <div
+                          className={`-ml-6 w-6 h-6 rounded-full flex items-center justify-center shrink-0 z-10 ${
+                            isDone
+                              ? 'bg-[#991b1b] text-white ring-2 ring-red-100'
+                              : 'bg-white border border-stone-300 text-stone-400'
+                          }`}
+                        >
+                          <Icon className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="flex-1 flex items-center justify-between">
+                          <span
+                            className={`text-xs font-semibold ${
+                              isCurrent
+                                ? 'text-[#991b1b] font-bold'
+                                : isDone
+                                ? 'text-stone-900'
+                                : 'text-stone-400'
+                            }`}
+                          >
+                            {step.label}
+                          </span>
+                          {isCurrent && (
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#991b1b] bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
+                              Current
+                            </span>
+                          )}
+                        </div>
                       </div>
                     );
                   })}
@@ -238,7 +289,7 @@ export const OrderTrackingPage: React.FC = () => {
           )}
 
           {/* Order Details & Items Breakdown */}
-          <div className="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="p-4 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Left: Ordered Items */}
             <div>
               <h3 className="font-serif font-bold text-stone-900 text-base mb-3">

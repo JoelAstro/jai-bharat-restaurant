@@ -402,7 +402,7 @@ export const AdminImagesPage: React.FC = () => {
       )}
 
       {/* 3. Section Filter Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar touch-pan-x pb-1 text-xs -mx-1 px-1">
         {SECTIONS.map((sec) => {
           const Icon = sec.icon;
           const isSelected = selectedSection === sec.key;
@@ -546,75 +546,77 @@ export const AdminImagesPage: React.FC = () => {
                   </div>
 
                   {/* Actions Footer - Consistently Aligned */}
-                  <div className="pt-3 border-t border-stone-100 flex items-center justify-between gap-1.5">
+                  <div className="pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2">
                     {/* Primary "Change Image" Button */}
                     <button
                       onClick={() => handleOpenChangeModal(item)}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-[#991b1b] hover:bg-[#7f1d1d] text-white shadow-xs transition-colors"
+                      className="flex-1 min-w-[120px] inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-[#991b1b] hover:bg-[#7f1d1d] text-white shadow-xs transition-colors"
                       title="Upload and replace this image"
                     >
                       <Upload className="w-3.5 h-3.5" />
                       <span>Change Image</span>
                     </button>
 
-                    {/* Carousel Specific Reorder & Default Buttons */}
-                    {isHero && (
-                      <>
-                        {!item.isDefault && (
+                    <div className="flex items-center gap-1.5">
+                      {/* Carousel Specific Reorder & Default Buttons */}
+                      {isHero && (
+                        <>
+                          {!item.isDefault && (
+                            <button
+                              onClick={() => handleSetDefault(item)}
+                              disabled={isSaving}
+                              className="p-2 rounded-xl border border-stone-200 text-stone-600 hover:text-amber-600 hover:bg-amber-50 hover:border-amber-300 transition-colors"
+                              title="Set as First / Default image on homepage visit"
+                            >
+                              <Star className="w-3.5 h-3.5" />
+                            </button>
+                          )}
+
                           <button
-                            onClick={() => handleSetDefault(item)}
-                            disabled={isSaving}
-                            className="p-2 rounded-xl border border-stone-200 text-stone-600 hover:text-amber-600 hover:bg-amber-50 hover:border-amber-300 transition-colors"
-                            title="Set as First / Default image on homepage visit"
+                            onClick={() => handleMoveOrder(heroIndex, 'up')}
+                            disabled={heroIndex === 0 || isSaving}
+                            className="p-2 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                            title="Move Earlier in Carousel Sequence"
                           >
-                            <Star className="w-3.5 h-3.5" />
+                            <ArrowUp className="w-3.5 h-3.5" />
                           </button>
-                        )}
 
-                        <button
-                          onClick={() => handleMoveOrder(heroIndex, 'up')}
-                          disabled={heroIndex === 0 || isSaving}
-                          className="p-2 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
-                          title="Move Earlier in Carousel Sequence"
-                        >
-                          <ArrowUp className="w-3.5 h-3.5" />
-                        </button>
+                          <button
+                            onClick={() => handleMoveOrder(heroIndex, 'down')}
+                            disabled={heroIndex === heroImages.length - 1 || isSaving}
+                            className="p-2 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                            title="Move Later in Carousel Sequence"
+                          >
+                            <ArrowDown className="w-3.5 h-3.5" />
+                          </button>
+                        </>
+                      )}
 
-                        <button
-                          onClick={() => handleMoveOrder(heroIndex, 'down')}
-                          disabled={heroIndex === heroImages.length - 1 || isSaving}
-                          className="p-2 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-100 disabled:opacity-30 disabled:pointer-events-none transition-colors"
-                          title="Move Later in Carousel Sequence"
-                        >
-                          <ArrowDown className="w-3.5 h-3.5" />
-                        </button>
-                      </>
-                    )}
-
-                    {/* Visibility Toggle */}
-                    <button
-                      onClick={() => handleToggleEnabled(item)}
-                      className={`p-2 rounded-xl border transition-colors ${
-                        item.isEnabled
-                          ? 'border-stone-200 text-stone-600 hover:bg-stone-100'
-                          : 'border-emerald-300 text-emerald-700 bg-emerald-50'
-                      }`}
-                      title={item.isEnabled ? 'Disable / Hide from website' : 'Enable image'}
-                    >
-                      {item.isEnabled ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                    </button>
-
-                    {/* Remove Button for Carousel items */}
-                    {isHero && (
+                      {/* Visibility Toggle */}
                       <button
-                        onClick={() => setDeleteConfirmItem(item)}
-                        disabled={heroImages.length <= 1}
-                        className="p-2 rounded-xl border border-stone-200 text-stone-400 hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition-colors disabled:opacity-30 disabled:pointer-events-none"
-                        title="Remove image from carousel"
+                        onClick={() => handleToggleEnabled(item)}
+                        className={`p-2 rounded-xl border transition-colors ${
+                          item.isEnabled
+                            ? 'border-stone-200 text-stone-600 hover:bg-stone-100'
+                            : 'border-emerald-300 text-emerald-700 bg-emerald-50'
+                        }`}
+                        title={item.isEnabled ? 'Disable / Hide from website' : 'Enable image'}
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        {item.isEnabled ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                       </button>
-                    )}
+
+                      {/* Remove Button for Carousel items */}
+                      {isHero && (
+                        <button
+                          onClick={() => setDeleteConfirmItem(item)}
+                          disabled={heroImages.length <= 1}
+                          className="p-2 rounded-xl border border-stone-200 text-stone-400 hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+                          title="Remove image from carousel"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -627,8 +629,8 @@ export const AdminImagesPage: React.FC = () => {
       {/* 6. CHANGE / UPLOAD IMAGE MODAL (WITH LIVE PREVIEW BEFORE SAVING) */}
       {/* ===================================================================== */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-stone-950/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-stone-200 space-y-5 animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-stone-950/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full p-5 sm:p-7 shadow-2xl border border-stone-200 space-y-4 sm:space-y-5 animate-in fade-in zoom-in-95 max-h-[92vh] overflow-y-auto">
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-3 border-b border-stone-200">
               <div>

@@ -7,9 +7,9 @@ export const Footer: React.FC = () => {
   const { settings } = useRestaurant();
 
   return (
-    <footer className="bg-stone-900 text-stone-300 border-t border-stone-800 pt-16 pb-12">
+    <footer className="bg-stone-900 text-stone-300 border-t border-stone-800 pt-12 sm:pt-16 pb-8 sm:pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-12">
           {/* Brand Col */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
             <p className="text-stone-400 text-sm leading-relaxed">
               Experience the richness of authentic Indian culinary heritage, prepared with slow-cooked gravies, fragrant spices, and warm hospitality.
             </p>
-            <div className="pt-2">
+            <div className="pt-1">
               <span className="inline-flex items-center gap-1.5 text-xs text-amber-400 bg-amber-950/60 border border-amber-800/60 px-3 py-1 rounded-full">
                 <span>✦</span> Freshly Prepared Everyday
               </span>
@@ -32,37 +32,37 @@ export const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-serif font-semibold text-white text-base mb-4 tracking-wide">
+            <h4 className="font-serif font-semibold text-white text-base mb-3 sm:mb-4 tracking-wide">
               Quick Links
             </h4>
-            <ul className="space-y-2.5 text-sm text-stone-400">
+            <ul className="space-y-1.5 text-sm text-stone-400">
               <li>
-                <Link to="/menu" className="hover:text-amber-400 transition-colors">
+                <Link to="/menu" className="hover:text-amber-400 transition-colors py-1 inline-block">
                   Full Restaurant Menu
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-amber-400 transition-colors">
+                <Link to="/about" className="hover:text-amber-400 transition-colors py-1 inline-block">
                   Our Culinary Heritage (About Us)
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-amber-400 transition-colors">
+                <Link to="/contact" className="hover:text-amber-400 transition-colors py-1 inline-block">
                   Find Us & Direct Inquiries
                 </Link>
               </li>
               <li>
-                <Link to="/offers" className="hover:text-amber-400 transition-colors">
+                <Link to="/offers" className="hover:text-amber-400 transition-colors py-1 inline-block">
                   Offers & Special Deals
                 </Link>
               </li>
               <li>
-                <Link to="/orders" className="hover:text-amber-400 transition-colors">
+                <Link to="/orders" className="hover:text-amber-400 transition-colors py-1 inline-block">
                   Track Your Order
                 </Link>
               </li>
               <li>
-                <Link to="/admin" className="text-amber-500/80 hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                <Link to="/admin" className="text-amber-500/80 hover:text-amber-400 transition-colors py-1 inline-flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5" /> Staff & Owner Login
                 </Link>
               </li>
@@ -71,7 +71,7 @@ export const Footer: React.FC = () => {
 
           {/* Restaurant Information */}
           <div>
-            <h4 className="font-serif font-semibold text-white text-base mb-4 tracking-wide">
+            <h4 className="font-serif font-semibold text-white text-base mb-3 sm:mb-4 tracking-wide">
               Location & Hours
             </h4>
             <div className="space-y-3 text-sm text-stone-400">
@@ -100,14 +100,14 @@ export const Footer: React.FC = () => {
 
           {/* Contact & Safe Payment */}
           <div>
-            <h4 className="font-serif font-semibold text-white text-base mb-4 tracking-wide">
+            <h4 className="font-serif font-semibold text-white text-base mb-3 sm:mb-4 tracking-wide">
               Customer Support
             </h4>
             <div className="space-y-3 text-sm text-stone-400 mb-6">
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-amber-500 shrink-0" />
                 {settings.phone ? (
-                  <a href={`tel:${settings.phone}`} className="hover:text-amber-400 text-stone-300 font-medium">
+                  <a href={`tel:${settings.phone}`} className="hover:text-amber-400 text-stone-300 font-medium py-1 inline-block">
                     {settings.phone}
                   </a>
                 ) : (
@@ -115,9 +115,11 @@ export const Footer: React.FC = () => {
                 )}
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-amber-500 shrink-0" />
+                <Mail className="w-4 h-4 text-amber-500 shrink-0">
+                  <span className="sr-only">Email</span>
+                </Mail>
                 {settings.email ? (
-                  <a href={`mailto:${settings.email}`} className="hover:text-amber-400">
+                  <a href={`mailto:${settings.email}`} className="hover:text-amber-400 py-1 inline-block break-all">
                     {settings.email}
                   </a>
                 ) : (
@@ -146,9 +148,9 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright */}
-        <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
+        <div className="pt-6 sm:pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-3 text-center sm:text-left">
           <p>© {new Date().getFullYear()} {settings.restaurant_name}. All rights reserved.</p>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center justify-center gap-1">
             <span>Prepared with pride for Indian food lovers</span>
             <Heart className="w-3.5 h-3.5 text-rose-500 inline fill-rose-500" />
           </div>

@@ -200,11 +200,11 @@ export const AdminMenuPage: React.FC = () => {
   });
 
   return (
-    <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-6">
+    <div className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+          <h1 className="text-xl sm:text-3xl font-serif font-bold text-stone-900">
             Menu & Dishes
           </h1>
           <p className="text-stone-500 text-xs sm:text-sm mt-1">
@@ -214,7 +214,7 @@ export const AdminMenuPage: React.FC = () => {
 
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white px-4 py-2.5 rounded-xl shadow-xs"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold bg-amber-600 hover:bg-amber-700 text-white px-4 py-2.5 rounded-xl shadow-xs self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Dish</span>
@@ -222,12 +222,12 @@ export const AdminMenuPage: React.FC = () => {
       </div>
 
       {/* Filters and Search Bar */}
-      <div className="bg-white p-4 sm:p-5 rounded-3xl border border-stone-200/80 shadow-xs flex flex-col sm:flex-row gap-4 items-center justify-between">
+      <div className="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-between">
         {/* Category Filter */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar touch-pan-x w-full sm:w-auto -mx-1 px-1">
           <button
             onClick={() => setSelectedCategory('all')}
-            className={`text-xs font-bold px-3 py-1.5 rounded-xl transition-all ${
+            className={`text-xs font-bold px-3 py-1.5 rounded-xl transition-all whitespace-nowrap ${
               selectedCategory === 'all'
                 ? 'bg-amber-600 text-white'
                 : 'text-stone-600 hover:bg-stone-100'
@@ -264,9 +264,9 @@ export const AdminMenuPage: React.FC = () => {
       </div>
 
       {/* Dishes Table */}
-      <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs min-w-[640px]">
             <thead>
               <tr className="bg-stone-50 border-b border-stone-200 text-stone-500 uppercase font-semibold">
                 <th className="p-4">Dish</th>
@@ -353,10 +353,10 @@ export const AdminMenuPage: React.FC = () => {
 
       {/* Create / Edit Dish Modal */}
       {showItemModal && (
-        <div className="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 w-full max-w-2xl shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="font-serif font-bold text-stone-900 text-xl">
+        <div className="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 w-full max-w-2xl shadow-2xl animate-in zoom-in-95 duration-200 max-h-[92vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
+              <h3 className="font-serif font-bold text-stone-900 text-lg sm:text-xl">
                 {editingItem ? 'Edit Dish' : 'Add New Menu Dish'}
               </h3>
               <button

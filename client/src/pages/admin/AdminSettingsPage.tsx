@@ -61,10 +61,10 @@ export const AdminSettingsPage: React.FC = () => {
   }
 
   return (
-    <div className="p-6 sm:p-10 max-w-5xl mx-auto space-y-8">
+    <div className="p-4 sm:p-6 lg:p-10 max-w-5xl mx-auto space-y-6 sm:space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+        <h1 className="text-xl sm:text-3xl font-serif font-bold text-stone-900">
           Restaurant Business Settings
         </h1>
         <p className="text-stone-500 text-xs sm:text-sm mt-1">
@@ -74,7 +74,7 @@ export const AdminSettingsPage: React.FC = () => {
 
       {/* Owner Setup Checklist Card */}
       {missingDetails.length > 0 ? (
-        <div className="p-6 rounded-3xl bg-amber-50 border border-amber-300 text-amber-950 space-y-3">
+        <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-amber-50 border border-amber-300 text-amber-950 space-y-3">
           <div className="flex items-center gap-2.5 font-bold text-sm text-amber-900">
             <ShieldAlert className="w-5 h-5 text-amber-700" />
             <span>Pending Owner Information Checklist</span>
@@ -104,10 +104,10 @@ export const AdminSettingsPage: React.FC = () => {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-6">
+      <form onSubmit={handleSave} className="space-y-4 sm:space-y-6">
         {/* 1. Official Business Identity */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
-          <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
+        <div className="bg-white p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
+          <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg border-b border-stone-100 pb-3">
             1. Official Restaurant Identity
           </h3>
 
@@ -206,8 +206,8 @@ export const AdminSettingsPage: React.FC = () => {
         </div>
 
         {/* 2. Operational Rules & Taxes */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
-          <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
+        <div className="bg-white p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
+          <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg border-b border-stone-100 pb-3">
             2. Taxes & Delivery Pricing Rules
           </h3>
 
@@ -258,8 +258,8 @@ export const AdminSettingsPage: React.FC = () => {
         </div>
 
         {/* 3. Ordering & Payment Channels Toggles */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
-          <h3 className="font-serif font-bold text-stone-900 text-lg border-b border-stone-100 pb-3">
+        <div className="bg-white p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
+          <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg border-b border-stone-100 pb-3">
             3. Ordering Channels & Payment Methods
           </h3>
 
@@ -311,7 +311,7 @@ export const AdminSettingsPage: React.FC = () => {
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center gap-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 disabled:opacity-50 text-white font-bold px-8 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-all text-sm"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 disabled:opacity-50 text-white font-bold px-8 py-3.5 rounded-2xl shadow-md hover:shadow-lg transition-all text-sm"
           >
             <Save className="w-4 h-4" />
             <span>{isSaving ? 'Saving Settings...' : 'Save All Settings'}</span>
